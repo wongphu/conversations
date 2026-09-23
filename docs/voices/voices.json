@@ -1,0 +1,40 @@
+{
+  "engine": "qwen3-tts-1.7b",
+  "voice_design_model": "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16",
+  "clone_model": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-bf16",
+  "notes": "Four conversation voices for page 36. English A and Spanish A are the same kind of speaker in each language: a woman in her forties. English B and Spanish B are a man in his early sixties. Each voice is designed in its own language and clones only that language.",
+  "speakers": {
+    "en_a": {
+      "label_en": "English A",
+      "label_es": "Inglés A",
+      "lang": "en",
+      "instruct": "A friendly adult woman in her forties. Medium pitch, clear American English, warm and conversational, bright but not high, natural speaking voice, unhurried, not breathy, not theatrical.",
+      "ref_en": "Do you use WhatsApp? I love that a friend can send me a pin so I can find their house. It is amazing how much technology has changed, and I really love it.",
+      "ref_es": "¿Usas WhatsApp? Me encanta que un amigo me envíe un pin para encontrar su casa. Es increíble cuánto ha cambiado la tecnología."
+    },
+    "en_b": {
+      "label_en": "English B",
+      "label_es": "Inglés B",
+      "lang": "en",
+      "instruct": "A friendly adult man in his early sixties. Deeper pitch, clear American English, warm and relaxed, slightly slower, a natural speaking voice, reflective, not gravelly, not booming.",
+      "ref_en": "Yes, it would be hard to live in Volcán without it. I had the phone numbers of all my friends memorized, and now I have trouble remembering my own.",
+      "ref_es": "Sí, sería difícil vivir en Volcán sin él. Me sabía de memoria los números de todos mis amigos, y ahora tengo problemas para recordar el mío."
+    },
+    "es_a": {
+      "label_en": "Spanish A",
+      "label_es": "Español A",
+      "lang": "es",
+      "instruct": "A friendly adult woman in her forties. Medium pitch, clear Latin American Spanish, warm and conversational, bright but not high, natural speaking voice, unhurried, not breathy, not theatrical.",
+      "ref_en": "Do you use WhatsApp? I love that a friend can send me a pin so I can find their house. It is amazing how much technology has changed.",
+      "ref_es": "¿Usas WhatsApp? Me encanta que un amigo me envíe un código para encontrar su casa. Es increíble cómo ha cambiado la tecnología, y lo mejor es que es gratis."
+    },
+    "es_b": {
+      "label_en": "Spanish B",
+      "label_es": "Español B",
+      "lang": "es",
+      "instruct": "A friendly adult man in his early sixties. Deeper pitch, clear Latin American Spanish, warm and relaxed, slightly slower, a natural speaking voice, reflective, not gravelly, not booming.",
+      "ref_en": "Yes, it would be hard to live there without it. I had every friend's phone number memorized, and now I have trouble remembering my own.",
+      "ref_es": "Sí, sería difícil vivir en Volcán sin él. Me sabía de memoria los números de todos mis amigos, y ahora ya tengo problemas para recordar el mío."
+    }
+  }
+}
