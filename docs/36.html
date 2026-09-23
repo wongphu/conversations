@@ -89,11 +89,40 @@
 
     em { font-style: italic; }
 
+    td[lang="en"] { color: #444; }
+    td[lang="es"] { color: #A0522D; }
+
     .mark {
       text-decoration: underline;
       text-decoration-color: #2a45b0;
       text-decoration-thickness: 1.5px;
       text-underline-offset: 0.12em;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.85rem;
+      color: #333;
+    }
+
+    .speed-control label {
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .speed-control input[type="range"] {
+      flex: 0 1 160px;
+      accent-color: #2a45b0;
+    }
+
+    .speed-control .speed-value {
+      min-width: 3.2em;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
     }
 
     @media (max-width: 700px) {
@@ -105,6 +134,11 @@
 </head>
 <body>
   <main>
+    <div class="speed-control">
+      <label for="speed">Speed / Velocidad</label>
+      <input type="range" id="speed" min="50" max="150" value="100" step="5">
+      <span class="speed-value" id="speedValue">100%</span>
+    </div>
     <table>
       <tbody>
         <tr>
@@ -161,7 +195,18 @@
   <script>
     const speakerIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"></path><path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"></path><path fill="currentColor" d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>';
     const audio = new Audio();
+    audio.preservePitch = true;
     let currentButton = null;
+
+    const speedSlider = document.getElementById("speed");
+    const speedValue = document.getElementById("speedValue");
+    function applySpeed() {
+      const pct = Number(speedSlider.value);
+      speedValue.textContent = pct + "%";
+      audio.playbackRate = pct / 100;
+    }
+    speedSlider.addEventListener("input", applySpeed);
+    applySpeed();
 
     function stopSpeaking() {
       audio.pause();
@@ -200,6 +245,7 @@
         button.setAttribute("aria-pressed", "true");
         button.closest("td").classList.add("playing");
         audio.src = paragraph.dataset.audio;
+        audio.playbackRate = Number(speedSlider.value) / 100;
         audio.play().catch(stopSpeaking);
       });
       paragraph.append(button, words);
