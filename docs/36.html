@@ -192,34 +192,94 @@
       </tbody>
     </table>
   </main>
-  <script>
+  <script type="module">
+    import psola from "https://esm.sh/@audio/stretch-psola@1.2.1";
+
     const speakerIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"></path><path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"></path><path fill="currentColor" d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>';
-    const audio = new Audio();
-    audio.preservePitch = true;
+
+    const ctx = new AudioContext();
+    const bufferCache = new Map();
+    let currentSource = null;
     let currentButton = null;
+    let currentUrl = null;
 
     const speedSlider = document.getElementById("speed");
     const speedValue = document.getElementById("speedValue");
-    function applySpeed() {
-      const pct = Number(speedSlider.value);
-      speedValue.textContent = pct + "%";
-      audio.playbackRate = pct / 100;
+
+    function getSpeedFactor() {
+      // PSOLA factor is the time-stretch ratio: >1 = slower, <1 = faster
+      // Speed 150% means play 1.5x faster → factor = 1/1.5 ≈ 0.667
+      // Speed 50% means play 0.5x speed → factor = 1/0.5 = 2.0
+      return 100 / Number(speedSlider.value);
     }
-    speedSlider.addEventListener("input", applySpeed);
-    applySpeed();
+
+    async function getDecoded(url) {
+      if (bufferCache.has(url)) return bufferCache.get(url);
+      const resp = await fetch(url);
+      const arrBuf = await resp.arrayBuffer();
+      const audioBuf = await ctx.decodeAudioData(arrBuf);
+      bufferCache.set(url, audioBuf);
+      return audioBuf;
+    }
+
+    function stretch(audioBuf, factor) {
+      const ch = audioBuf.numberOfChannels;
+      const sr = audioBuf.sampleRate;
+      const out = audioBuf.createBuffer(ch, Math.ceil(audioBuf.length / factor), sr);
+      for (let i = 0; i < ch; i++) {
+        const stretched = psola(audioBuf.getChannelData(i), { factor, sampleRate: sr });
+        out.copyToChannel(stretched, i);
+      }
+      return out;
+    }
+
+    async function playClip(url, button) {
+      if (ctx.state === "suspended") await ctx.resume();
+      stopSpeaking();
+      const buf = await getDecoded(url);
+      const factor = getSpeedFactor();
+      const stretched = stretch(buf, factor);
+
+      const src = ctx.createBufferSource();
+      src.buffer = stretched;
+      src.connect(ctx.destination);
+      src.onended = () => { if (currentSource === src) stopSpeaking(); };
+      src.start();
+
+      currentSource = src;
+      currentButton = button;
+      currentUrl = url;
+      button.classList.add("playing");
+      button.setAttribute("aria-pressed", "true");
+      button.closest("td").classList.add("playing");
+    }
 
     function stopSpeaking() {
-      audio.pause();
+      if (currentSource) {
+        currentSource.onended = null;
+        try { currentSource.stop(); } catch {}
+        currentSource = null;
+      }
       if (currentButton) {
         currentButton.classList.remove("playing");
         currentButton.setAttribute("aria-pressed", "false");
         currentButton.closest("td").classList.remove("playing");
-        currentButton = null;
       }
+      currentButton = null;
+      currentUrl = null;
     }
 
-    audio.addEventListener("ended", stopSpeaking);
-    audio.addEventListener("error", stopSpeaking);
+    function applySpeed() {
+      const pct = Number(speedSlider.value);
+      speedValue.textContent = pct + "%";
+      // If something is playing, reprocess at new speed
+      if (currentSource && currentUrl) {
+        const btn = currentButton;
+        playClip(currentUrl, btn);
+      }
+    }
+    speedSlider.addEventListener("input", applySpeed);
+    speedValue.textContent = speedSlider.value + "%";
 
     document.querySelectorAll("p[data-audio]").forEach((paragraph) => {
       const words = document.createElement("span");
@@ -239,14 +299,7 @@
           stopSpeaking();
           return;
         }
-        stopSpeaking();
-        currentButton = button;
-        button.classList.add("playing");
-        button.setAttribute("aria-pressed", "true");
-        button.closest("td").classList.add("playing");
-        audio.src = paragraph.dataset.audio;
-        audio.playbackRate = Number(speedSlider.value) / 100;
-        audio.play().catch(stopSpeaking);
+        playClip(paragraph.dataset.audio, button);
       });
       paragraph.append(button, words);
     });
