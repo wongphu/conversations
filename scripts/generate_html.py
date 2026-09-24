@@ -1,58 +1,85 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+Generate an interactive HTML page for a conversation from clips.json.
+
+Usage:
+    python scripts/generate_html.py <conversation_number>
+
+Example:
+    python scripts/generate_html.py 41
+    python scripts/generate_html.py 36
+
+Reads:
+    docs/<N>/clips.json
+
+Writes:
+    docs/<N>.html
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from collections import defaultdict
+
+PROJECT_ROOT = Path(__file__).parent.parent
+DOCS_DIR = PROJECT_ROOT / "docs"
+
+TEMPLATE_HEAD = '''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Conversation 36</title>
+  <title>Conversation {conv}</title>
   <style>
-    :root { color-scheme: light; }
+    :root {{ color-scheme: light; }}
 
-    body {
+    body {{
       margin: 0;
       background: #fff;
       color: #111;
       font-family: "Times New Roman", Times, "Liberation Serif", serif;
-    }
+    }}
 
-    main {
+    main {{
       box-sizing: border-box;
       max-width: 960px;
       margin: 0 auto;
       padding: 2rem 1.35rem 2.75rem;
-    }
+    }}
 
-    table {
+    table {{
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
       font-size: 1.0625rem;
       line-height: 1.32;
-    }
+    }}
 
-    td {
+    td {{
       width: 50%;
       border: 1.5px solid #111;
       padding: 0.55rem 0.7rem 0.62rem 0.55rem;
       vertical-align: top;
-    }
+    }}
 
-    td p {
+    td p {{
       display: flex;
       align-items: flex-start;
       gap: 0.4rem;
       margin: 0;
       padding: 0;
       text-indent: 0;
-    }
+    }}
 
-    td p .words {
+    td p .words {{
       flex: 1 1 auto;
       min-width: 0;
       padding-left: 1.65em;
       text-indent: -1.65em;
-    }
+    }}
 
-    .speak {
+    .speak {{
       flex: 0 0 auto;
       width: 1.55rem;
       height: 1.55rem;
@@ -64,42 +91,42 @@
       color: #111;
       cursor: pointer;
       line-height: 0;
-    }
+    }}
 
-    .speak svg {
+    .speak svg {{
       display: block;
       width: 100%;
       height: 100%;
-    }
+    }}
 
-    .speak:hover { background: #f3f3f3; }
+    .speak:hover {{ background: #f3f3f3; }}
 
-    .speak:focus-visible {
+    .speak:focus-visible {{
       outline: 2px solid #1d3f8f;
       outline-offset: 1px;
-    }
+    }}
 
-    .speak.playing {
+    .speak.playing {{
       background: #1d3f8f;
       border-color: #1d3f8f;
       color: #fff;
-    }
+    }}
 
-    td.playing { background: #f4f7ff; }
+    td.playing {{ background: #f4f7ff; }}
 
-    em { font-style: italic; }
+    em {{ font-style: italic; }}
 
-    td[lang="en"] { color: #444; }
-    td[lang="es"] { color: #A0522D; }
+    td[lang="en"] {{ color: #444; }}
+    td[lang="es"] {{ color: #A0522D; }}
 
-    .mark {
+    .mark {{
       text-decoration: underline;
       text-decoration-color: #2a45b0;
       text-decoration-thickness: 1.5px;
       text-underline-offset: 0.12em;
-    }
+    }}
 
-    .speed-control {
+    .speed-control {{
       display: flex;
       align-items: center;
       gap: 0.6rem;
@@ -107,29 +134,29 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: 0.85rem;
       color: #333;
-    }
+    }}
 
-    .speed-control label {
+    .speed-control label {{
       font-weight: 500;
       white-space: nowrap;
-    }
+    }}
 
-    .speed-control input[type="range"] {
+    .speed-control input[type="range"] {{
       flex: 0 1 160px;
       accent-color: #2a45b0;
-    }
+    }}
 
-    .speed-control .speed-value {
+    .speed-control .speed-value {{
       min-width: 3.2em;
       text-align: right;
       font-variant-numeric: tabular-nums;
-    }
+    }}
 
-    @media (max-width: 700px) {
-      main { padding: 0.7rem 0.35rem 1.4rem; }
-      table { font-size: 0.78rem; }
-      td { padding: 0.4rem 0.32rem 0.45rem; }
-    }
+    @media (max-width: 700px) {{
+      main {{ padding: 0.7rem 0.35rem 1.4rem; }}
+      table {{ font-size: 0.78rem; }}
+      td {{ padding: 0.4rem 0.32rem 0.45rem; }}
+    }}
   </style>
 </head>
 <body>
@@ -141,55 +168,15 @@
     </div>
     <table>
       <tbody>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/00-a.mp3" data-voice="English A">A. Do you use WhatsApp?</p></td>
-          <td lang="es"><p data-audio="36/audio/es/00-a.mp3" data-voice="Spanish A">A. ¿Usas WhatsApp?</p></td>
+'''
+
+TEMPLATE_ROW = '''        <tr>
+          <td lang="en"><p data-audio="{en_file}" data-voice="{en_voice}">{en_speaker}. {en_text}</p></td>
+          <td lang="es"><p data-audio="{es_file}" data-voice="{es_voice}">{es_speaker}. {es_text}</p></td>
         </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/01-b.mp3" data-voice="English B">B. Yes, it would be hard to live in Volcan without it.</p></td>
-          <td lang="es"><p data-audio="36/audio/es/01-b.mp3" data-voice="Spanish B">B. Sí, sería difícil vivir en Volcán sin él.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/02-a.mp3" data-voice="English A">A. I have a hard time following directions. I love that a friend can just send me a pin so I can find their house.</p></td>
-          <td lang="es"><p data-audio="36/audio/es/02-a.mp3" data-voice="Spanish A">A. Me cuesta seguir instrucciones. Me encanta que un amigo me envíe un código PIN para que pueda encontrar su casa.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/03-b.mp3" data-voice="English B">B. I like that too.</p></td>
-          <td lang="es"><p data-audio="36/audio/es/03-b.mp3" data-voice="Spanish B">B. A mí también me gusta.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/04-a.mp3" data-voice="English A">A. I also like WhatsApp for staying in touch with <em>my family. I can type a message or talk directly to them.</em></p></td>
-          <td lang="es"><p data-audio="36/audio/es/04-b.mp3" data-voice="Spanish B">B. También me gusta WhatsApp para mantenerme <em>en contacto con mi familia. Puedo escribir un mensaje o hablar directamente con ellos.</em></p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/05-a.mp3" data-voice="English A">A. It is amazing how technology has changed. Remember the old telephones with the rotary dial.</p></td>
-          <td lang="es"><p data-audio="36/audio/es/05-a.mp3" data-voice="Spanish A">A. Es increíble cómo ha cambiado la tecnología. ¿Recuerdas los teléfonos antiguos con el disco de marcar?</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/06-b.mp3" data-voice="English B">B. Yes, I had the phone numbers of all my friends memorized, now I have enough <em>trouble remembering my own!</em></p></td>
-          <td lang="es"><p data-audio="36/audio/es/06-b.mp3" data-voice="Spanish B">B. Sí, me sabía de memoria los números de teléfono de todos mis amigos. ¡Ahora ya tengo problemas <em>para recordar el mío!</em></p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/07-a.mp3" data-voice="English A">A. Me too! I also had fax numbers memorized!</p></td>
-          <td lang="es"><p data-audio="36/audio/es/07-a.mp3" data-voice="Spanish A">A. ¡A mí también! ¡También me sabía de memoria los números de fax!</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/08-b.mp3" data-voice="English B">B. We have come a long way. I love being able to see family and friends when I talk to them.</p></td>
-          <td lang="es"><p data-audio="36/audio/es/08-b.mp3" data-voice="Spanish B">B. Hemos avanzado mucho. Me encanta poder ver a mi familia y amigos cuando hablo con ellos.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/09-a.mp3" data-voice="English A">A. And the best part- it is free! Remember how expensive it was calling long distance.</p></td>
-          <td lang="es"><p data-audio="36/audio/es/09-a.mp3" data-voice="Spanish A">A. ¡Y lo mejor es que es gratis! ¿Recuerdas lo caro que era llamar a larga distancia?</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/10-b.mp3" data-voice="English B">B. Yes, when I first left home, I rarely called my parents, but I did write letters.</p></td>
-          <td lang="es"><p data-audio="36/audio/es/10-a.mp3" data-voice="Spanish A">A. Sí, cuando me fui de casa por primera vez, rara vez llamaba a mis padres, pero sí escribía cartas.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="36/audio/en/11-a.mp3" data-voice="English A">A. Writing letters was good. I love reading old <em>letters and remembering things I forgot.</em></p></td>
-          <td lang="es"><p data-audio="36/audio/es/11-a.mp3" data-voice="Spanish A">A. Escribir cartas era bueno. Me encantaba leer cartas antiguas y recordar cosas que había olvidado.</p></td>
-        </tr>
-      </tbody>
+'''
+
+TEMPLATE_SCRIPT = '''      </tbody>
     </table>
   </main>
   <script type="module">
@@ -207,9 +194,6 @@
     const speedValue = document.getElementById("speedValue");
 
     function getSpeedFactor() {
-      // PSOLA factor is the time-stretch ratio: >1 = slower, <1 = faster
-      // Speed 150% means play 1.5x faster → factor = 1/1.5 ≈ 0.667
-      // Speed 50% means play 0.5x speed → factor = 1/0.5 = 2.0
       return 100 / Number(speedSlider.value);
     }
 
@@ -272,7 +256,6 @@
     function applySpeed() {
       const pct = Number(speedSlider.value);
       speedValue.textContent = pct + "%";
-      // If something is playing, reprocess at new speed
       if (currentSource && currentUrl) {
         const btn = currentButton;
         playClip(currentUrl, btn);
@@ -292,7 +275,7 @@
       button.innerHTML = speakerIcon;
       button.setAttribute("aria-pressed", "false");
       const voice = paragraph.dataset.voice || "paragraph";
-      const line = words.textContent.replace(/\s+/g, " ").trim();
+      const line = words.textContent.replace(/\\s+/g, " ").trim();
       button.setAttribute("aria-label", "Play " + voice + ": " + line);
       button.addEventListener("click", () => {
         if (currentButton === button) {
@@ -306,3 +289,70 @@
   </script>
 </body>
 </html>
+'''
+
+
+def generate_html(conv_num: int) -> str:
+    """Generate HTML content for a conversation."""
+    clips_path = DOCS_DIR / str(conv_num) / "clips.json"
+    if not clips_path.exists():
+        sys.exit(f"Error: {clips_path} not found")
+
+    clips = json.loads(clips_path.read_text())
+
+    # Group clips by row number
+    rows: dict[str, dict[str, dict]] = defaultdict(dict)
+    for clip in clips:
+        # Extract row number from filename: "41/audio/en/00-a.mp3" → "00"
+        parts = clip["file"].split("/")
+        filename = parts[-1]  # "00-a.mp3"
+        row_num = filename.split("-")[0]  # "00"
+        lang = clip["lang"]  # "en" or "es"
+        rows[row_num][lang] = clip
+
+    # Build HTML
+    html = TEMPLATE_HEAD.format(conv=conv_num)
+
+    for row_num in sorted(rows.keys()):
+        row = rows[row_num]
+        en = row.get("en")
+        es = row.get("es")
+
+        if not en or not es:
+            continue
+
+        en_speaker = "A" if en["speaker"].endswith("_a") else "B"
+        es_speaker = "A" if es["speaker"].endswith("_a") else "B"
+        en_voice = f"English {en_speaker}"
+        es_voice = f"Spanish {es_speaker}"
+
+        html += TEMPLATE_ROW.format(
+            en_file=en["file"],
+            en_voice=en_voice,
+            en_speaker=en_speaker,
+            en_text=en["text"],
+            es_file=es["file"],
+            es_voice=es_voice,
+            es_speaker=es_speaker,
+            es_text=es["text"],
+        )
+
+    html += TEMPLATE_SCRIPT
+    return html
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate HTML for a conversation.")
+    parser.add_argument("conversation", type=int, help="Conversation number")
+    args = parser.parse_args()
+
+    conv_num = args.conversation
+    out_path = DOCS_DIR / f"{conv_num}.html"
+
+    html = generate_html(conv_num)
+    out_path.write_text(html)
+    print(f"Written to {out_path}")
+
+
+if __name__ == "__main__":
+    main()
