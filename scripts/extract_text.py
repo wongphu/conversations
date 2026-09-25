@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 """
-Convert a conversation page image to a markdown table using RapidOCR.
+Convert a conversation page image to a RAW markdown table using RapidOCR.
 
 Usage:
     python extract_text.py <image_path> [-o output.md]
 
 Example:
-    python extract_text.py 41.jpeg
-    python extract_text.py 36.png -o conversation.md
+    python extract_text.py inputs/41.jpeg            # writes ocrs/41.md
+    python extract_text.py inputs/36.jpeg -o ocrs/36.md
 
-Outputs a markdown table matching the two-column layout in the image.
+Writes a raw two-column markdown table (left / right as laid out in the
+image) into ocrs/<image_stem>.md by default, or to the path given with -o.
+
+Note: the column order is whatever appears in the page image, so the raw
+output is NOT guaranteed to be English-left / Spanish-right, and it may
+contain OCR errors. That normalization is done by the refine step (see
+refine_ocr.md), which reads from ocrs/ and writes the cleaned result to texts/.
 """
 
 import argparse
@@ -75,10 +81,9 @@ def extract_table(image_path: str, row_gap_threshold: float = 100.0) -> str:
     if current_row:
         rows.append(current_row)
 
-    # Build markdown table
+    # Build markdown table (no header row — the two columns are positional,
+    # left / right, and their language is detected downstream)
     lines = []
-    lines.append("| English | Spanish |")
-    lines.append("|---------|---------|")
 
     for row in rows:
         left = [item for item in row if item["x"] < mid_x]
@@ -102,9 +107,10 @@ def extract_table(image_path: str, row_gap_threshold: float = 100.0) -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Convert a conversation image to a markdown table.")
+    parser = argparse.ArgumentParser(description="Convert a conversation image to a raw markdown table.")
     parser.add_argument("image", type=str, help="Path to the image file")
-    parser.add_argument("-o", "--output", type=str, default=None, help="Output markdown file (default: stdout)")
+    parser.add_argument("-o", "--output", type=str, default=None,
+                        help="Output markdown file (default: ocrs/<image_stem>.md; use - for stdout)")
     parser.add_argument("--row-gap", type=float, default=100.0,
                         help="Min pixel gap between rows (default: 100)")
     args = parser.parse_args()
@@ -115,12 +121,18 @@ def main():
 
     markdown = extract_table(str(image_path), row_gap_threshold=args.row_gap)
 
-    if args.output:
-        out_path = Path(args.output)
-        out_path.write_text(markdown + "\n")
-        print(f"Written to {out_path}", file=sys.stderr)
-    else:
+    if args.output == "-":
         print(markdown)
+        return
+
+    if args.output is None:
+        out_path = Path(__file__).resolve().parent.parent / "ocrs" / f"{image_path.stem}.md"
+    else:
+        out_path = Path(args.output)
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(markdown + "\n")
+    print(f"Written to {out_path}", file=sys.stderr)
 
 
 if __name__ == "__main__":

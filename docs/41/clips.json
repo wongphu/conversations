@@ -1,21 +1,15 @@
 [
   {
-    "file": "41/audio/es/00-a.mp3",
-    "speaker": "es_a",
-    "lang": "es",
-    "text": "Buenas tardes. Bienvenido al Hotel Chiriquí. ¿En qué puedo ayudarle?"
-  },
-  {
     "file": "41/audio/en/00-a.mp3",
     "speaker": "en_a",
     "lang": "en",
     "text": "Good afternoon. Welcome to the Hotel Chiriqui. How can I help you?"
   },
   {
-    "file": "41/audio/es/01-b.mp3",
-    "speaker": "es_b",
+    "file": "41/audio/es/00-a.mp3",
+    "speaker": "es_a",
     "lang": "es",
-    "text": "Buenas tardes. Tengo una reservación. Mi nombre es John Doe."
+    "text": "Buenas tardes. Bienvenido al Hotel Chiriquí. ¿En qué puedo ayudarle?"
   },
   {
     "file": "41/audio/en/01-b.mp3",
@@ -24,10 +18,10 @@
     "text": "Good afternoon. I have a reservation. My name is John Doe."
   },
   {
-    "file": "41/audio/es/02-a.mp3",
-    "speaker": "es_a",
+    "file": "41/audio/es/01-b.mp3",
+    "speaker": "es_b",
     "lang": "es",
-    "text": "Permítame comprobar... Sí, Sr. Doe. Reservó una habitación individual para dos noches."
+    "text": "Buenas tardes. Tengo una reservación. Mi nombre es John Doe."
   },
   {
     "file": "41/audio/en/02-a.mp3",
@@ -36,10 +30,10 @@
     "text": "Let me check... Yes, Mr. Doe. You reserved a single room for two nights."
   },
   {
-    "file": "41/audio/es/03-b.mp3",
-    "speaker": "es_b",
+    "file": "41/audio/es/02-a.mp3",
+    "speaker": "es_a",
     "lang": "es",
-    "text": "Correcto."
+    "text": "Permítame comprobar... Sí, Sr. Doe. Reservó una habitación individual para dos noches."
   },
   {
     "file": "41/audio/en/03-b.mp3",
@@ -48,10 +42,10 @@
     "text": "Correct."
   },
   {
-    "file": "41/audio/es/04-a.mp3",
-    "speaker": "es_a",
+    "file": "41/audio/es/03-b.mp3",
+    "speaker": "es_b",
     "lang": "es",
-    "text": "¿Podría ver su pasaporte, por favor?"
+    "text": "Correcto."
   },
   {
     "file": "41/audio/en/04-a.mp3",
@@ -60,10 +54,10 @@
     "text": "Could I see your passport, please?"
   },
   {
-    "file": "41/audio/es/05-b.mp3",
-    "speaker": "es_b",
+    "file": "41/audio/es/04-a.mp3",
+    "speaker": "es_a",
     "lang": "es",
-    "text": "Claro. Aquí lo tiene."
+    "text": "¿Podría ver su pasaporte, por favor?"
   },
   {
     "file": "41/audio/en/05-b.mp3",
@@ -72,10 +66,10 @@
     "text": "Of course. Here it is."
   },
   {
-    "file": "41/audio/es/06-a.mp3",
-    "speaker": "es_a",
+    "file": "41/audio/es/05-b.mp3",
+    "speaker": "es_b",
     "lang": "es",
-    "text": "Gracias. Aquí tiene su llave. Su habitación es la número trescientos cinco, en el tercer piso."
+    "text": "Claro. Aquí lo tiene."
   },
   {
     "file": "41/audio/en/06-a.mp3",
@@ -84,10 +78,10 @@
     "text": "Thank you. Here is your key. Your room is number three O five, on the third floor."
   },
   {
-    "file": "41/audio/es/07-b.mp3",
-    "speaker": "es_b",
+    "file": "41/audio/es/06-a.mp3",
+    "speaker": "es_a",
     "lang": "es",
-    "text": "Gracias. ¿Dónde está el ascensor?"
+    "text": "Gracias. Aquí tiene su llave. Su habitación es la número trescientos cinco, en el tercer piso."
   },
   {
     "file": "41/audio/en/07-b.mp3",
@@ -96,10 +90,10 @@
     "text": "Thank you. Where is the elevator?"
   },
   {
-    "file": "41/audio/es/08-a.mp3",
-    "speaker": "es_a",
+    "file": "41/audio/es/07-b.mp3",
+    "speaker": "es_b",
     "lang": "es",
-    "text": "Está a su izquierda, junto al vestíbulo."
+    "text": "Gracias. ¿Dónde está el ascensor?"
   },
   {
     "file": "41/audio/en/08-a.mp3",
@@ -108,10 +102,10 @@
     "text": "It's to your left, next to the lobby."
   },
   {
-    "file": "41/audio/es/09-b.mp3",
-    "speaker": "es_b",
+    "file": "41/audio/es/08-a.mp3",
+    "speaker": "es_a",
     "lang": "es",
-    "text": "Excelente."
+    "text": "Está a su izquierda, junto al vestíbulo."
   },
   {
     "file": "41/audio/en/09-b.mp3",
@@ -120,10 +114,10 @@
     "text": "Excellent."
   },
   {
-    "file": "41/audio/es/10-a.mp3",
-    "speaker": "es_a",
+    "file": "41/audio/es/09-b.mp3",
+    "speaker": "es_b",
     "lang": "es",
-    "text": "El desayuno se sirve de siete a diez am en el restaurante del primer piso."
+    "text": "Excelente."
   },
   {
     "file": "41/audio/en/10-a.mp3",
@@ -132,10 +126,10 @@
     "text": "Breakfast is from 7:00 to 10:00 a.m. It is served in the restaurant on the first floor."
   },
   {
-    "file": "41/audio/es/11-b.mp3",
-    "speaker": "es_b",
+    "file": "41/audio/es/10-a.mp3",
+    "speaker": "es_a",
     "lang": "es",
-    "text": "Perfecto. Muchas gracias."
+    "text": "El desayuno se sirve de siete a diez a. m. en el restaurante del primer piso."
   },
   {
     "file": "41/audio/en/11-b.mp3",
@@ -144,15 +138,21 @@
     "text": "Perfect. Thank you very much."
   },
   {
-    "file": "41/audio/es/12-a.mp3",
-    "speaker": "es_a",
+    "file": "41/audio/es/11-b.mp3",
+    "speaker": "es_b",
     "lang": "es",
-    "text": "De nada. Que disfrute de su estadía!"
+    "text": "Perfecto. Muchas gracias."
   },
   {
     "file": "41/audio/en/12-a.mp3",
     "speaker": "en_a",
     "lang": "en",
     "text": "You're welcome. Enjoy your stay!"
+  },
+  {
+    "file": "41/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "De nada. ¡Que disfrute de su estadía!"
   }
 ]

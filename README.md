@@ -5,8 +5,9 @@ Interactive bilingual (English/Spanish) conversation pages with voice-cloned aud
 ## How It Works
 
 ```
-textbook image → OCR → markdown → clips.json → TTS → HTML page
-   (41.jpeg)    (extract_text.py)  (make_clips.py)  (generate_audio.py)  (docs/NN.html)
+textbook image  →  OCR  →  refine (AI)  →  clips.json  →  TTS  →  HTML page
+  inputs/NN.jpeg   ocrs/NN.md   texts/NN.md    docs/NN/...    docs/NN.html
+  (extract_text.py) (refine_ocr.md) (make_clips.py) (generate_audio.py) (generate_html.py)
 ```
 
 Each conversation page is a self-contained HTML file with:
@@ -31,36 +32,40 @@ Each conversation page is a self-contained HTML file with:
 │   │   └── audio/
 │   │       ├── en/          # English MP3 clips
 │   │       └── es/          # Spanish MP3 clips
-│   ├── 99.html
-│   ├── 99/
-│   │   ├── clips.json
-│   │   └── audio/
 │   └── 41/
 │       ├── clips.json
 │       └── audio/
 │
 ├── scripts/
-│   ├── extract_text.py      # Image → markdown table
-│   ├── make_clips.py        # Markdown → clips.json
-│   └── generate_audio.py    # clips.json → MP3 files (TTS)
+│   ├── extract_text.py      # Image → raw markdown (ocrs/)
+│   ├── refine_ocr.md        # AI step: ocrs/ → texts/ (agent task, not a script)
+│   ├── make_clips.py        # Markdown (texts/) → clips.json
+│   ├── generate_audio.py    # clips.json → MP3 files (TTS)
+│   └── generate_html.py     # clips.json → interactive HTML page
 │
 ├── inputs/                  # Source images (textbook pages)
 │   ├── 36.jpeg
 │   └── 41.jpeg
 │
-├── texts/                   # Intermediate: OCR markdown output
+├── ocrs/                    # Raw OCR output (extract_text.py)
+│   └── 41.md
+│
+├── texts/                   # Refined markdown (after the refine step)
 │   └── 41.md
 └── .venv/                   # Python virtual environment
 ```
 
 ## Scripts
 
-### `extract_text.py` — Image to Markdown
+### `extract_text.py` — Image to raw markdown (OCR)
 
-Uses RapidOCR to extract the two-column table from a textbook page image.
+Uses RapidOCR to extract the two-column table from a textbook page image into
+`ocrs/`. The column order is whatever appears in the page (left / right), so
+the raw output is **not** guaranteed to be English-left / Spanish-right and may
+contain OCR errors — the refine step below cleans that up.
 
 ```bash
-.venv/bin/python scripts/extract_text.py 41.jpeg -o 41.md
+.venv/bin/python scripts/extract_text.py inputs/41.jpeg   # → ocrs/41.md
 ```
 
 **Design decisions:**
@@ -69,12 +74,26 @@ Uses RapidOCR to extract the two-column table from a textbook page image.
 - **Speaker pattern heuristic**: text matching `^\w+[.:]\s` (e.g., "R:", "A.", "Huésped:") with a gap > 30px from the previous line triggers a new row. This fixes cases where annotation blocks cause rows to merge
 - **Column detection**: x-center of each text fragment determines left vs. right column
 
+### Refine OCR output — AI step (`refine_ocr.md`)
+
+A coding-agent step (not a script) that cleans the raw OCR output. It reads
+`ocrs/NN.md` and writes a refined `texts/NN.md`, doing three things:
+
+1. Add a title at the top (a short H1 including the conversation number, e.g. `# 41. Hotel Check-In — Check-in en el hotel`).
+2. Normalize column order to **English left, Spanish right** (the raw OCR output may be reversed).
+3. Correct misspellings and inconsistencies (OCR artifacts, inconsistent speaker labels, broken punctuation) — while preserving the dialogue.
+
+Full instructions live in [`scripts/refine_ocr.md`](scripts/refine_ocr.md). Run it by asking a coding agent such as pi:
+
+> Refine `ocrs/41.md` per `scripts/refine_ocr.md` and write the result to `texts/41.md`.
+
 ### `make_clips.py` — Markdown to clips.json
 
-Parses the markdown table and generates the clip manifest for audio generation.
+Parses the refined markdown table (from `texts/`) and generates the clip
+manifest for audio generation.
 
 ```bash
-.venv/bin/python scripts/make_clips.py 41.md 41 -o docs/41/clips.json
+.venv/bin/python scripts/make_clips.py texts/41.md 41 -o docs/41/clips.json
 ```
 
 **Design decisions:**
@@ -98,6 +117,16 @@ Uses Qwen3-TTS 1.7B with voice cloning to generate MP3 clips.
 - **MP3 output via ffmpeg**: `mlx-audio` outputs WAV; ffmpeg converts to MP3 (libmp3lame, quality 2) for smaller file sizes
 - **Skip existing files**: by default, clips that already exist are skipped. Use `--force` to regenerate
 
+### `generate_html.py` — clips.json to HTML
+
+Builds the self-contained `docs/NN.html` page from `docs/NN/clips.json`
+(English in the left column, Spanish in the right, with a play button and a
+speed control per line).
+
+```bash
+.venv/bin/python scripts/generate_html.py 41
+```
+
 ### HTML Pages — Playback
 
 Each `docs/NN.html` is a self-contained interactive page.
@@ -117,7 +146,7 @@ Each `docs/NN.html` is a self-contained interactive page.
 docs/{conv}/audio/{lang}/{row}-{speaker}.mp3
 ```
 
-- `conv` — conversation number (36, 99, 41)
+- `conv` — conversation number (36, 41)
 - `lang` — `en` or `es`
 - `row` — zero-padded row index (00, 01, 02…)
 - `speaker` — `a` or `b`
@@ -157,18 +186,22 @@ Each voice is designed once (using the VoiceDesign model) and the resulting WAV 
 Given a new textbook page image:
 
 ```bash
-# 1. Extract text to markdown
-.venv/bin/python scripts/extract_text.py inputs/new_page.jpeg -o texts/new_page.md
+# 1. OCR the page image → ocrs/NN.md
+.venv/bin/python scripts/extract_text.py inputs/new_page.jpeg -o ocrs/NN.md
 
-# 2. Review/edit the markdown (fix OCR errors, remove annotations)
+# 2. Refine the OCR output (AI agent step) → texts/NN.md
+#    Ask a coding agent (e.g. pi) to follow scripts/refine_ocr.md, which
+#    reads ocrs/NN.md and writes texts/NN.md, then:
+#      - add a title at the top (including the conversation number)
+#      - put English in the left column, Spanish in the right column
+#      - fix misspellings and inconsistencies
 
-# 3. Generate clips.json
-.venv/bin/python scripts/make_clips.py texts/new_page.md NN -o docs/NN/clips.json
+# 3. Generate clips.json from the refined markdown
+.venv/bin/python scripts/make_clips.py texts/NN.md NN -o docs/NN/clips.json
 
 # 4. Generate audio
 .venv/bin/python scripts/generate_audio.py NN
 
-# 5. Create the HTML page (copy from an existing template, update content)
-#    - Use clips.json for text and speaker assignment
-#    - Set data-audio paths to "NN/audio/{lang}/{row}-{speaker}.mp3"
+# 5. Generate the HTML page
+.venv/bin/python scripts/generate_html.py NN
 ```

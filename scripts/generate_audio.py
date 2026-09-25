@@ -33,7 +33,7 @@ import soundfile as sf
 
 # --- Config ---
 
-PROJECT_ROOT = Path(__file__).parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 VOICES_DIR = PROJECT_ROOT / "voices"
 DOCS_DIR = PROJECT_ROOT / "docs"
 
