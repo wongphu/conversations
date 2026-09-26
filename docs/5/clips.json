@@ -1,0 +1,170 @@
+[
+  {
+    "file": "5/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hello! Do you have onions?"
+  },
+  {
+    "file": "5/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡Hola! ¿Tiene cebollas?"
+  },
+  {
+    "file": "5/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, we have red and white onions."
+  },
+  {
+    "file": "5/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, tenemos cebollas rojas y blancas."
+  },
+  {
+    "file": "5/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "How much are they?"
+  },
+  {
+    "file": "5/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Cuánto cuestan?"
+  },
+  {
+    "file": "5/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "One dollar per pound."
+  },
+  {
+    "file": "5/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Un dólar por libra."
+  },
+  {
+    "file": "5/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I'll take a half pound of red onions, please."
+  },
+  {
+    "file": "5/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Voy a llevar media libra de cebolla roja, por favor."
+  },
+  {
+    "file": "5/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Do you need anything else?"
+  },
+  {
+    "file": "5/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Necesita algo más?"
+  },
+  {
+    "file": "5/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, do you have broccoli?"
+  },
+  {
+    "file": "5/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, ¿tiene brócoli?"
+  },
+  {
+    "file": "5/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, we keep it in the refrigerator behind the counter."
+  },
+  {
+    "file": "5/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, lo guardamos en el refrigerador detrás del mostrador."
+  },
+  {
+    "file": "5/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "May I please have one head?"
+  },
+  {
+    "file": "5/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Me da una cabeza, por favor?"
+  },
+  {
+    "file": "5/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Sure. Anything else?"
+  },
+  {
+    "file": "5/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Claro. ¿Algo más?"
+  },
+  {
+    "file": "5/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "No, that is all for today."
+  },
+  {
+    "file": "5/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "No, eso es todo por hoy."
+  },
+  {
+    "file": "5/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "The broccoli is two dollars and the half pound of onions is fifty cents. Your total is two dollars and fifty cents."
+  },
+  {
+    "file": "5/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "El brócoli son dos dólares y la media libra de cebolla son cincuenta centavos. Su total es dos dólares con cincuenta centavos."
+  },
+  {
+    "file": "5/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you, have a nice day."
+  },
+  {
+    "file": "5/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias, que tenga un buen día."
+  },
+  {
+    "file": "5/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You too."
+  },
+  {
+    "file": "5/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Igualmente."
+  }
+]

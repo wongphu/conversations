@@ -29,6 +29,9 @@ The venv is Python 3.14 and gitignored. Deps: `mlx-audio`, `rapidocr`, `soundfil
 `transformers`, plus system `ffmpeg` (`brew install ffmpeg`). Source page images go
 in `inputs/`.
 
+After a full run (through `generate_html.py`), one **manual** step remains: add the
+new page to `docs/index.html`. No script updates the index (see the Gotchas below).
+
 ## The refine step is YOUR job (there is no script for it)
 `scripts/refine_ocr.md` documents an **agent step**, not a runnable program. When
 asked to run the pipeline (or anything up to refine) for a page, **you** perform it:
@@ -68,6 +71,13 @@ lines. One row = one utterance; keep the row count unchanged.
 - **`PROJECT_ROOT`** in `generate_audio.py` was once `Path(__file__).parent` (→ `scripts/`),
   which silently broke `docs/`/`voices/` lookups. It's now `Path(__file__).resolve().parent.parent`.
   If you refactor paths, keep it CWD-independent.
+- **`docs/index.html` is hand-maintained — no script writes it.** `generate_html.py`
+  only emits `docs/NN.html`; the landing-page listing is not touched, so a "finished"
+  conversation is silently missing from the index. After finishing a page, add its link
+  by hand, keeping the list in ascending conversation-number order:
+  `<li><a href="NN.html"><span class="num">NN</span> English title / Spanish title</a></li>`.
+  Note the index joins the two titles with a slash (`English / Spanish`), whereas each
+  page's H1 uses an em dash.
 
 ## Voices
 `voices/voices.json` defines 4 speakers — `en_a`/`es_a` (woman, 40s) and `en_b`/`es_b`
@@ -84,4 +94,5 @@ HuggingFace cache. The first `generate_audio` call pays a one-time model-load co
 docs/{conv}/audio/{lang}/{row}-{speaker}.mp3   # row zero-padded (00, 01…), speaker a|b
 docs/{conv}/clips.json
 docs/{conv}.html
+docs/index.html                       # hand-maintained landing page; add one link per conversation
 ```
