@@ -1,0 +1,158 @@
+[
+  {
+    "file": "42/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good afternoon. How can I help you today?"
+  },
+  {
+    "file": "42/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buenas tardes. ¿En qué puedo ayudarle hoy?"
+  },
+  {
+    "file": "42/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I am not feeling very well. I have had a sore throat for a few days now. Can you recommend something?"
+  },
+  {
+    "file": "42/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Hola! No me siento muy bien. Llevo unos días con dolor de garganta. ¿Me recomienda algo?"
+  },
+  {
+    "file": "42/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I'm sorry to hear that. Sore throats can be quite uncomfortable. To relieve it, we have several options. We have throat lozenges, cough drops, and calming herbal teas. Do you have a preference?"
+  },
+  {
+    "file": "42/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Lo siento mucho. El dolor de garganta puede ser bastante incómodo. Para aliviarlo, tenemos varias opciones. Tenemos pastillas para la garganta, pastillas para la tos y tés de hierbas calmantes. ¿Tiene alguna preferencia?"
+  },
+  {
+    "file": "42/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I think I will take the cough drops, please."
+  },
+  {
+    "file": "42/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Creo que tomaré las pastillas para la tos, por favor."
+  },
+  {
+    "file": "42/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Sure! I can recommend the \"Anti-Cough\" cough drops. They are seven dollars."
+  },
+  {
+    "file": "42/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡Claro! Puedo recomendarle las pastillas \"Anti-Tos\"; son siete balboas."
+  },
+  {
+    "file": "42/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "That seems pretty expensive. Do you have any cheaper options?"
+  },
+  {
+    "file": "42/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me parece bastante caro. ¿Tiene alguna opción más económica?"
+  },
+  {
+    "file": "42/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Of course. \"Anti-tos\" is a brand name, but we have generic cough drops that are cheaper. What do you think of \"Cough Relief\"? It only costs 4 dollars."
+  },
+  {
+    "file": "42/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Por supuesto. \"Anti-Tos\" es una marca registrada, pero tenemos genéricos más baratos. ¿Qué le parece \"Alivio de la Tos\"? Solo cuesta cuatro balboas."
+  },
+  {
+    "file": "42/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "That is perfect. I will take them. I also need something for my headache."
+  },
+  {
+    "file": "42/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Eso es perfecto. Me los llevo. También necesito algo para mi dolor de cabeza."
+  },
+  {
+    "file": "42/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Let's see, we have several options to relieve headaches. We have paracetamol, ibuprofen, and aspirin. Have you used any of these before?"
+  },
+  {
+    "file": "42/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "A ver, tenemos varias opciones para aliviar el dolor de cabeza. Tenemos paracetamol, ibuprofeno y aspirina. ¿Ha tomado alguno de estos antes?"
+  },
+  {
+    "file": "42/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I've taken ibuprofen before, and it usually helps. May I take it, please?"
+  },
+  {
+    "file": "42/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Tomé ibuprofeno antes y normalmente me ayuda. ¿Puedo llevarlo, por favor?"
+  },
+  {
+    "file": "42/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Of course. Here's a box of ibuprofen tablets. Anything else?"
+  },
+  {
+    "file": "42/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Por supuesto. Aquí tiene una caja de tabletas de ibuprofeno. ¿Algo más?"
+  },
+  {
+    "file": "42/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "No. Thank you very much."
+  },
+  {
+    "file": "42/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No. Muchas gracias."
+  },
+  {
+    "file": "42/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I hope these will help and you will feel better soon."
+  },
+  {
+    "file": "42/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Espero que estos ayuden y te sentirás mejor pronto."
+  }
+]
