@@ -52,6 +52,10 @@ Each conversation page is a self-contained HTML file with:
 │
 ├── texts/                   # Refined markdown (after the refine step)
 │   └── 41.md
+├── .pi/
+│   └── prompts/             # pi prompt templates (project slash-commands)
+│       ├── refine.md        # /refine N — OCR → refine, then check in
+│       └── pipeline.md      # /pipeline N — full run: OCR → refine → clips → audio → HTML → index
 └── .venv/                   # Python virtual environment
 ```
 
@@ -183,6 +187,10 @@ Each voice is designed once (using the VoiceDesign model) and the resulting WAV 
 
 ## Conversation Pipeline (New Page)
 
+> **Shortcut:** if you drive this repo with pi, these steps are also available as
+> project slash-commands — `/refine N` (through the refine step, then check in) and
+> `/pipeline N` (full run). See [Prompt Templates](#prompt-templates-pi-commands).
+
 Given a new textbook page image:
 
 ```bash
@@ -205,3 +213,17 @@ Given a new textbook page image:
 # 5. Generate the HTML page
 .venv/bin/python scripts/generate_html.py NN
 ```
+
+## Prompt Templates (pi commands)
+
+If you drive this repo with [pi](https://github.com/badlogic/pi-coding-agent) (or any agent
+that reads project prompt templates), `.pi/prompts/` adds two slash-commands that wrap the
+pipeline above. Run `/reload` after editing a template to pick it up in a running session.
+
+| Command | What it does |
+|---------|--------------|
+| `/refine N` | OCR the page → run the refine step → write `texts/N.md`, then **stop and check in**. No clips/audio/HTML. Useful for eyeballing the refined text before the slow TTS step. |
+| `/pipeline N` | The full run: OCR → refine → `docs/N/clips.json` → audio → `docs/N.html` → add the `docs/index.html` link. |
+
+Both take the conversation number as their argument (e.g. `/pipeline 9`) and follow the same
+steps, conventions, and gotchas documented in [`AGENTS.md`](AGENTS.md).
