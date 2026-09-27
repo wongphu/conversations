@@ -1,0 +1,122 @@
+[
+  {
+    "file": "7/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Excuse me. Can you help me? I am looking for the pharmacy."
+  },
+  {
+    "file": "7/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Disculpe. ¿Puede ayudarme? Estoy buscando la farmacia."
+  },
+  {
+    "file": "7/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, of course. It is two blocks from here."
+  },
+  {
+    "file": "7/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, claro. Está a dos cuadras de aquí."
+  },
+  {
+    "file": "7/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can I walk there?"
+  },
+  {
+    "file": "7/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Puedo ir caminando?"
+  },
+  {
+    "file": "7/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes. Go straight on this street until the corner. Then turn left. The pharmacy is on the corner of the main street."
+  },
+  {
+    "file": "7/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí. Siga directo por esta calle hasta la esquina. Luego gire a la izquierda. La farmacia está en la esquina de la calle principal."
+  },
+  {
+    "file": "7/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you. Is there a bus stop nearby?"
+  },
+  {
+    "file": "7/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias. ¿Hay una parada de bus cerca?"
+  },
+  {
+    "file": "7/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, there is a bus stop one block behind Romero."
+  },
+  {
+    "file": "7/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, hay parada de bus a una cuadra detrás de Romero."
+  },
+  {
+    "file": "7/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "And where is the supermarket?"
+  },
+  {
+    "file": "7/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Y dónde está el supermercado?"
+  },
+  {
+    "file": "7/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Go further down the street, it is on the corner. You will see a big sign."
+  },
+  {
+    "file": "7/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Siga calle abajo, está en la esquina. Verá un letrero grande."
+  },
+  {
+    "file": "7/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Perfect. Thank you very much."
+  },
+  {
+    "file": "7/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Perfecto. Muchas gracias."
+  },
+  {
+    "file": "7/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You are welcome. Good luck!"
+  },
+  {
+    "file": "7/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "De nada. ¡Buena suerte!"
+  }
+]
