@@ -97,6 +97,17 @@ merged two speakers' turns into one row: split those (and flag it).
 - **Pages must be served over http** (e.g. `python3 -m http.server -d docs`). They load
   audio with `fetch()`, which browsers block on `file://`. A failed load turns that
   line's play button red.
+- **The page player must keep working on old iOS Safari** (a user on an older iPhone
+  had buttons but no sound). Don't "modernise" these in `generate_html.py`'s script:
+  `window.AudioContext || window.webkitAudioContext` (unprefixed is iOS 14.5+), the
+  callback form of `decodeAudioData`, `getChannelData(i).set()` instead of
+  `copyToChannel`, creating/resuming the context inside the tap (iOS also has an
+  `"interrupted"` state, so check `!== "running"`), and the lazy `import()` of the
+  PSOLA stretcher. The ring/silent switch mutes Web Audio on iOS: the page sets
+  `navigator.audioSession.type = "playback"` (iOS 16.4+), and on older iOS loops a
+  silent `<audio>` element while a clip plays. The script is identical in every
+  `docs/NN.html`: after changing it, splice the new `<script type="module">` block
+  into each page (including 36) rather than regenerating them.
 
 ## Voices
 `voices/voices.json` defines 4 speakers — `en_a`/`es_a` (woman, 40s) and `en_b`/`es_b`
