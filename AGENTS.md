@@ -71,6 +71,9 @@ merged two speakers' turns into one row: split those (and flag it).
   lines whose text changed, delete just those MP3s and run without `--force`. Do **not**
   `--force` a whole conversation to change a couple of lines: voice cloning varies
   run-to-run, so unchanged lines would get slightly different voices.
+- **Mispronounced names:** add a phonetic respelling to `voices/pronunciations.json`
+  (per language, e.g. `"Tizingal": "Tee-seen-gahl"`). It's applied to the TTS input only;
+  the page keeps the real spelling. Then delete just the affected MP3s and re-run.
 - **mlx-audio logs `Language: en` even for Spanish.** The script drives Spanish via the
   voice-cloned reference WAV (`voices/es_*.wav`), not a language arg. It's pre-existing
   and uniform, so a conversation stays internally consistent. (Optional: pass

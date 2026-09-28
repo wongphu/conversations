@@ -12,6 +12,7 @@ Example:
 Reads:
     voices/voices.json          – model names and speaker definitions
     voices/<speaker>.<lang>.wav – reference voice samples
+    voices/pronunciations.json  – optional phonetic respellings for the TTS
     docs/<N>/clips.json         – list of clips to generate
 
 Writes:
@@ -24,6 +25,7 @@ Dependencies:
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -45,6 +47,13 @@ STT_MODEL = "mlx-community/whisper-large-v3-turbo-asr-fp16"
 def load_json(path: Path) -> dict | list:
     with open(path) as f:
         return json.load(f)
+
+
+def apply_pronunciations(text: str, lang: str, pronunciations: dict) -> str:
+    """Swap whole words for their phonetic respellings (TTS input only)."""
+    for word, spoken in pronunciations.get(lang, {}).items():
+        text = re.sub(rf"\b{re.escape(word)}\b", spoken, text)
+    return text
 
 
 def wav_to_mp3(wav_path: Path, mp3_path: Path) -> None:
@@ -98,6 +107,8 @@ def main():
 
     # Load config
     voices_config = load_json(VOICES_DIR / "voices.json")
+    pronunciations_path = VOICES_DIR / "pronunciations.json"
+    pronunciations = load_json(pronunciations_path) if pronunciations_path.exists() else {}
     clips = load_json(clips_path)
 
     model_name = args.model or voices_config["clone_model"]
@@ -141,7 +152,7 @@ def main():
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
         speaker = clip["speaker"]
-        text = clip["text"]
+        text = apply_pronunciations(clip["text"], clip["lang"], pronunciations)
         ref_path = ref_paths[clip["file"]]
 
         print(f"  [{i}/{len(to_generate)}] {clip['file']}")

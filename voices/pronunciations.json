@@ -1,0 +1,7 @@
+{
+  "_notes": "Phonetic respellings used only for TTS input, per language; the page still shows the original word. Keys are whole words, matched case-sensitively. After adding one, delete the affected MP3s and re-run generate_audio.py.",
+  "en": {
+    "Tizingal": "Tee-seen-gahl"
+  },
+  "es": {}
+}
