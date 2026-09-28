@@ -37,6 +37,10 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 VOICES_DIR = PROJECT_ROOT / "voices"
 DOCS_DIR = PROJECT_ROOT / "docs"
 
+# Transcribes each reference WAV (its text is part of the voice-cloning prompt).
+# Same model mlx-audio's generate_audio() defaults to when no ref_text is given.
+STT_MODEL = "mlx-community/whisper-large-v3-turbo-asr-fp16"
+
 
 def load_json(path: Path) -> dict | list:
     with open(path) as f:
@@ -44,13 +48,40 @@ def load_json(path: Path) -> dict | list:
 
 
 def wav_to_mp3(wav_path: Path, mp3_path: Path) -> None:
-    """Convert WAV to MP3 via ffmpeg."""
+    """Convert WAV to MP3 via ffmpeg.
+
+    Encodes to a temporary name first, so an interrupted run never leaves a
+    partial MP3 that later runs would skip as "exists".
+    """
+    part_path = mp3_path.with_name(mp3_path.name + ".part")
     subprocess.run(
         ["ffmpeg", "-y", "-loglevel", "error", "-i", str(wav_path),
-         "-codec:a", "libmp3lame", "-qscale:a", "2", str(mp3_path)],
+         "-codec:a", "libmp3lame", "-qscale:a", "2", "-f", "mp3", str(part_path)],
         check=True,
     )
+    part_path.replace(mp3_path)
     wav_path.unlink()
+
+
+def transcribe_refs(ref_paths: list[Path], sample_rate: int) -> dict[Path, str]:
+    """Transcribe each reference WAV once, loading the STT model once.
+
+    Mirrors what generate_audio() does per call when ref_text is omitted, so
+    the cloning prompt (and the voices) stay the same as before.
+    """
+    import mlx.core as mx
+    from mlx_audio.stt import load as load_stt_model
+    from mlx_audio.utils import load_audio
+
+    stt_model = load_stt_model(STT_MODEL)
+    texts = {}
+    for path in ref_paths:
+        audio = load_audio(str(path), sample_rate=sample_rate, volume_normalize=False)
+        texts[path] = stt_model.generate(audio).text
+        print(f"  ref   {path.name}: {texts[path]}")
+    del stt_model
+    mx.clear_cache()
+    return texts
 
 
 def main():
@@ -75,9 +106,6 @@ def main():
     print(f"Output:  {DOCS_DIR / str(conv_num)}/")
     print()
 
-    # Import mlx-audio (loads model on first call)
-    from mlx_audio.tts.generate import generate_audio
-
     # Determine which clips to generate
     to_generate = []
     for clip in clips:
@@ -91,19 +119,30 @@ def main():
         print("\nAll clips already exist. Use --force to regenerate.")
         return
 
-    print(f"Generating {len(to_generate)} clips...\n")
+    ref_paths = {clip["file"]: VOICES_DIR / f"{clip['speaker']}.{clip['lang']}.wav"
+                 for clip in to_generate}
+    for ref_path in set(ref_paths.values()):
+        if not ref_path.exists():
+            sys.exit(f"Error: reference audio not found: {ref_path}")
+
+    # Load the TTS model once; passing generate_audio() a model *name* would
+    # reload it (and re-transcribe the reference WAV) on every clip.
+    from mlx_audio.tts.generate import generate_audio
+    from mlx_audio.tts.utils import load_model
+
+    model = load_model(model_path=model_name)
+    ref_texts = transcribe_refs(sorted(set(ref_paths.values())), model.sample_rate)
+
+    print(f"\nGenerating {len(to_generate)} clips...\n")
+    failed = 0
 
     for i, clip in enumerate(to_generate, 1):
         out_path = DOCS_DIR / clip["file"]
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
         speaker = clip["speaker"]
-        lang = clip["lang"]
         text = clip["text"]
-
-        ref_path = VOICES_DIR / f"{speaker}.{lang}.wav"
-        if not ref_path.exists():
-            sys.exit(f"Error: reference audio not found: {ref_path}")
+        ref_path = ref_paths[clip["file"]]
 
         print(f"  [{i}/{len(to_generate)}] {clip['file']}")
         print(f"         {speaker}  \"{text[:60]}{'...' if len(text) > 60 else ''}\"")
@@ -112,8 +151,9 @@ def main():
         with tempfile.TemporaryDirectory() as tmpdir:
             generate_audio(
                 text=text,
-                model=model_name,
+                model=model,
                 ref_audio=str(ref_path),
+                ref_text=ref_texts[ref_path],
                 output_path=tmpdir,
                 file_prefix="clip",
                 verbose=False,
@@ -123,6 +163,7 @@ def main():
             wavs = list(Path(tmpdir).glob("*.wav"))
             if not wavs:
                 print(f"         ✗ no output generated")
+                failed += 1
                 continue
 
             wav_path = wavs[0]
@@ -133,7 +174,9 @@ def main():
 
         print(f"         ✓ saved ({duration:.1f}s)")
 
-    print(f"\nDone. Generated {len(to_generate)} clips.")
+    print(f"\nDone. Generated {len(to_generate) - failed} clips.")
+    if failed:
+        sys.exit(f"Error: {failed} clip(s) produced no audio")
 
 
 if __name__ == "__main__":

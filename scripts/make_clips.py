@@ -9,7 +9,7 @@ Example:
     python make_clips.py 41.md 41
     python make_clips.py 36.md 36 -o docs/36/clips.json
 
-Reads a two-column markdown table (as produced by extract_text.py) and
+Reads a refined two-column markdown table (texts/NN.md, see refine_ocr.md) and
 generates a clips.json file with file paths, speaker IDs, language, and text.
 """
 
@@ -17,31 +17,55 @@ import argparse
 import json
 import re
 import sys
-import unicodedata
+from collections import Counter
 from pathlib import Path
 
 
-def detect_language(text: str) -> str:
-    """Detect if text is Spanish or English using character heuristics."""
-    spanish_indicators = set("áéíóúñ¿¡ü")
+SPANISH_INDICATORS = set("áéíóúñ¿¡ü")
+
+# Matches patterns like: "A. text", "B. text", "R: text", "H: text",
+# "Recepcionista: text", "Huésped: text", "Guest: text"
+SPEAKER_RE = re.compile(r'^(\w+)[.:]\s+(.*)')
+
+
+def spanish_score(text: str) -> float:
+    """Fraction of characters that are Spanish indicators (accents, ñ, ¿, ¡)."""
     normalized = text.lower()
-    score = sum(1 for c in normalized if c in spanish_indicators)
-    return "es" if score >= 2 else "en"
+    if not normalized:
+        return 0.0
+    return sum(1 for c in normalized if c in SPANISH_INDICATORS) / len(normalized)
 
 
-def parse_speaker(text: str) -> tuple[str | None, str]:
+def detect_column_languages(left_text: str, right_text: str) -> tuple[str, str]:
+    """Return (left_lang, right_lang): the more Spanish-looking column is "es".
+
+    Comparing the two columns (rather than thresholding each one) keeps an
+    English column with a few accented proper nouns ("Chiriquí", "Volcán")
+    from being mistaken for Spanish.
     """
-    Extract speaker label and clean text.
-    
-    Returns (speaker_char, clean_text) where speaker_char is the raw label
-    (e.g., "A", "B", "R", "H") or None if not detected.
+    left, right = spanish_score(left_text), spanish_score(right_text)
+    if left == right:
+        sys.exit("Error: cannot tell which column is Spanish (equal accent scores)")
+    return ("es", "en") if left > right else ("en", "es")
+
+
+def speaker_labels(texts: list[str]) -> set[str]:
+    """Labels that recur in a column, i.e. real speaker names.
+
+    A leading "No." or "Mr." looks like a label but only appears once, so it
+    is kept as dialogue. Each speaker in a two-person dialogue speaks more than
+    once, so their label always recurs.
     """
-    # Match patterns like: "A. text", "B. text", "R: text", "H: text",
-    # "Recepcionista: text", "Huésped: text", "Guest: text"
-    match = re.match(r'^(\w+)[.:]\s+(.*)', text)
-    if match:
-        return match.group(1)[0].upper(), match.group(2)
-    return None, text
+    counts = Counter(m.group(1) for t in texts if (m := SPEAKER_RE.match(t)))
+    return {label for label, n in counts.items() if n >= 2}
+
+
+def strip_speaker(text: str, labels: set[str]) -> str:
+    """Remove a leading speaker label if it is one of the column's labels."""
+    match = SPEAKER_RE.match(text)
+    if match and match.group(1) in labels:
+        return match.group(2)
+    return text
 
 
 def parse_markdown_table(md_text: str) -> list[dict]:
@@ -74,8 +98,8 @@ def build_clips(rows: list[dict], conv_num: int) -> list[dict]:
     # Detect language per column using all texts in that column
     left_text = " ".join(row["left"] for row in rows if row["left"])
     right_text = " ".join(row["right"] for row in rows if row["right"])
-    left_lang = detect_language(left_text)
-    right_lang = detect_language(right_text)
+    left_lang, right_lang = detect_column_languages(left_text, right_text)
+    labels = {col: speaker_labels([row[col] for row in rows]) for col in ("left", "right")}
 
     clips = []
 
@@ -88,7 +112,7 @@ def build_clips(rows: list[dict], conv_num: int) -> list[dict]:
             if not text:
                 continue
 
-            _, clean_text = parse_speaker(text)
+            clean_text = strip_speaker(text, labels[col])
             file_path = f"{conv_num}/audio/{lang}/{row_num}-{speaker_char}.mp3"
             speaker_id = f"{lang}_{speaker_char}"
 

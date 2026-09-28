@@ -11,26 +11,29 @@ Example:
 
 Reads:
     docs/<N>/clips.json
+    texts/<N>.md                – for the page title (its "# ..." H1), if present
 
 Writes:
     docs/<N>.html
 """
 
 import argparse
+import html
 import json
 import sys
 from pathlib import Path
 from collections import defaultdict
 
-PROJECT_ROOT = Path(__file__).parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = PROJECT_ROOT / "docs"
+TEXTS_DIR = PROJECT_ROOT / "texts"
 
 TEMPLATE_HEAD = '''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Conversation {conv}</title>
+  <title>{title}</title>
   <style>
     :root {{ color-scheme: light; }}
 
@@ -46,6 +49,22 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
       max-width: 960px;
       margin: 0 auto;
       padding: 2rem 1.35rem 2.75rem;
+    }}
+
+    .back {{
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.85rem;
+      color: #2a45b0;
+      text-decoration: none;
+    }}
+
+    .back:hover {{ text-decoration: underline; }}
+
+    h1 {{
+      margin: 0.6rem 0 1.1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.25;
     }}
 
     table {{
@@ -114,6 +133,11 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
 
     td.playing {{ background: #f4f7ff; }}
 
+    .speak.error {{
+      border-color: #b00020;
+      color: #b00020;
+    }}
+
     em {{ font-style: italic; }}
 
     td[lang="en"] {{ color: #444; }}
@@ -154,6 +178,7 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
 
     @media (max-width: 700px) {{
       main {{ padding: 0.7rem 0.35rem 1.4rem; }}
+      h1 {{ font-size: 1.2rem; }}
       table {{ font-size: 0.78rem; }}
       td {{ padding: 0.4rem 0.32rem 0.45rem; }}
     }}
@@ -161,6 +186,8 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
 </head>
 <body>
   <main>
+    <a class="back" href="index.html">&larr; All conversations / Todas las conversaciones</a>
+    <h1>{title}</h1>
     <div class="speed-control">
       <label for="speed">Speed / Velocidad</label>
       <input type="range" id="speed" min="50" max="150" value="100" step="5">
@@ -189,6 +216,9 @@ TEMPLATE_SCRIPT = '''      </tbody>
     let currentSource = null;
     let currentButton = null;
     let currentUrl = null;
+    // Bumped by every stop/play, so a clip that finishes loading after the
+    // user has moved on (clicked another line, or stopped) is discarded.
+    let playToken = 0;
 
     const speedSlider = document.getElementById("speed");
     const speedValue = document.getElementById("speedValue");
@@ -200,6 +230,7 @@ TEMPLATE_SCRIPT = '''      </tbody>
     async function getDecoded(url) {
       if (bufferCache.has(url)) return bufferCache.get(url);
       const resp = await fetch(url);
+      if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText}`);
       const arrBuf = await resp.arrayBuffer();
       const audioBuf = await ctx.decodeAudioData(arrBuf);
       bufferCache.set(url, audioBuf);
@@ -218,27 +249,41 @@ TEMPLATE_SCRIPT = '''      </tbody>
     }
 
     async function playClip(url, button) {
-      if (ctx.state === "suspended") await ctx.resume();
       stopSpeaking();
-      const buf = await getDecoded(url);
-      const factor = getSpeedFactor();
-      const stretched = stretch(buf, factor);
+      const token = playToken;
 
-      const src = ctx.createBufferSource();
-      src.buffer = stretched;
-      src.connect(ctx.destination);
-      src.onended = () => { if (currentSource === src) stopSpeaking(); };
-      src.start();
-
-      currentSource = src;
+      // Mark the line as active right away (while loading), so a second click
+      // on it stops it instead of starting a second copy.
       currentButton = button;
       currentUrl = url;
+      button.classList.remove("error");
       button.classList.add("playing");
       button.setAttribute("aria-pressed", "true");
       button.closest("td").classList.add("playing");
+
+      try {
+        if (ctx.state === "suspended") await ctx.resume();
+        const buf = await getDecoded(url);
+        if (token !== playToken) return;
+        const factor = getSpeedFactor();
+
+        const src = ctx.createBufferSource();
+        src.buffer = factor === 1 ? buf : stretch(buf, factor);
+        src.connect(ctx.destination);
+        src.onended = () => { if (currentSource === src) stopSpeaking(); };
+        src.start();
+        currentSource = src;
+      } catch (err) {
+        if (token !== playToken) return;
+        console.error("Could not play " + url, err);
+        stopSpeaking();
+        button.classList.add("error");
+        button.title = "Could not load audio (serve the page over http://, not file://)";
+      }
     }
 
     function stopSpeaking() {
+      playToken++;
       if (currentSource) {
         currentSource.onended = null;
         try { currentSource.stop(); } catch {}
@@ -292,6 +337,17 @@ TEMPLATE_SCRIPT = '''      </tbody>
 '''
 
 
+def read_title(conv_num: int) -> str:
+    """The "# NN. English — Spanish" H1 from texts/NN.md, or a generic fallback."""
+    texts_path = TEXTS_DIR / f"{conv_num}.md"
+    if texts_path.exists():
+        for line in texts_path.read_text().splitlines():
+            if line.startswith("# "):
+                return line[2:].strip()
+    print(f"Warning: no title found in {texts_path}", file=sys.stderr)
+    return f"Conversation {conv_num}"
+
+
 def generate_html(conv_num: int) -> str:
     """Generate HTML content for a conversation."""
     clips_path = DOCS_DIR / str(conv_num) / "clips.json"
@@ -311,7 +367,7 @@ def generate_html(conv_num: int) -> str:
         rows[row_num][lang] = clip
 
     # Build HTML
-    html = TEMPLATE_HEAD.format(conv=conv_num)
+    page = TEMPLATE_HEAD.format(title=html.escape(read_title(conv_num), quote=False))
 
     for row_num in sorted(rows.keys()):
         row = rows[row_num]
@@ -319,6 +375,7 @@ def generate_html(conv_num: int) -> str:
         es = row.get("es")
 
         if not en or not es:
+            print(f"Warning: row {row_num} is missing a language; skipped", file=sys.stderr)
             continue
 
         en_speaker = "A" if en["speaker"].endswith("_a") else "B"
@@ -326,19 +383,19 @@ def generate_html(conv_num: int) -> str:
         en_voice = f"English {en_speaker}"
         es_voice = f"Spanish {es_speaker}"
 
-        html += TEMPLATE_ROW.format(
-            en_file=en["file"],
+        page += TEMPLATE_ROW.format(
+            en_file=html.escape(en["file"]),
             en_voice=en_voice,
             en_speaker=en_speaker,
-            en_text=en["text"],
-            es_file=es["file"],
+            en_text=html.escape(en["text"], quote=False),
+            es_file=html.escape(es["file"]),
             es_voice=es_voice,
             es_speaker=es_speaker,
-            es_text=es["text"],
+            es_text=html.escape(es["text"], quote=False),
         )
 
-    html += TEMPLATE_SCRIPT
-    return html
+    page += TEMPLATE_SCRIPT
+    return page
 
 
 def main():
@@ -349,8 +406,8 @@ def main():
     conv_num = args.conversation
     out_path = DOCS_DIR / f"{conv_num}.html"
 
-    html = generate_html(conv_num)
-    out_path.write_text(html)
+    page = generate_html(conv_num)
+    out_path.write_text(page)
     print(f"Written to {out_path}")
 
 

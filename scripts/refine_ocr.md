@@ -50,8 +50,11 @@ Apply these three transformations to the raw table:
 - **Preserve the dialogue.** Do not translate, reword, add, or remove lines.
   Only correct errors. The English cell and the Spanish cell in a row are a
   translation pair of the *same* utterance.
-- **Keep the structure.** One row = one utterance. Do not merge or split rows.
-  The number of rows is unchanged.
+- **Keep the structure.** One row = one utterance. Do not merge rows, and do
+  not split an utterance across rows. The one exception: if the OCR merged two
+  speakers' turns into one row (e.g. `... main street. Anna: Thank you. ...`),
+  split them so each row is one utterance, and flag the split. Otherwise the
+  number of rows is unchanged.
 - **Keep it a valid table.** Two cells per row, `| ... | ... |`. There is no
   header row. The result must be parseable by `make_clips.py`.
 - Do not invent content you are not confident about. If a cell is illegible,
@@ -63,3 +66,5 @@ Apply these three transformations to the raw table:
   row, and a clean table.
 - `make_clips.py texts/NN.md NN` produces a `clips.json` with the expected
   number of clips (2 per row) and no obvious errors.
+- Speakers alternate row by row (A, B, A, B, ...): `make_clips.py` assigns
+  voices by row parity, whatever the labels say.

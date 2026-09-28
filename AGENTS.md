@@ -25,8 +25,8 @@ Run every script from the **project root** with the project venv:
 .venv/bin/python scripts/<name>.py ...
 ```
 
-The venv is Python 3.14 and gitignored. Deps: `mlx-audio`, `rapidocr`, `soundfile`,
-`transformers`, plus system `ffmpeg` (`brew install ffmpeg`). Source page images go
+The venv is Python 3.14 and gitignored. Deps are pinned in `requirements.txt`
+(`.venv/bin/pip install -r requirements.txt`), plus system `ffmpeg` (`brew install ffmpeg`). Source page images go
 in `inputs/`.
 
 After a full run (through `generate_html.py`), one **manual** step remains: add the
@@ -46,16 +46,24 @@ The transforms:
    are marginal notes, not dialogue.
 
 Preserve the dialogue: correct errors only; do not reword, translate, add, or remove
-lines. One row = one utterance; keep the row count unchanged.
+lines. One row = one utterance; keep the row count unchanged — except when the OCR
+merged two speakers' turns into one row: split those (and flag it).
 
 ## Gotchas (learned the hard way)
 - **Raw OCR column order is positional, not labeled.** `extract_text.py` writes no
   `| English | Spanish |` header — just left/right cells. The refine step is what
   guarantees English-left/Spanish-right.
-- **`make_clips.py` detects language per *column* (accented chars), not per line,** and
-  assigns speakers by row parity (row 0→a, 1→b, 2→a…). A Spanish annotation leaking
-  into the English column can flip the *whole* column to `es`. Fix the source in the
-  refine step; don't patch the detector.
+- **`make_clips.py` detects language per *column*, not per line:** whichever column has
+  the higher share of accented chars (`á é í ó ú ñ ¿ ¡ ü`) is `es`. It exits if it can't
+  tell. A Spanish annotation leaking into the English column can still tip it. Fix the
+  source in the refine step; don't patch the detector.
+- **Speakers are assigned by row parity** (row 0→a, 1→b, 2→a…), never by label, and
+  every conversation must alternate strictly A, B, A, B. If the textbook gives one
+  speaker two turns in a row, or mislabels a row (page 36 does both), the voices still
+  alternate.
+- **Speaker labels are only stripped if they recur in the column** (a real speaker
+  talks more than once). That keeps a leading `No.` / `Mr.` as dialogue, so the refine
+  step should give every row a label.
 - **clips.json column *ordering* is cosmetic.** `generate_html.py` groups by row+lang
   and `generate_audio.py` by file path, so en-first vs es-first never changes the page
   or the audio. Don't "fix" it for its own sake.
@@ -77,7 +85,15 @@ lines. One row = one utterance; keep the row count unchanged.
   by hand, keeping the list in ascending conversation-number order:
   `<li><a href="NN.html"><span class="num">NN</span> English title / Spanish title</a></li>`.
   Note the index joins the two titles with a slash (`English / Spanish`), whereas each
-  page's H1 uses an em dash.
+  page's H1 (taken by `generate_html.py` from the `# ...` line of `texts/NN.md`) uses an
+  em dash.
+- **Conversation 36 predates the pipeline:** it has no `ocrs/36.md` or `texts/36.md`, and
+  its `docs/36.html` rows were hand-edited (italics, "Volcan"). Don't run
+  `generate_html.py 36`: it would drop those edits and fall back to a generic title.
+  Edit `docs/36.html` in place instead.
+- **Pages must be served over http** (e.g. `python3 -m http.server -d docs`). They load
+  audio with `fetch()`, which browsers block on `file://`. A failed load turns that
+  line's play button red.
 
 ## Voices
 `voices/voices.json` defines 4 speakers — `en_a`/`es_a` (woman, 40s) and `en_b`/`es_b`
@@ -86,8 +102,9 @@ A voice clones only its own language.
 
 ## Platform / performance
 TTS is Qwen3-TTS 1.7B via `mlx-audio` — **MLX / Apple Silicon only**. Models live in the
-HuggingFace cache. The first `generate_audio` call pays a one-time model-load cost
-(~seconds); each clip is a few seconds of inference.
+HuggingFace cache (the first run downloads them, several GB). Each `generate_audio.py`
+run loads the TTS model once, and Whisper once to transcribe the reference WAVs (~seconds);
+each clip is then a few seconds of inference.
 
 ## Naming
 ```

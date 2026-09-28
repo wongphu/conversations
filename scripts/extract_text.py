@@ -27,7 +27,9 @@ from rapidocr import RapidOCR
 
 # Matches speaker labels at the start of a line:
 #   "R: ", "H. ", "A. ", "B. ", "Recepcionista: ", "Huésped: "
-SPEAKER_RE = re.compile(r'^[A-Z][a-z]*[.:] ')
+# The tail is any letters (not just [a-z]) so accented names match, including
+# OCR misreads like "Anņa:".
+SPEAKER_RE = re.compile(r'^[A-ZÁÉÍÓÚÑ][^\W\d_]*[.:] ')
 
 
 def extract_table(image_path: str, row_gap_threshold: float = 100.0) -> str:

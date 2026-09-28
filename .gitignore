@@ -1,6 +1,5 @@
-.build
-.swiftpm
-dist
-*.xcodeproj
 .DS_Store
 .venv
+__pycache__/
+*.swp
+*.part

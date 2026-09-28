@@ -26,37 +26,31 @@ Each conversation page is a self-contained HTML file with:
 │   └── es_b.es.wav
 │
 ├── docs/
-│   ├── 36.html              # Conversation page (interactive)
-│   ├── 36/
-│   │   ├── clips.json       # Audio clip manifest
-│   │   └── audio/
-│   │       ├── en/          # English MP3 clips
-│   │       └── es/          # Spanish MP3 clips
-│   └── 41/
-│       ├── clips.json
+│   ├── index.html           # Landing page (hand-maintained, one link per conversation)
+│   ├── NN.html              # Conversation page (interactive), e.g. 5, 7, 36, 41, 42
+│   └── NN/
+│       ├── clips.json       # Audio clip manifest
 │       └── audio/
+│           ├── en/          # English MP3 clips
+│           └── es/          # Spanish MP3 clips
 │
 ├── scripts/
 │   ├── extract_text.py      # Image → raw markdown (ocrs/)
 │   ├── refine_ocr.md        # AI step: ocrs/ → texts/ (agent task, not a script)
 │   ├── make_clips.py        # Markdown (texts/) → clips.json
 │   ├── generate_audio.py    # clips.json → MP3 files (TTS)
-│   └── generate_html.py     # clips.json → interactive HTML page
+│   └── generate_html.py     # clips.json (+ title from texts/) → interactive HTML page
 │
-├── inputs/                  # Source images (textbook pages)
-│   ├── 36.jpeg
-│   └── 41.jpeg
-│
-├── ocrs/                    # Raw OCR output (extract_text.py)
-│   └── 41.md
-│
-├── texts/                   # Refined markdown (after the refine step)
-│   └── 41.md
+├── inputs/                  # Source images (textbook pages): NN.jpeg
+├── ocrs/                    # Raw OCR output (extract_text.py): NN.md
+├── texts/                   # Refined markdown (after the refine step): NN.md
+│                            #   (36 predates the pipeline: no ocrs/36.md or texts/36.md)
 ├── .pi/
 │   └── prompts/             # pi prompt templates (project slash-commands)
 │       ├── refine.md        # /refine N — OCR → refine, then check in
 │       └── pipeline.md      # /pipeline N — full run: OCR → refine → clips → audio → HTML → index
-└── .venv/                   # Python virtual environment
+├── requirements.txt         # Pinned Python dependencies
+└── .venv/                   # Python virtual environment (gitignored)
 ```
 
 ## Scripts
@@ -75,7 +69,7 @@ contain OCR errors — the refine step below cleans that up.
 **Design decisions:**
 - **RapidOCR** over alternatives (macOS Vision, EasyOCR, PaddleOCR): best Spanish accent accuracy, lightweight (ONNX Runtime, ~10MB models), runs in ~2s per page
 - **Gap-based row detection**: lines are grouped into rows by vertical spacing. A gap > 100px indicates a new row; smaller gaps mean continuation within a cell
-- **Speaker pattern heuristic**: text matching `^\w+[.:]\s` (e.g., "R:", "A.", "Huésped:") with a gap > 30px from the previous line triggers a new row. This fixes cases where annotation blocks cause rows to merge
+- **Speaker pattern heuristic**: a capitalized word followed by `.` or `:` and a space (e.g., "R:", "A.", "Huésped:", even OCR misreads like "Anņa:") with a gap > 30px from the previous line triggers a new row. This fixes cases where annotation blocks cause rows to merge
 - **Column detection**: x-center of each text fragment determines left vs. right column
 
 ### Refine OCR output — AI step (`refine_ocr.md`)
@@ -101,9 +95,9 @@ manifest for audio generation.
 ```
 
 **Design decisions:**
-- **Column-level language detection**: the entire column is analyzed together (counting Spanish indicator characters: á, é, í, ó, ú, ñ, ¿, ¡) rather than per-line. This is more reliable since each column is always one language
-- **Two-person alternating speakers**: rows alternate speaker `a`/`b` (row 0→a, row 1→b, row 2→a…). This avoids issues with inconsistent OCR speaker labels (e.g., "H:" in Spanish vs. "G:" in English for the same person)
-- **Speaker label stripping**: regex `^(\w+)[.:]\s+` removes the label from the text. Uses `\w` (not `[a-z]`) to handle accented characters like "Huésped:"
+- **Column-level language detection**: the entire column is analyzed together rather than per-line, and the column with the higher share of Spanish indicator characters (á, é, í, ó, ú, ñ, ¿, ¡, ü) is Spanish. Comparing the two columns (instead of a fixed threshold) keeps accented place names like "Chiriquí" or "Volcán" from flipping an English column
+- **Two-person alternating speakers**: rows strictly alternate speaker `a`/`b` (row 0→a, row 1→b, row 2→a…), whatever the labels say. This avoids issues with inconsistent OCR speaker labels (e.g., "H:" in Spanish vs. "G:" in English for the same person) and with textbook mislabels
+- **Speaker label stripping**: regex `^(\w+)[.:]\s+` finds a leading label (`\w` handles "Huésped:"), which is removed only if that label recurs in the column. A one-off leading word like "No." or "Mr." is dialogue and is kept
 
 ### `generate_audio.py` — Generate Audio Clips
 
@@ -116,16 +110,18 @@ Uses Qwen3-TTS 1.7B with voice cloning to generate MP3 clips.
 
 **Design decisions:**
 - **MLX** (not PyTorch): the models are MLX-optimized for Apple Silicon. PyTorch loading of MLX models causes tensor layout mismatches
-- **`mlx-audio`** library: provides a simple `generate_audio()` API that handles model loading, voice cloning, and output
+- **`mlx-audio`** library: provides a simple `generate_audio()` API that handles voice cloning and output. The script loads the TTS model once per run and passes it in (passing a model *name* reloads it on every clip)
+- **Reference transcripts**: cloning also needs the text of each reference WAV. The script transcribes each one once per run with Whisper, the same way `generate_audio()` would on every call
 - **Voice cloning via reference WAVs**: each speaker has a short reference recording. The model clones that voice for all their lines. References live in `voices/` shared across conversations
 - **MP3 output via ffmpeg**: `mlx-audio` outputs WAV; ffmpeg converts to MP3 (libmp3lame, quality 2) for smaller file sizes
-- **Skip existing files**: by default, clips that already exist are skipped. Use `--force` to regenerate
+- **Skip existing files**: by default, clips that already exist are skipped. Use `--force` to regenerate. MP3s are encoded to a `.part` file and renamed, so an interrupted run never leaves a truncated clip that would be skipped
 
 ### `generate_html.py` — clips.json to HTML
 
 Builds the self-contained `docs/NN.html` page from `docs/NN/clips.json`
-(English in the left column, Spanish in the right, with a play button and a
-speed control per line).
+(English in the left column, Spanish in the right, with a play button per line
+and a speed control). The page's title and H1 come from the `# ...` line of
+`texts/NN.md`. The page doesn't appear in `docs/index.html` until you add a link there by hand.
 
 ```bash
 .venv/bin/python scripts/generate_html.py 41
@@ -142,7 +138,8 @@ Each `docs/NN.html` is a self-contained interactive page.
   - Native `preservePitch` — basic WSOLA, audible artifacts at 50%/150%
 - **Batch reprocessing on speed change**: when the slider moves during playback, the cached decoded buffer is re-processed at the new factor and restarted. Clips are short (1–7s) so this is instant and imperceptible
 - **Buffer caching**: decoded `AudioBuffer`s are cached in a `Map` to avoid re-fetching/re-decoding on speed changes or re-playback
-- **No build step**: the PSOLA library is loaded via ESM import from CDN (`esm.sh`). Pages work over `file://` or any static server
+- **No build step**: the PSOLA library is loaded via ESM import from CDN (`esm.sh`). Pages work on any static server (e.g. `python3 -m http.server -d docs`), but **not** over `file://`: browsers block `fetch()` of local audio files. A clip that fails to load turns its play button red
+- **One clip at a time**: clicking a line while another is still loading or playing cancels the first, so clips never overlap
 
 ## Audio File Naming
 
@@ -150,7 +147,7 @@ Each `docs/NN.html` is a self-contained interactive page.
 docs/{conv}/audio/{lang}/{row}-{speaker}.mp3
 ```
 
-- `conv` — conversation number (36, 41)
+- `conv` — conversation number (5, 7, 36, 41, 42)
 - `lang` — `en` or `es`
 - `row` — zero-padded row index (00, 01, 02…)
 - `speaker` — `a` or `b`
@@ -165,10 +162,11 @@ docs/{conv}/audio/{lang}/{row}-{speaker}.mp3
 | `ffmpeg` (system) | MP3 encoding |
 | `@audio/stretch-psola` | Browser-side time-stretching (loaded from CDN) |
 
-Python dependencies are in `.venv/`. No `requirements.txt` yet — install with:
+Python dependencies are pinned in `requirements.txt` (mlx-audio exactly, since a
+different TTS version can change how the voices sound). Install with:
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install mlx-audio rapidocr soundfile
+.venv/bin/pip install -r requirements.txt
 brew install ffmpeg
 ```
 
