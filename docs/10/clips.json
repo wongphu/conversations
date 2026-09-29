@@ -1,0 +1,182 @@
+[
+  {
+    "file": "10/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good afternoon. How many people?"
+  },
+  {
+    "file": "10/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buenas tardes. ¿Cuántas personas?"
+  },
+  {
+    "file": "10/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Two people, please."
+  },
+  {
+    "file": "10/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Dos personas, por favor."
+  },
+  {
+    "file": "10/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Right this way. Here are your menus."
+  },
+  {
+    "file": "10/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Por aquí. Aquí están los menús."
+  },
+  {
+    "file": "10/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you. What do you recommend?"
+  },
+  {
+    "file": "10/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Gracias. ¿Qué recomienda?"
+  },
+  {
+    "file": "10/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "The grilled chicken is very popular."
+  },
+  {
+    "file": "10/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "El pollo a la parrilla es muy popular."
+  },
+  {
+    "file": "10/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I will have that. And water to drink."
+  },
+  {
+    "file": "10/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Voy a pedir eso. Y agua para beber."
+  },
+  {
+    "file": "10/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "And for you?"
+  },
+  {
+    "file": "10/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Y para usted?"
+  },
+  {
+    "file": "10/audio/en/07-c.mp3",
+    "speaker": "en_c",
+    "lang": "en",
+    "text": "I would like the vegetable soup and a lemonade."
+  },
+  {
+    "file": "10/audio/es/07-c.mp3",
+    "speaker": "es_c",
+    "lang": "es",
+    "text": "Quisiera la sopa de verduras y una limonada."
+  },
+  {
+    "file": "10/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Very good. Anything else?"
+  },
+  {
+    "file": "10/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Muy bien. ¿Algo más?"
+  },
+  {
+    "file": "10/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "No, that is all. Thank you."
+  },
+  {
+    "file": "10/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No, eso es todo. Gracias."
+  },
+  {
+    "file": "10/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I will be back soon with your order."
+  },
+  {
+    "file": "10/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Regreso pronto con su orden."
+  },
+  {
+    "file": "10/audio/en/11-c.mp3",
+    "speaker": "en_c",
+    "lang": "en",
+    "text": "Excuse me, where is the bathroom?"
+  },
+  {
+    "file": "10/audio/es/11-c.mp3",
+    "speaker": "es_c",
+    "lang": "es",
+    "text": "Disculpe, ¿dónde está el baño?"
+  },
+  {
+    "file": "10/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It is behind the stairs, to the left."
+  },
+  {
+    "file": "10/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Está detrás de las escaleras, a la izquierda."
+  },
+  {
+    "file": "10/audio/en/13-c.mp3",
+    "speaker": "en_c",
+    "lang": "en",
+    "text": "Thank you very much."
+  },
+  {
+    "file": "10/audio/es/13-c.mp3",
+    "speaker": "es_c",
+    "lang": "es",
+    "text": "Muchas gracias."
+  },
+  {
+    "file": "10/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "You are welcome."
+  },
+  {
+    "file": "10/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "De nada."
+  }
+]
