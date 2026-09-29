@@ -2,7 +2,7 @@
   "engine": "qwen3-tts-1.7b",
   "voice_design_model": "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16",
   "clone_model": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-bf16",
-  "notes": "Four conversation voices, shared by every conversation (originally designed for page 36). English A and Spanish A are the same kind of speaker in each language: a woman in her forties. English B and Spanish B are a man in his early sixties. Each voice is designed in its own language and clones only that language.",
+  "notes": "Six conversation voices (three speakers, each in both languages), shared by every conversation (originally designed for page 36). English A and Spanish A are the same kind of speaker in each language: a woman in her forties. English B and Spanish B are a man in his early sixties. English C and Spanish C (for a third speaker) are a young man in his twenties. Each voice is designed in its own language and clones only that language.",
   "speakers": {
     "en_a": {
       "label_en": "English A",
@@ -35,6 +35,22 @@
       "instruct": "A friendly adult man in his early sixties. Deeper pitch, clear Latin American Spanish, warm and relaxed, slightly slower, a natural speaking voice, reflective, not gravelly, not booming.",
       "ref_en": "Yes, it would be hard to live there without it. I had every friend's phone number memorized, and now I have trouble remembering my own.",
       "ref_es": "Sí, sería difícil vivir en Volcán sin él. Me sabía de memoria los números de todos mis amigos, y ahora ya tengo problemas para recordar el mío."
+    },
+    "en_c": {
+      "label_en": "English C",
+      "label_es": "Inglés C",
+      "lang": "en",
+      "instruct": "A friendly young man in his twenties. Light tenor pitch, clear American English, easygoing and polite, natural speaking voice, a little quicker than average, not nasal, not theatrical.",
+      "ref_en": "Excuse me, is this seat free? I'm meeting a couple of friends here, but I think I got the time wrong, so I'll just wait for them.",
+      "ref_es": "Disculpe, ¿está libre este asiento? Quedé con unos amigos aquí, pero creo que me equivoqué de hora, así que los voy a esperar."
+    },
+    "es_c": {
+      "label_en": "Spanish C",
+      "label_es": "Español C",
+      "lang": "es",
+      "instruct": "A friendly young man in his twenties. Light tenor pitch, clear Latin American Spanish, easygoing and polite, natural speaking voice, a little quicker than average, not nasal, not theatrical.",
+      "ref_en": "Excuse me, is this seat free? I'm meeting a couple of friends here, but I think I got the time wrong, so I'll just wait for them.",
+      "ref_es": "Disculpe, ¿está libre este asiento? Quedé con unos amigos aquí, pero creo que me equivoqué de hora, así que los voy a esperar."
     }
   }
 }

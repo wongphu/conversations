@@ -47,7 +47,8 @@ The transforms:
 
 Preserve the dialogue: correct errors only; do not reword, translate, add, or remove
 lines. One row = one utterance; keep the row count unchanged — except when the OCR
-merged two speakers' turns into one row: split those (and flag it).
+merged two speakers' turns into one row: split those (and flag it); or when it broke one
+utterance across two rows (an unlabeled continuation row): join those (and flag it).
 
 ## Gotchas (learned the hard way)
 - **Raw OCR column order is positional, not labeled.** `extract_text.py` writes no
@@ -57,13 +58,17 @@ merged two speakers' turns into one row: split those (and flag it).
   the higher share of accented chars (`á é í ó ú ñ ¿ ¡ ü`) is `es`. It exits if it can't
   tell. A Spanish annotation leaking into the English column can still tip it. Fix the
   source in the refine step; don't patch the detector.
-- **Speakers are assigned by row parity** (row 0→a, 1→b, 2→a…), never by label, and
-  every conversation must alternate strictly A, B, A, B. If the textbook gives one
-  speaker two turns in a row, or mislabels a row (page 36 does both), the voices still
-  alternate.
-- **Speaker labels are only stripped if they recur in the column** (a real speaker
-  talks more than once). That keeps a leading `No.` / `Mr.` as dialogue, so the refine
-  step should give every row a label.
+- **Speakers are assigned by the English column's labels** when every English cell has
+  one: the first label seen is `a`, the next new one `b`, then `c` (e.g. page 10:
+  Waiter→a, Customer→b, `Customer 2`→c). So a speaker may take two turns in a row, and
+  there can be more than two speakers — but a textbook mislabel now changes the voice,
+  so the refine step must fix labels. Labels are `Word` or `Word N` followed by `.`/`:`.
+  If any English row is unlabeled, it falls back to row parity (a, b, a, b…).
+  Spanish labels don't pick voices; `make_clips.py` only warns if they don't pair 1:1
+  with the English ones.
+- **Speaker labels are stripped when every row in the column has one**; otherwise only
+  labels that recur in the column are (that keeps a leading `No.` / `Mr.` as dialogue).
+  Either way, the refine step should give every row a label.
 - **clips.json column *ordering* is cosmetic.** `generate_html.py` groups by row+lang
   and `generate_audio.py` by file path, so en-first vs es-first never changes the page
   or the audio. Don't "fix" it for its own sake.
@@ -110,9 +115,14 @@ merged two speakers' turns into one row: split those (and flag it).
   into each page (including 36) rather than regenerating them.
 
 ## Voices
-`voices/voices.json` defines 4 speakers — `en_a`/`es_a` (woman, 40s) and `en_b`/`es_b`
-(man, 60s) — each with a reference WAV that is cloned for all of that speaker's lines.
-A voice clones only its own language.
+`voices/voices.json` defines 3 speakers in both languages — `en_a`/`es_a` (woman, 40s),
+`en_b`/`es_b` (man, 60s) and `en_c`/`es_c` (young man, 20s, for a third speaker) — each
+with a reference WAV that is cloned for all of that speaker's lines. A voice clones only
+its own language. A conversation with a 4th speaker needs `en_d`/`es_d`: add them to
+`voices.json` (an `instruct` description plus `ref_en`/`ref_es` sentences), then
+`scripts/design_voice.py en_d es_d` writes the WAVs. Design is random, so listen and
+re-run with `--force` until it fits — but never redesign a voice already used by a
+page, or its old lines won't match new ones.
 
 ## Platform / performance
 TTS is Qwen3-TTS 1.7B via `mlx-audio` — **MLX / Apple Silicon only**. Models live in the
@@ -122,7 +132,7 @@ each clip is then a few seconds of inference.
 
 ## Naming
 ```
-docs/{conv}/audio/{lang}/{row}-{speaker}.mp3   # row zero-padded (00, 01…), speaker a|b
+docs/{conv}/audio/{lang}/{row}-{speaker}.mp3   # row zero-padded (00, 01…), speaker a|b|c…
 docs/{conv}/clips.json
 docs/{conv}.html
 docs/index.html                       # hand-maintained landing page; add one link per conversation

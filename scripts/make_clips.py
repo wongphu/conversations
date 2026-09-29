@@ -24,8 +24,10 @@ from pathlib import Path
 SPANISH_INDICATORS = set("áéíóúñ¿¡ü")
 
 # Matches patterns like: "A. text", "B. text", "R: text", "H: text",
-# "Recepcionista: text", "Huésped: text", "Guest: text"
-SPEAKER_RE = re.compile(r'^(\w+)[.:]\s+(.*)')
+# "Recepcionista: text", "Huésped: text", "Guest: text", "Customer 2: text"
+SPEAKER_RE = re.compile(r'^(\w+(?: \d+)?)[.:]\s+(.*)')
+
+SPEAKER_IDS = "abcdefgh"
 
 
 def spanish_score(text: str) -> float:
@@ -49,15 +51,54 @@ def detect_column_languages(left_text: str, right_text: str) -> tuple[str, str]:
     return ("es", "en") if left > right else ("en", "es")
 
 
-def speaker_labels(texts: list[str]) -> set[str]:
-    """Labels that recur in a column, i.e. real speaker names.
+def row_label(text: str) -> str | None:
+    match = SPEAKER_RE.match(text)
+    return match.group(1) if match else None
 
-    A leading "No." or "Mr." looks like a label but only appears once, so it
-    is kept as dialogue. Each speaker in a two-person dialogue speaks more than
-    once, so their label always recurs.
+
+def speaker_labels(texts: list[str]) -> set[str]:
+    """The column's real speaker names.
+
+    If every row starts with a label, they all are (a third speaker may talk
+    only once). Otherwise only labels that recur count: a leading "No." or
+    "Mr." looks like a label but only appears once, so it is kept as dialogue.
     """
-    counts = Counter(m.group(1) for t in texts if (m := SPEAKER_RE.match(t)))
+    labels = [row_label(t) for t in texts]
+    if all(labels):
+        return set(labels)
+    counts = Counter(label for label in labels if label)
     return {label for label, n in counts.items() if n >= 2}
+
+
+def assign_speakers(rows: list[dict]) -> list[str]:
+    """Speaker id ("a", "b", "c"…) for each row.
+
+    If every English cell has a label, speakers follow the labels, lettered in
+    order of first appearance, so any number of speakers (and a speaker taking
+    two turns in a row) works. Otherwise it is a two-person dialogue and rows
+    alternate a, b, a, b….
+    """
+    labels = [row_label(row["left"]) for row in rows]
+    if not all(labels):
+        return ["a" if i % 2 == 0 else "b" for i in range(len(rows))]
+
+    ids: dict[str, str] = {}
+    for label in labels:
+        if label not in ids:
+            if len(ids) == len(SPEAKER_IDS):
+                sys.exit(f"Error: more than {len(SPEAKER_IDS)} speakers")
+            ids[label] = SPEAKER_IDS[len(ids)]
+
+    # The refine step makes labels consistent, so an English label paired with
+    # two different Spanish labels (or vice versa) means it missed one.
+    pairs = {(en, es) for en, row in zip(labels, rows) if (es := row_label(row["right"]))}
+    for side in (0, 1):
+        for name, n in Counter(pair[side] for pair in pairs).items():
+            if n > 1:
+                print(f"Warning: label {name!r} pairs with {n} different labels "
+                      "in the other column", file=sys.stderr)
+
+    return [ids[label] for label in labels]
 
 
 def strip_speaker(text: str, labels: set[str]) -> str:
@@ -90,9 +131,8 @@ def parse_markdown_table(md_text: str) -> list[dict]:
 
 def build_clips(rows: list[dict], conv_num: int) -> list[dict]:
     """Build clips.json entries from parsed table rows.
-    
-    Two-person conversation: speakers alternate by row.
-    Row 0 → a, row 1 → b, row 2 → a, etc.
+
+    Speakers come from the row labels (see assign_speakers).
     Each column has a single language detected from all its texts.
     """
     # Detect language per column using all texts in that column
@@ -100,12 +140,13 @@ def build_clips(rows: list[dict], conv_num: int) -> list[dict]:
     right_text = " ".join(row["right"] for row in rows if row["right"])
     left_lang, right_lang = detect_column_languages(left_text, right_text)
     labels = {col: speaker_labels([row[col] for row in rows]) for col in ("left", "right")}
+    speakers = assign_speakers(rows)
 
     clips = []
 
     for i, row in enumerate(rows):
         row_num = f"{i:02d}"
-        speaker_char = "a" if i % 2 == 0 else "b"
+        speaker_char = speakers[i]
 
         for col, lang in [("left", left_lang), ("right", right_lang)]:
             text = row[col]

@@ -22,8 +22,10 @@ Each conversation page is a self-contained HTML file with:
 │   ├── voices.json          # Model names + speaker definitions
 │   ├── en_a.en.wav          # Reference audio for each speaker
 │   ├── en_b.en.wav
+│   ├── en_c.en.wav
 │   ├── es_a.es.wav
-│   └── es_b.es.wav
+│   ├── es_b.es.wav
+│   └── es_c.es.wav
 │
 ├── docs/
 │   ├── index.html           # Landing page (hand-maintained, one link per conversation)
@@ -96,8 +98,8 @@ manifest for audio generation.
 
 **Design decisions:**
 - **Column-level language detection**: the entire column is analyzed together rather than per-line, and the column with the higher share of Spanish indicator characters (á, é, í, ó, ú, ñ, ¿, ¡, ü) is Spanish. Comparing the two columns (instead of a fixed threshold) keeps accented place names like "Chiriquí" or "Volcán" from flipping an English column
-- **Two-person alternating speakers**: rows strictly alternate speaker `a`/`b` (row 0→a, row 1→b, row 2→a…), whatever the labels say. This avoids issues with inconsistent OCR speaker labels (e.g., "H:" in Spanish vs. "G:" in English for the same person) and with textbook mislabels
-- **Speaker label stripping**: regex `^(\w+)[.:]\s+` finds a leading label (`\w` handles "Huésped:"), which is removed only if that label recurs in the column. A one-off leading word like "No." or "Mr." is dialogue and is kept
+- **Speakers by label**: when every English cell has a label, each distinct label is a speaker, lettered by first appearance (`a`, `b`, `c`…). That supports three-person dialogues (page 10's Waiter / Customer / Customer 2) and a speaker taking two turns in a row. Only the English labels pick voices, so inconsistent Spanish labels (e.g., "H:" in Spanish vs. "G:" in English for the same person) don't matter; a warning is printed if they don't pair 1:1. If any English row is unlabeled, rows alternate `a`/`b` instead
+- **Speaker label stripping**: regex `^(\w+(?: \d+)?)[.:]\s+` finds a leading label (`\w` handles "Huésped:", the optional number "Customer 2:"). If every row in the column has one, all are removed; otherwise only labels that recur in the column are, so a one-off leading word like "No." or "Mr." is dialogue and is kept
 
 ### `generate_audio.py` — Generate Audio Clips
 
@@ -151,7 +153,7 @@ docs/{conv}/audio/{lang}/{row}-{speaker}.mp3
 - `conv` — conversation number (5, 7, 36, 41, 42)
 - `lang` — `en` or `es`
 - `row` — zero-padded row index (00, 01, 02…)
-- `speaker` — `a` or `b`
+- `speaker` — `a`, `b`, `c`… (one letter per speaker, in order of first appearance)
 
 ## Dependencies
 
@@ -173,16 +175,24 @@ brew install ffmpeg
 
 ## Voices
 
-Four voices defined in `voices/voices.json`:
+Six voices defined in `voices/voices.json`:
 
 | ID | Description | Language |
 |----|-------------|----------|
 | `en_a` | Woman, 40s, warm American English | English |
 | `en_b` | Man, early 60s, reflective American English | English |
+| `en_c` | Young man, 20s, easygoing American English | English |
 | `es_a` | Woman, 40s, warm Latin American Spanish | Spanish |
 | `es_b` | Man, early 60s, reflective Latin American Spanish | Spanish |
+| `es_c` | Young man, 20s, easygoing Latin American Spanish | Spanish |
 
-Each voice is designed once (using the VoiceDesign model) and the resulting WAV is used as a reference for cloning all subsequent lines.
+Each voice is designed once (using the VoiceDesign model) and the resulting WAV is used as a reference for cloning all subsequent lines. To add a speaker (e.g. `en_d`/`es_d` for a four-person dialogue), add its entries to `voices.json` and run:
+
+```bash
+.venv/bin/python scripts/design_voice.py en_d es_d   # --force to redesign
+```
+
+Design is random: listen to the WAVs and re-run until they fit. Don't redesign a voice that pages already use.
 
 ## Conversation Pipeline (New Page)
 

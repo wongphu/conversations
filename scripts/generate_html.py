@@ -462,8 +462,8 @@ def generate_html(conv_num: int) -> str:
             print(f"Warning: row {row_num} is missing a language; skipped", file=sys.stderr)
             continue
 
-        en_speaker = "A" if en["speaker"].endswith("_a") else "B"
-        es_speaker = "A" if es["speaker"].endswith("_a") else "B"
+        en_speaker = en["speaker"].split("_")[-1].upper()  # "en_c" → "C"
+        es_speaker = es["speaker"].split("_")[-1].upper()
         en_voice = f"English {en_speaker}"
         es_voice = f"Spanish {es_speaker}"
 
