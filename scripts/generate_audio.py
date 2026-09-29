@@ -152,7 +152,8 @@ def main():
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
         speaker = clip["speaker"]
-        text = apply_pronunciations(clip["text"], clip["lang"], pronunciations)
+        text = clip["text"].replace("*", "")  # markdown italics are display-only
+        text = apply_pronunciations(text, clip["lang"], pronunciations)
         ref_path = ref_paths[clip["file"]]
 
         print(f"  [{i}/{len(to_generate)}] {clip['file']}")

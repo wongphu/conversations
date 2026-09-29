@@ -46,6 +46,9 @@ Apply these three transformations to the raw table:
      textbook mislabel must be fixed (flag it). A label is one word, optionally
      followed by a number (`Customer 2:`).
    - Stray OCR garbage (page numbers, running headers, stray characters).
+   - Text the textbook sets in italics can be marked `*like this*`; the page
+     shows it as italics and the audio ignores the asterisks. OCR can't see
+     italics, so check the page image.
 
 ## Guardrails (important)
 

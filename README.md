@@ -29,7 +29,7 @@ Each conversation page is a self-contained HTML file with:
 │
 ├── docs/
 │   ├── index.html           # Landing page (hand-maintained, one link per conversation)
-│   ├── NN.html              # Conversation page (interactive), e.g. 5, 7, 36, 41, 42
+│   ├── NN.html              # Conversation page (interactive), e.g. 5, 7, 10, 29, 36, 41, 42
 │   └── NN/
 │       ├── clips.json       # Audio clip manifest
 │       └── audio/
@@ -46,7 +46,6 @@ Each conversation page is a self-contained HTML file with:
 ├── inputs/                  # Source images (textbook pages): NN.jpeg
 ├── ocrs/                    # Raw OCR output (extract_text.py): NN.md
 ├── texts/                   # Refined markdown (after the refine step): NN.md
-│                            #   (36 predates the pipeline: no ocrs/36.md or texts/36.md)
 ├── .pi/
 │   └── prompts/             # pi prompt templates (project slash-commands)
 │       ├── refine.md        # /refine N — OCR → refine, then check in
@@ -116,7 +115,8 @@ Uses Qwen3-TTS 1.7B with voice cloning to generate MP3 clips.
 - **Reference transcripts**: cloning also needs the text of each reference WAV. The script transcribes each one once per run with Whisper, the same way `generate_audio()` would on every call
 - **Voice cloning via reference WAVs**: each speaker has a short reference recording. The model clones that voice for all their lines. References live in `voices/` shared across conversations
 - **MP3 output via ffmpeg**: `mlx-audio` outputs WAV; ffmpeg converts to MP3 (libmp3lame, quality 2) for smaller file sizes
-- **Pronunciation overrides**: `voices/pronunciations.json` maps words to phonetic respellings per language (e.g. "Tizingal" → "Tee-seen-gahl"). They are applied to the text sent to the TTS only; the page shows the original spelling
+- **Pronunciation overrides**: `voices/pronunciations.json` maps words to phonetic respellings per language (e.g. "Tizingal" → "Tee-seen-gahl"). They are applied to the text sent to the TTS only; the page shows the original spelling (page 36 shows the textbook's "Volcan" but says "Volcán")
+- **Italics**: `*...*` in `texts/NN.md` becomes `<em>` on the page and is removed from the TTS input
 - **Skip existing files**: by default, clips that already exist are skipped. Use `--force` to regenerate. MP3s are encoded to a `.part` file and renamed, so an interrupted run never leaves a truncated clip that would be skipped
 
 ### `generate_html.py` — clips.json to HTML
@@ -150,7 +150,7 @@ Each `docs/NN.html` is a self-contained interactive page.
 docs/{conv}/audio/{lang}/{row}-{speaker}.mp3
 ```
 
-- `conv` — conversation number (5, 7, 36, 41, 42)
+- `conv` — conversation number (5, 7, 10, 29, 36, 41, 42)
 - `lang` — `en` or `es`
 - `row` — zero-padded row index (00, 01, 02…)
 - `speaker` — `a`, `b`, `c`… (one letter per speaker, in order of first appearance)

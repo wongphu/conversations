@@ -20,6 +20,7 @@ Writes:
 import argparse
 import html
 import json
+import re
 import sys
 from pathlib import Path
 from collections import defaultdict
@@ -27,6 +28,8 @@ from collections import defaultdict
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = PROJECT_ROOT / "docs"
 TEXTS_DIR = PROJECT_ROOT / "texts"
+
+ITALIC_RE = re.compile(r"\*(.+?)\*")
 
 TEMPLATE_HEAD = '''<!DOCTYPE html>
 <html lang="en">
@@ -432,6 +435,11 @@ def read_title(conv_num: int) -> str:
     return f"Conversation {conv_num}"
 
 
+def render_text(text: str) -> str:
+    """Escape a line for HTML, turning markdown *italics* into <em>."""
+    return ITALIC_RE.sub(r"<em>\1</em>", html.escape(text, quote=False))
+
+
 def generate_html(conv_num: int) -> str:
     """Generate HTML content for a conversation."""
     clips_path = DOCS_DIR / str(conv_num) / "clips.json"
@@ -471,11 +479,11 @@ def generate_html(conv_num: int) -> str:
             en_file=html.escape(en["file"]),
             en_voice=en_voice,
             en_speaker=en_speaker,
-            en_text=html.escape(en["text"], quote=False),
+            en_text=render_text(en["text"]),
             es_file=html.escape(es["file"]),
             es_voice=es_voice,
             es_speaker=es_speaker,
-            es_text=html.escape(es["text"], quote=False),
+            es_text=render_text(es["text"]),
         )
 
     page += TEMPLATE_SCRIPT

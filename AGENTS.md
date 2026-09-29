@@ -95,10 +95,13 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   Note the index joins the two titles with a slash (`English / Spanish`), whereas each
   page's H1 (taken by `generate_html.py` from the `# ...` line of `texts/NN.md`) uses an
   em dash.
-- **Conversation 36 predates the pipeline:** it has no `ocrs/36.md` or `texts/36.md`, and
-  its `docs/36.html` rows were hand-edited (italics, "Volcan"). Don't run
-  `generate_html.py 36`: it would drop those edits and fall back to a generic title.
-  Edit `docs/36.html` in place instead.
+- **`*italics*` in `texts/NN.md` are display-only:** `generate_html.py` renders them as
+  `<em>`, and `generate_audio.py` drops the `*` before TTS. Page 36 uses them to mirror
+  the textbook's italics.
+- **Conversation 36 predates the pipeline**, so its `texts/36.md` was written to match its
+  already-voiced page, not refined from `ocrs/36.md`. Its row 09 audio was voiced from
+  "best part, it is free!" while the text now says "part-", so if you re-voice it, the
+  new clip will read the dash.
 - **Pages must be served over http** (e.g. `python3 -m http.server -d docs`). They load
   audio with `fetch()`, which browsers block on `file://`. A failed load turns that
   line's play button red.
@@ -112,7 +115,7 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   `navigator.audioSession.type = "playback"` (iOS 16.4+), and on older iOS loops a
   silent `<audio>` element while a clip plays. The script is identical in every
   `docs/NN.html`: after changing it, splice the new `<script type="module">` block
-  into each page (including 36) rather than regenerating them.
+  into each page rather than regenerating them.
 
 ## Voices
 `voices/voices.json` defines 3 speakers in both languages — `en_a`/`es_a` (woman, 40s),
