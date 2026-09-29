@@ -6,7 +6,7 @@ the non-obvious gotchas. Prefer this for *how to act*; consult README for *why*.
 
 ## What this is
 Bilingual (English/Spanish) textbook conversation pages, each rendered as a
-self-contained HTML page with voice-cloned TTS audio, built from textbook page
+static HTML page with voice-cloned TTS audio, built from textbook page
 images.
 
 ## The pipeline
@@ -29,8 +29,8 @@ The venv is Python 3.14 and gitignored. Deps are pinned in `requirements.txt`
 (`.venv/bin/pip install -r requirements.txt`), plus system `ffmpeg` (`brew install ffmpeg`). Source page images go
 in `inputs/`.
 
-After a full run (through `generate_html.py`), one **manual** step remains: add the
-new page to `docs/index.html`. No script updates the index (see the Gotchas below).
+`generate_html.py NN` also rebuilds `docs/index.html`, so a full run needs no manual
+steps. `generate_html.py` with no number rebuilds just the index.
 
 ## The refine step is YOUR job (there is no script for it)
 `scripts/refine_ocr.md` documents an **agent step**, not a runnable program. When
@@ -87,14 +87,11 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
 - **`PROJECT_ROOT`** in `generate_audio.py` was once `Path(__file__).parent` (→ `scripts/`),
   which silently broke `docs/`/`voices/` lookups. It's now `Path(__file__).resolve().parent.parent`.
   If you refactor paths, keep it CWD-independent.
-- **`docs/index.html` is hand-maintained — no script writes it.** `generate_html.py`
-  only emits `docs/NN.html`; the landing-page listing is not touched, so a "finished"
-  conversation is silently missing from the index. After finishing a page, add its link
-  by hand, keeping the list in ascending conversation-number order:
-  `<li><a href="NN.html"><span class="num">NN</span> English title / Spanish title</a></li>`.
-  Note the index joins the two titles with a slash (`English / Spanish`), whereas each
-  page's H1 (taken by `generate_html.py` from the `# ...` line of `texts/NN.md`) uses an
-  em dash.
+- **`docs/index.html` is generated — don't edit it by hand.** Every `generate_html.py`
+  run rewrites it: one link per `docs/NN.html`, in number order, labelled from the
+  `# NN. English — Spanish` line of `texts/NN.md` with the em dash shown as a slash.
+  To change the index's look, edit `INDEX_HEAD`/`INDEX_ROW`/`INDEX_TAIL` in
+  `generate_html.py`. To drop a page from it, delete `docs/NN.html` and re-run.
 - **`*italics*` in `texts/NN.md` are display-only:** `generate_html.py` renders them as
   `<em>`, and `generate_audio.py` drops the `*` before TTS. Page 36 uses them to mirror
   the textbook's italics.
@@ -106,16 +103,18 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   audio with `fetch()`, which browsers block on `file://`. A failed load turns that
   line's play button red.
 - **The page player must keep working on old iOS Safari** (a user on an older iPhone
-  had buttons but no sound). Don't "modernise" these in `generate_html.py`'s script:
+  had buttons but no sound). Don't "modernise" these in `docs/player.js`:
   `window.AudioContext || window.webkitAudioContext` (unprefixed is iOS 14.5+), the
   callback form of `decodeAudioData`, `getChannelData(i).set()` instead of
   `copyToChannel`, creating/resuming the context inside the tap (iOS also has an
   `"interrupted"` state, so check `!== "running"`), and the lazy `import()` of the
   PSOLA stretcher. The ring/silent switch mutes Web Audio on iOS: the page sets
   `navigator.audioSession.type = "playback"` (iOS 16.4+), and on older iOS loops a
-  silent `<audio>` element while a clip plays. The script is identical in every
-  `docs/NN.html`: after changing it, splice the new `<script type="module">` block
-  into each page rather than regenerating them.
+  silent `<audio>` element while a clip plays.
+- **`docs/player.js` is the player's source, not a build output.** Every page loads it with
+  `<script type="module" src="player.js">`, so a player fix is one edit there — no
+  regenerating pages. It relies on the page's `#speed`/`#speedValue` controls and
+  `p[data-audio]` rows that `generate_html.py` emits, so keep the two in step.
 
 ## Voices
 `voices/voices.json` defines 3 speakers in both languages — `en_a`/`es_a` (woman, 40s),
@@ -138,5 +137,6 @@ each clip is then a few seconds of inference.
 docs/{conv}/audio/{lang}/{row}-{speaker}.mp3   # row zero-padded (00, 01…), speaker a|b|c…
 docs/{conv}/clips.json
 docs/{conv}.html
-docs/index.html                       # hand-maintained landing page; add one link per conversation
+docs/player.js                        # shared page player (hand-edited source)
+docs/index.html                       # landing page, rebuilt by generate_html.py
 ```
