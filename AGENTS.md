@@ -32,6 +32,19 @@ in `inputs/`.
 `generate_html.py NN` also rebuilds `docs/index.html`, so a full run needs no manual
 steps. `generate_html.py` with no number rebuilds just the index.
 
+Run the tests after changing `make_clips.py` or `generate_html.py` (stdlib `unittest`,
+no extra deps; well under a second):
+
+```bash
+.venv/bin/python -m unittest discover tests
+```
+
+Besides unit tests of the label/speaker/language rules, they check that every
+`texts/NN.md` still produces its committed `clips.json`, that every page and the index
+match what the generator produces, and that every `data-audio`/`src`/`href` in `docs/`
+resolves. So a change that alters committed output fails until you regenerate and commit
+it on purpose.
+
 ## The refine step is YOUR job (there is no script for it)
 `scripts/refine_ocr.md` documents an **agent step**, not a runnable program. When
 asked to run the pipeline (or anything up to refine) for a page, **you** perform it:
@@ -108,7 +121,10 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   callback form of `decodeAudioData`, `getChannelData(i).set()` instead of
   `copyToChannel`, creating/resuming the context inside the tap (iOS also has an
   `"interrupted"` state, so check `!== "running"`), and the lazy `import()` of the
-  PSOLA stretcher. The ring/silent switch mutes Web Audio on iOS: the page sets
+  PSOLA stretcher. That stretcher is vendored as an ES2015 bundle in `docs/vendor/`
+  because the package source uses `?.`/`??`. To upgrade it, re-download esm.sh's
+  `/es2015/…bundle.mjs` build; don't copy the npm source. The ring/silent switch
+  mutes Web Audio on iOS: the page sets
   `navigator.audioSession.type = "playback"` (iOS 16.4+), and on older iOS loops a
   silent `<audio>` element while a clip plays.
 - **`docs/player.js` is the player's source, not a build output.** Every page loads it with

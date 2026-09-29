@@ -81,11 +81,12 @@ function unlockAudio() {
   silence.start(0);
 }
 
-// Loaded only when the speed is changed, so a failed CDN load can't
-// take down playback at normal speed.
+// Loaded only when the speed is changed, so a failed load can't take down
+// playback at normal speed. The vendored copy is an ES2015 build, since the
+// package's own source uses syntax older iOS can't parse.
 function loadPsola() {
   if (!psolaPromise) {
-    psolaPromise = import("https://esm.sh/@audio/stretch-psola@1.2.1")
+    psolaPromise = import("./vendor/stretch-psola.js")
       .then((m) => m.default)
       .catch((err) => { psolaPromise = null; throw err; });
   }

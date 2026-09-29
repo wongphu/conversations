@@ -10,4 +10,4 @@ Run the full pipeline for conversation ${1}, following `AGENTS.md` and `scripts/
 4. **Audio:** `scripts/generate_audio.py ${1}` (slow; only pass `--force` if I ask).
 5. **HTML:** `scripts/generate_html.py ${1}` → `docs/${1}.html`, and rebuilds `docs/index.html` (check the new link is there).
 
-Verify at each step (row counts, one speaker letter per label in clips.json, audio files present and non-empty, every HTML `data-audio` reference resolves). Report the final state when done.
+Verify at each step (row counts, one speaker letter per label in clips.json, audio files present and non-empty, every HTML `data-audio` reference resolves), then run `.venv/bin/python -m unittest discover tests`. Report the final state when done.
