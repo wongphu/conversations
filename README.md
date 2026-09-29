@@ -2,6 +2,26 @@
 
 Interactive bilingual (English/Spanish) conversation pages with voice-cloned audio, built from textbook page images.
 
+## First-Time Setup
+
+Needs macOS on Apple Silicon (the TTS runs on MLX), Python 3.14 and ffmpeg:
+
+```bash
+brew install python@3.14 ffmpeg
+scripts/setup.sh          # creates .venv, installs requirements.txt, runs the tests
+```
+
+`setup.sh` is safe to re-run (e.g. after `requirements.txt` changes). The first audio
+run downloads the TTS and Whisper models from HuggingFace (several GB, cached in
+`~/.cache/huggingface`); the OCR models ship with `rapidocr`. To view the pages
+locally, serve `docs/` over http (not `file://`):
+
+```bash
+python3 -m http.server -d docs   # then open http://localhost:8000
+```
+
+Off Apple Silicon, everything but audio still works: `scripts/pipeline.py NN --skip-audio`.
+
 ## How It Works
 
 ```
@@ -45,6 +65,7 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 │   ├── generate_audio.py    # clips.json → MP3 files (TTS)
 │   ├── generate_html.py     # clips.json (+ title from texts/) → interactive HTML page
 │   ├── design_voice.py      # voices.json description → reference WAV (new speakers)
+│   ├── setup.sh             # First-time setup: .venv + requirements + tests
 │   ├── pipeline.py          # texts/NN.md → clips → audio → HTML → check, in one go
 │   └── check.py             # Report missing / stale / orphan files
 │
@@ -57,6 +78,7 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 │       ├── refine.md        # /refine N — OCR → refine, then check in
 │       └── pipeline.md      # /pipeline N — full run: OCR → refine → clips → audio → HTML → index
 ├── requirements.txt         # Pinned Python dependencies
+├── .python-version          # Python version for .venv (3.14)
 └── .venv/                   # Python virtual environment (gitignored)
 ```
 
@@ -195,12 +217,8 @@ docs/{conv}/audio/{lang}/{row}-{speaker}.mp3
 | `@audio/stretch-psola` | Browser-side time-stretching (vendored in `docs/vendor/`) |
 
 Python dependencies are pinned in `requirements.txt` (mlx-audio exactly, since a
-different TTS version can change how the voices sound). Install with:
-```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-brew install ffmpeg
-```
+different TTS version can change how the voices sound), and the Python version in
+`.python-version`. Install with `scripts/setup.sh` (see [First-Time Setup](#first-time-setup)).
 
 ## Voices
 

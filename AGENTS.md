@@ -32,9 +32,11 @@ Run every script from the **project root** with the project venv:
 .venv/bin/python scripts/<name>.py ...
 ```
 
-The venv is Python 3.14 and gitignored. Deps are pinned in `requirements.txt`
-(`.venv/bin/pip install -r requirements.txt`), plus system `ffmpeg` (`brew install ffmpeg`). Source page images go
-in `inputs/`.
+If `.venv` is missing (it's gitignored), run **`scripts/setup.sh`** first. It creates the
+venv with the Python in `.python-version` (3.14), installs the pinned `requirements.txt`,
+checks for `ffmpeg` and Apple Silicon, and runs the tests; it's safe to re-run. Don't
+bump `mlx-audio` in `requirements.txt` casually: a new TTS version can change the voices.
+Source page images go in `inputs/`.
 
 `generate_html.py NN` also rebuilds `docs/index.html`, so a full run needs no manual
 steps. `generate_html.py` with no number rebuilds just the index.
