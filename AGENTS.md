@@ -16,8 +16,15 @@ inputs/NN.jpeg
        └─(refine step, YOU)─→  texts/NN.md  # agent step: title + EN-left/ES-right + fixes
             └─(make_clips.py)─→  docs/NN/clips.json
                  ├─(generate_audio.py)─→  docs/NN/audio/{en,es}/*.mp3
-                 └─(generate_html.py)─→  docs/NN.html
+                 └─(generate_html.py)─→  docs/NN.html + docs/index.html
 ```
+
+After the refine step, **`scripts/pipeline.py NN`** runs everything below it —
+make_clips → generate_audio → generate_html → check — and is safe to re-run after
+editing `texts/NN.md` (see the `generate_audio.py` gotcha). **`scripts/check.py [NN]`**
+reports what's missing or stale: clips/page/index out of date with their sources,
+missing, empty or orphan MP3s, leftover `.part` files, missing voice WAVs, and
+pages not refined or built yet. It exits 1 on a problem.
 
 Run every script from the **project root** with the project venv:
 
@@ -32,8 +39,8 @@ in `inputs/`.
 `generate_html.py NN` also rebuilds `docs/index.html`, so a full run needs no manual
 steps. `generate_html.py` with no number rebuilds just the index.
 
-Run the tests after changing `make_clips.py` or `generate_html.py` (stdlib `unittest`,
-no extra deps; well under a second):
+Run the tests after changing any script (stdlib `unittest`, no extra deps; well under
+a second):
 
 ```bash
 .venv/bin/python -m unittest discover tests
@@ -86,7 +93,11 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   and `generate_audio.py` by file path, so en-first vs es-first never changes the page
   or the audio. Don't "fix" it for its own sake.
 - **`generate_audio.py` skips existing MP3s** unless `--force`. To re-voice only the
-  lines whose text changed, delete just those MP3s and run without `--force`. Do **not**
+  lines whose text changed, delete just those MP3s and run without `--force` —
+  `pipeline.py` does exactly this, comparing the old and new `clips.json` (ignoring
+  `*italics*`). It can't see a `pronunciations.json` change, so delete those MP3s by
+  hand. An existing MP3 is never compared with its text, so `check.py` can't flag a
+  stale one either. Do **not**
   `--force` a whole conversation to change a couple of lines: voice cloning varies
   run-to-run, so unchanged lines would get slightly different voices.
 - **Mispronounced names:** add a phonetic respelling to `voices/pronunciations.json`

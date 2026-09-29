@@ -43,7 +43,10 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 │   ├── refine_ocr.md        # AI step: ocrs/ → texts/ (agent task, not a script)
 │   ├── make_clips.py        # Markdown (texts/) → clips.json
 │   ├── generate_audio.py    # clips.json → MP3 files (TTS)
-│   └── generate_html.py     # clips.json (+ title from texts/) → interactive HTML page
+│   ├── generate_html.py     # clips.json (+ title from texts/) → interactive HTML page
+│   ├── design_voice.py      # voices.json description → reference WAV (new speakers)
+│   ├── pipeline.py          # texts/NN.md → clips → audio → HTML → check, in one go
+│   └── check.py             # Report missing / stale / orphan files
 │
 ├── inputs/                  # Source images (textbook pages): NN.jpeg
 ├── ocrs/                    # Raw OCR output (extract_text.py): NN.md
@@ -133,6 +136,29 @@ and a speed control). The page's title and H1 come from the `# ...` line of
 .venv/bin/python scripts/generate_html.py 41
 ```
 
+### `pipeline.py` — Everything after the refine step
+
+Runs `make_clips.py` → `generate_audio.py` → `generate_html.py` → `check.py` for one
+conversation. Before voicing, it deletes the MP3s of lines whose text changed since the
+last `clips.json`, so re-running after editing `texts/NN.md` re-voices just those lines
+and keeps the rest (re-voicing everything would drift the voices). It never passes
+`--force`. `--skip-audio` skips the TTS step (it needs Apple Silicon).
+
+```bash
+.venv/bin/python scripts/pipeline.py 41
+```
+
+### `check.py` — Find missing or stale files
+
+Reports problems (exit status 1): `clips.json`, pages or the index out of date with
+their sources; missing, empty or orphan MP3s; leftover `.part` files; voices without a
+reference WAV. And notes: pages not refined or built yet, unused voices.
+
+```bash
+.venv/bin/python scripts/check.py      # everything
+.venv/bin/python scripts/check.py 41   # one conversation (and the index)
+```
+
 ### HTML Pages — Playback
 
 Each `docs/NN.html` is a static interactive page; its behaviour lives in the shared `docs/player.js`.
@@ -216,18 +242,12 @@ Given a new textbook page image:
 #      - put English in the left column, Spanish in the right column
 #      - fix misspellings and inconsistencies
 
-# 3. Generate clips.json from the refined markdown
-.venv/bin/python scripts/make_clips.py texts/NN.md NN -o docs/NN/clips.json
-
-# 4. Generate audio
-.venv/bin/python scripts/generate_audio.py NN
-
-# 5. Generate the HTML page
-.venv/bin/python scripts/generate_html.py NN   # also rebuilds docs/index.html
-
-# 6. Check: committed clips/pages/index match the generators, links resolve
-.venv/bin/python -m unittest discover tests
+# 3. Clips → audio → HTML page + index → check, in one go
+.venv/bin/python scripts/pipeline.py NN
 ```
+
+`pipeline.py` just runs `make_clips.py`, `generate_audio.py`, `generate_html.py` and
+`check.py` in turn, so each step can still be run on its own.
 
 ## Prompt Templates (pi commands)
 
