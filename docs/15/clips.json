@@ -1,0 +1,146 @@
+[
+  {
+    "file": "15/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hi, my name is ____. What is your name?"
+  },
+  {
+    "file": "15/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, mi nombre es ____, ¿cómo te llamas?"
+  },
+  {
+    "file": "15/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I am ____. Pleased to meet you."
+  },
+  {
+    "file": "15/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me llamo ____. Con mucho gusto."
+  },
+  {
+    "file": "15/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Help! I think someone is hurt."
+  },
+  {
+    "file": "15/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡Ayuda! Creo que alguien está herido."
+  },
+  {
+    "file": "15/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "What happened?"
+  },
+  {
+    "file": "15/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Qué pasó?"
+  },
+  {
+    "file": "15/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "He fell off his bike and hit his head."
+  },
+  {
+    "file": "15/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Se cayó de su bicicleta y se golpeó la cabeza."
+  },
+  {
+    "file": "15/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Is he awake?"
+  },
+  {
+    "file": "15/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Está despierto?"
+  },
+  {
+    "file": "15/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, but he looks confused."
+  },
+  {
+    "file": "15/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, pero parece confundido."
+  },
+  {
+    "file": "15/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I will call an ambulance."
+  },
+  {
+    "file": "15/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Voy a llamar a una ambulancia."
+  },
+  {
+    "file": "15/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I will stay with him. Do you know his name?"
+  },
+  {
+    "file": "15/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me quedaré con él. ¿Sabe su nombre?"
+  },
+  {
+    "file": "15/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "No, I have never seen him before."
+  },
+  {
+    "file": "15/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No, nunca lo he visto antes."
+  },
+  {
+    "file": "15/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Okay. Let us keep him calm and wait for help."
+  },
+  {
+    "file": "15/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Está bien. Mantengámoslo tranquilo y esperemos ayuda."
+  },
+  {
+    "file": "15/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "The ambulance is on the way now."
+  },
+  {
+    "file": "15/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "La ambulancia ya viene en camino."
+  }
+]
