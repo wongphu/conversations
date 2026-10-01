@@ -1,0 +1,194 @@
+[
+  {
+    "file": "19/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hello, where is the best place to get the bus to David?"
+  },
+  {
+    "file": "19/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, ¿cuál es el mejor lugar para tomar el autobús a David?"
+  },
+  {
+    "file": "19/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "On Via Volcan in front of the Revilla Pharmacy across the street from Romero. That is the last stop before it leaves Volcan. You can also get it at the municipal building."
+  },
+  {
+    "file": "19/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "En Vía Volcán, frente a la Farmacia Revilla, frente a Romero. Es la última parada antes de salir de Volcán. También se puede conseguir en el municipio."
+  },
+  {
+    "file": "19/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Where do I buy tickets?"
+  },
+  {
+    "file": "19/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Dónde compro boletos?"
+  },
+  {
+    "file": "19/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You can pay on the bus."
+  },
+  {
+    "file": "19/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Puedes pagar en el autobús."
+  },
+  {
+    "file": "19/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you. How much is the bus ticket?"
+  },
+  {
+    "file": "19/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias. ¿Cuánto cuesta un boleto?"
+  },
+  {
+    "file": "19/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Three dollars. For retirees it is two dollars. It depends on the bus."
+  },
+  {
+    "file": "19/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Tres balboas. Para jubilados es dos dólares. Depende del autobús."
+  },
+  {
+    "file": "19/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "When is the next bus?"
+  },
+  {
+    "file": "19/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Cuándo sale el próximo bus?"
+  },
+  {
+    "file": "19/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "At two thirty p.m."
+  },
+  {
+    "file": "19/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "A las dos y media p.m."
+  },
+  {
+    "file": "19/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "How long is the trip?"
+  },
+  {
+    "file": "19/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Cuánto dura el viaje?"
+  },
+  {
+    "file": "19/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "About one and a half hours."
+  },
+  {
+    "file": "19/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Alrededor de una hora y media."
+  },
+  {
+    "file": "19/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Does the bus stop along the way?"
+  },
+  {
+    "file": "19/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿El bus hace paradas en el camino?"
+  },
+  {
+    "file": "19/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, it makes several stops."
+  },
+  {
+    "file": "19/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, hace varias paradas."
+  },
+  {
+    "file": "19/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can I bring a small bag?"
+  },
+  {
+    "file": "19/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Puedo llevar una bolsa pequeña?"
+  },
+  {
+    "file": "19/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, no problem."
+  },
+  {
+    "file": "19/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, no hay problema."
+  },
+  {
+    "file": "19/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you for the information."
+  },
+  {
+    "file": "19/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias por la información."
+  },
+  {
+    "file": "19/audio/en/15-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You are welcome."
+  },
+  {
+    "file": "19/audio/es/15-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Con mucho gusto."
+  }
+]
