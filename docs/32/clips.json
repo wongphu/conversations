@@ -1,0 +1,194 @@
+[
+  {
+    "file": "32/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good morning, Carlos! What are you doing here at the market?"
+  },
+  {
+    "file": "32/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡Buenos días, Carlos! ¿Qué haces aquí en el mercado?"
+  },
+  {
+    "file": "32/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Good morning, Ana! I am shopping for vegetables and fruit. I want to cook dinner for my family tonight."
+  },
+  {
+    "file": "32/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Buenos días, Ana! Estoy comprando verduras y frutas. Quiero cocinar la cena para mi familia esta noche."
+  },
+  {
+    "file": "32/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That sounds nice. What are you going to cook?"
+  },
+  {
+    "file": "32/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Qué bueno. ¿Qué vas a cocinar?"
+  },
+  {
+    "file": "32/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I am going to make chicken soup with vegetables and a fresh salad. My children love soup."
+  },
+  {
+    "file": "32/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Voy a hacer sopa de pollo con verduras y una ensalada fresca. A mis hijos les encanta la sopa."
+  },
+  {
+    "file": "32/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is a good choice. The vegetables look very fresh today."
+  },
+  {
+    "file": "32/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buena elección. Las verduras se ven bien frescas hoy."
+  },
+  {
+    "file": "32/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, they do. Look at these tomatoes. They are very red."
+  },
+  {
+    "file": "32/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, ¿verdad? Mira estos tomates. Están bien rojos."
+  },
+  {
+    "file": "32/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "And the lettuce looks fresh too. I will buy one head of lettuce."
+  },
+  {
+    "file": "32/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Y la lechuga también se ve fresca. Compraré una lechuga."
+  },
+  {
+    "file": "32/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I need carrots. How much are the carrots?"
+  },
+  {
+    "file": "32/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Yo necesito zanahorias. ¿A cómo están las zanahorias?"
+  },
+  {
+    "file": "32/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "The sign says two dollars per kilo."
+  },
+  {
+    "file": "32/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "El cartel dice dos balboas el kilo."
+  },
+  {
+    "file": "32/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Oh, I didn't see that, I will get two kilos."
+  },
+  {
+    "file": "32/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Ah, no lo vi, voy a comprar dos kilos."
+  },
+  {
+    "file": "32/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you also need potatoes?"
+  },
+  {
+    "file": "32/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿También necesitas papas?"
+  },
+  {
+    "file": "32/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, I need some potatoes for the soup. They make the soup thicker."
+  },
+  {
+    "file": "32/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, necesito papas para la sopa. Le dan más consistencia."
+  },
+  {
+    "file": "32/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is true. I also need onions. I use onions in almost every meal."
+  },
+  {
+    "file": "32/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Es verdad. Yo también necesito cebollas. Yo uso cebolla en casi todas las comidas."
+  },
+  {
+    "file": "32/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Me too! Onions give good flavor to food. I think I will take one kilo."
+  },
+  {
+    "file": "32/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Yo también! La cebolla le da buen sabor a la comida. Creo que me llevaré un kilo."
+  },
+  {
+    "file": "32/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It was nice to see you. Enjoy your cooking this evening."
+  },
+  {
+    "file": "32/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me alegró verte. Disfruta cocinando esta noche."
+  },
+  {
+    "file": "32/audio/en/15-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "It was nice to see you too. Say hello to your family for me."
+  },
+  {
+    "file": "32/audio/es/15-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me alegré de verte también. Saluda a tu familia de mi parte."
+  }
+]
