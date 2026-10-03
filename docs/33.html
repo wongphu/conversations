@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>33. A Friendly Chat — Una charla amistosa</title>
+  <style>
+    :root { color-scheme: light; }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: #111;
+      font-family: "Times New Roman", Times, "Liberation Serif", serif;
+    }
+
+    main {
+      box-sizing: border-box;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.35rem 2.75rem;
+    }
+
+    .back {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.85rem;
+      color: #2a45b0;
+      text-decoration: none;
+    }
+
+    .back:hover { text-decoration: underline; }
+
+    h1 {
+      margin: 0.6rem 0 1.1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 1.0625rem;
+      line-height: 1.32;
+    }
+
+    td {
+      width: 50%;
+      border: 1.5px solid #111;
+      padding: 0.55rem 0.7rem 0.62rem 0.55rem;
+      vertical-align: top;
+    }
+
+    td p {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      margin: 0;
+      padding: 0;
+      text-indent: 0;
+    }
+
+    td p .words {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding-left: 1.65em;
+      text-indent: -1.65em;
+    }
+
+    .speak {
+      flex: 0 0 auto;
+      width: 1.55rem;
+      height: 1.55rem;
+      margin-top: 0.06em;
+      padding: 0.14rem;
+      border: 1px solid #222;
+      border-radius: 4px;
+      background: #fff;
+      color: #111;
+      cursor: pointer;
+      line-height: 0;
+    }
+
+    .speak svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .speak:hover { background: #f3f3f3; }
+
+    .speak:focus-visible {
+      outline: 2px solid #1d3f8f;
+      outline-offset: 1px;
+    }
+
+    .speak.playing {
+      background: #1d3f8f;
+      border-color: #1d3f8f;
+      color: #fff;
+    }
+
+    td.playing { background: #f4f7ff; }
+
+    .speak.error {
+      border-color: #b00020;
+      color: #b00020;
+    }
+
+    em { font-style: italic; }
+
+    td[lang="en"] { color: #444; }
+    td[lang="es"] { color: #A0522D; }
+
+    .mark {
+      text-decoration: underline;
+      text-decoration-color: #2a45b0;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 0.12em;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.85rem;
+      color: #333;
+    }
+
+    .speed-control label {
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .speed-control input[type="range"] {
+      flex: 0 1 160px;
+      accent-color: #2a45b0;
+    }
+
+    .speed-control .speed-value {
+      min-width: 3.2em;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 700px) {
+      main { padding: 0.7rem 0.35rem 1.4rem; }
+      h1 { font-size: 1.2rem; }
+      table { font-size: 0.78rem; }
+      td { padding: 0.4rem 0.32rem 0.45rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; All conversations / Todas las conversaciones</a>
+    <h1>33. A Friendly Chat — Una charla amistosa</h1>
+    <div class="speed-control">
+      <label for="speed">Speed / Velocidad</label>
+      <input type="range" id="speed" min="50" max="150" value="100" step="5">
+      <span class="speed-value" id="speedValue">100%</span>
+    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/00-a.mp3" data-voice="English A">A. Good morning! How are you?</p></td>
+          <td lang="es"><p data-audio="33/audio/es/00-a.mp3" data-voice="Spanish A">A. ¡Buenos días! ¿Cómo está?</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/01-b.mp3" data-voice="English B">B. Fine, thank you. And you?</p></td>
+          <td lang="es"><p data-audio="33/audio/es/01-b.mp3" data-voice="Spanish B">B. Bien, gracias. ¿Y tú?</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/02-a.mp3" data-voice="English A">A. Good, thank you. Is your family well?</p></td>
+          <td lang="es"><p data-audio="33/audio/es/02-a.mp3" data-voice="Spanish A">A. Bien, gracias. ¿Su familia está bien?</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/03-b.mp3" data-voice="English B">B. Yes, everyone is well. The children are in school.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/03-b.mp3" data-voice="Spanish B">B. Sí, todos están bien. Los niños están en la escuela.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/04-a.mp3" data-voice="English A">A. That's good. Are you going to the market today?</p></td>
+          <td lang="es"><p data-audio="33/audio/es/04-a.mp3" data-voice="Spanish A">A. Qué bueno. ¿Vas al mercado hoy?</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/05-b.mp3" data-voice="English B">B. Yes, I need to buy some corn and rice. And you?</p></td>
+          <td lang="es"><p data-audio="33/audio/es/05-b.mp3" data-voice="Spanish B">B. Sí, necesito comprar maíz y arroz. ¿Y tú?</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/06-a.mp3" data-voice="English A">A. I need vegetables and soap. How is your garden?</p></td>
+          <td lang="es"><p data-audio="33/audio/es/06-a.mp3" data-voice="Spanish A">A. Necesito verduras y jabón. ¿Cómo está tu jardín?</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/07-b.mp3" data-voice="English B">B. It is okay, but I cannot wait for the rainy season.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/07-b.mp3" data-voice="Spanish B">B. Está bien, pero no puedo esperar a que llegue la temporada de lluvias.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/08-a.mp3" data-voice="English A">A. Yes, me too, I am tired of the strong wind.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/08-a.mp3" data-voice="Spanish A">A. Sí, yo también, estoy cansada del fuerte viento.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/09-b.mp3" data-voice="English B">B. Yes, it has really ripped up my plants.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/09-b.mp3" data-voice="Spanish B">B. Sí, realmente ha destrozado mis plantas.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/10-a.mp3" data-voice="English A">A. I know, the leaves on my banana trees are shredded.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/10-a.mp3" data-voice="Spanish A">A. Lo sé, las hojas de mis árboles de plátano están destrozadas.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/11-b.mp3" data-voice="English B">B. Mine too. But I am lucky to have some trees that are not affected and never need watering.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/11-b.mp3" data-voice="Spanish B">B. A mí también. Pero tengo suerte de tener algunos árboles que no se ven afectados y nunca necesitan riego.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/12-a.mp3" data-voice="English A">A. Oh, I would like to see them. Maybe I will plant some when the rains come.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/12-a.mp3" data-voice="Spanish A">A. Ay, me gustaría verlos. Quizás plante algunos cuando llueva.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/13-b.mp3" data-voice="English B">B. I would be happy to give you cuttings. They grow very fast.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/13-b.mp3" data-voice="Spanish B">B. Me encantaría darte esquejes. Crecen muy rápido.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/14-a.mp3" data-voice="English A">A. Thank you, that would be nice. Well, I need to get going. It was nice to see you.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/14-a.mp3" data-voice="Spanish A">A. Gracias, me encantaría. Bueno, tengo que irme. Me alegró verte.</p></td>
+        </tr>
+        <tr>
+          <td lang="en"><p data-audio="33/audio/en/15-b.mp3" data-voice="English B">B. It was nice to see you too, give my regards to your family.</p></td>
+          <td lang="es"><p data-audio="33/audio/es/15-b.mp3" data-voice="Spanish B">B. Fue agradable verte también, dale saludos a tu familia de mi parte.</p></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  <script type="module" src="player.js"></script>
+</body>
+</html>

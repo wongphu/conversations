@@ -1,0 +1,194 @@
+[
+  {
+    "file": "33/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good morning! How are you?"
+  },
+  {
+    "file": "33/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡Buenos días! ¿Cómo está?"
+  },
+  {
+    "file": "33/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Fine, thank you. And you?"
+  },
+  {
+    "file": "33/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Bien, gracias. ¿Y tú?"
+  },
+  {
+    "file": "33/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good, thank you. Is your family well?"
+  },
+  {
+    "file": "33/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Bien, gracias. ¿Su familia está bien?"
+  },
+  {
+    "file": "33/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, everyone is well. The children are in school."
+  },
+  {
+    "file": "33/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, todos están bien. Los niños están en la escuela."
+  },
+  {
+    "file": "33/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That's good. Are you going to the market today?"
+  },
+  {
+    "file": "33/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Qué bueno. ¿Vas al mercado hoy?"
+  },
+  {
+    "file": "33/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, I need to buy some corn and rice. And you?"
+  },
+  {
+    "file": "33/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, necesito comprar maíz y arroz. ¿Y tú?"
+  },
+  {
+    "file": "33/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I need vegetables and soap. How is your garden?"
+  },
+  {
+    "file": "33/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Necesito verduras y jabón. ¿Cómo está tu jardín?"
+  },
+  {
+    "file": "33/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "It is okay, but I cannot wait for the rainy season."
+  },
+  {
+    "file": "33/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Está bien, pero no puedo esperar a que llegue la temporada de lluvias."
+  },
+  {
+    "file": "33/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, me too, I am tired of the strong wind."
+  },
+  {
+    "file": "33/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, yo también, estoy cansada del fuerte viento."
+  },
+  {
+    "file": "33/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, it has really ripped up my plants."
+  },
+  {
+    "file": "33/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, realmente ha destrozado mis plantas."
+  },
+  {
+    "file": "33/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I know, the leaves on my banana trees are shredded."
+  },
+  {
+    "file": "33/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Lo sé, las hojas de mis árboles de plátano están destrozadas."
+  },
+  {
+    "file": "33/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Mine too. But I am lucky to have some trees that are not affected and never need watering."
+  },
+  {
+    "file": "33/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "A mí también. Pero tengo suerte de tener algunos árboles que no se ven afectados y nunca necesitan riego."
+  },
+  {
+    "file": "33/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Oh, I would like to see them. Maybe I will plant some when the rains come."
+  },
+  {
+    "file": "33/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Ay, me gustaría verlos. Quizás plante algunos cuando llueva."
+  },
+  {
+    "file": "33/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I would be happy to give you cuttings. They grow very fast."
+  },
+  {
+    "file": "33/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me encantaría darte esquejes. Crecen muy rápido."
+  },
+  {
+    "file": "33/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you, that would be nice. Well, I need to get going. It was nice to see you."
+  },
+  {
+    "file": "33/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias, me encantaría. Bueno, tengo que irme. Me alegró verte."
+  },
+  {
+    "file": "33/audio/en/15-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "It was nice to see you too, give my regards to your family."
+  },
+  {
+    "file": "33/audio/es/15-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Fue agradable verte también, dale saludos a tu familia de mi parte."
+  }
+]
