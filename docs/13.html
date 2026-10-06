@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>13. Shopping — Compras</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fbf8f2;
+      --fg: #1d1b18;
+      --muted: #857e72;
+      --es: #9b4d24;
+      --rule: #e6dfd2;
+      --hl: #f3ead8;
+      --accent: #7a3e1d;
+      --error: #b00020;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171513;
+        --fg: #ece6dc;
+        --muted: #8f877b;
+        --es: #e0a47e;
+        --rule: #2e2a25;
+        --hl: #2a241d;
+        --accent: #e0a47e;
+        --error: #ff6b6b;
+      }
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 19px/1.5 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    main {
+      box-sizing: border-box;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.4rem 1.5rem 4rem;
+    }
+
+    .back {
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .back:hover { color: var(--fg); text-decoration: underline; }
+
+    header {
+      text-align: center;
+      margin: 0.8rem 0 0.6rem;
+    }
+
+    .num {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
+
+    h1 {
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0.3rem 0 0;
+    }
+
+    .subtitle {
+      margin: 0.2rem 0 0;
+      color: var(--es);
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    .toolbar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 0.3rem 0;
+      background: var(--bg);
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+    }
+
+    .toolbar > * { margin: 0.3rem 0.7rem; }
+
+    .seg {
+      display: inline-flex;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .seg button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .seg button[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+    }
+
+    .speed-control input[type="range"] {
+      width: 130px;
+      margin: 0 0.6rem;
+      accent-color: var(--accent);
+    }
+
+    .speed-control .speed-value {
+      min-width: 3.2em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hint {
+      min-height: 1.4em;
+      margin: 0 0 0.6rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .turn {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1fr;
+      grid-column-gap: 1.5rem;
+    }
+
+    .turn > * {
+      min-width: 0;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .turn.head > * {
+      padding: 0 0 0.4rem;
+      border-bottom-color: var(--fg);
+      font: 600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .who {
+      padding-top: 1.05rem;
+      font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .turn.b .who { color: var(--accent); }
+
+    .line p {
+      display: flex;
+      align-items: flex-start;
+      margin: 0;
+    }
+
+    .line p .words {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .line.es { color: var(--es); }
+
+    .line.playing .words { background: var(--hl); }
+
+    em { font-style: italic; }
+
+    .speak {
+      flex: 0 0 auto;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0.15rem 0.5rem 0 0;
+      padding: 0.25rem;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 0;
+    }
+
+    .speak svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .speak:hover { color: var(--fg); }
+
+    .speak:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .speak.playing {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .speak.error {
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    body.hide-en .line.en:not(.shown) .words,
+    body.hide-es .line.es:not(.shown) .words {
+      -webkit-filter: blur(6px);
+      filter: blur(6px);
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    @media (max-width: 640px) {
+      body { font-size: 17px; }
+      main { padding: 0.9rem 1rem 3rem; }
+      h1 { font-size: 1.6rem; }
+      .turn { display: block; }
+      .turn.head { display: none; }
+      .turn > * { padding: 0.2rem 0; border: 0; }
+      .who { margin-top: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--rule); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; All conversations / Todas las conversaciones</a>
+    <header>
+      <div class="num">CONVERSATION 13</div>
+      <h1>Shopping</h1>
+      <p class="subtitle" lang="es">Compras</p>
+    </header>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Show">
+        <button type="button" data-mode="" aria-pressed="true">Both</button>
+        <button type="button" data-mode="hide-es" aria-pressed="false">Hide Spanish</button>
+        <button type="button" data-mode="hide-en" aria-pressed="false">Hide English</button>
+      </div>
+      <div class="speed-control">
+        <label for="speed">Speed / Velocidad</label>
+        <input type="range" id="speed" min="50" max="150" value="100" step="5">
+        <span class="speed-value" id="speedValue">100%</span>
+      </div>
+    </div>
+    <p class="hint" id="hint"></p>
+    <div class="turns">
+      <div class="turn head" aria-hidden="true"><div></div><div>ENGLISH</div><div>ESPAÑOL</div></div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/00-a.mp3" data-voice="English A">Hello, my name is ____.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/00-a.mp3" data-voice="Spanish A">Hola, mi nombre es ____.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/01-b.mp3" data-voice="English B">It is nice to meet you.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/01-b.mp3" data-voice="Spanish B">Mucho gusto.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/02-a.mp3" data-voice="English A">Good morning. Do you have tomatoes today?</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/02-a.mp3" data-voice="Spanish A">Buenos días. ¿Tiene tomates hoy?</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/03-b.mp3" data-voice="English B">Yes, fresh ones just arrived.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/03-b.mp3" data-voice="Spanish B">Sí, acaban de llegar frescos.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/04-a.mp3" data-voice="English A">Great. How much are they per pound?</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/04-a.mp3" data-voice="Spanish A">Qué bien. ¿Cuánto cuestan por libra?</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/05-b.mp3" data-voice="English B">One dollar fifty per pound.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/05-b.mp3" data-voice="Spanish B">Un dólar cincuenta por libra.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/06-a.mp3" data-voice="English A">I will take two pounds, please.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/06-a.mp3" data-voice="Spanish A">Quiero dos libras, por favor.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/07-b.mp3" data-voice="English B">Anything else?</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/07-b.mp3" data-voice="Spanish B">¿Algo más?</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/08-a.mp3" data-voice="English A">Yes, do you have eggs?</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/08-a.mp3" data-voice="Spanish A">Sí, ¿tiene huevos?</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/09-b.mp3" data-voice="English B">Yes, they are in the refrigerator at the back.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/09-b.mp3" data-voice="Spanish B">Sí, están en el refrigerador al fondo.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/10-a.mp3" data-voice="English A">And I need some rice.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/10-a.mp3" data-voice="Spanish A">Y necesito arroz.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/11-b.mp3" data-voice="English B">Rice is on aisle three, next to the beans.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/11-b.mp3" data-voice="Spanish B">El arroz está en el pasillo tres, al lado de los frijoles.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/12-a.mp3" data-voice="English A">Thank you. Oh—do you sell reusable bags?</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/12-a.mp3" data-voice="Spanish A">Gracias. Ah—¿vende bolsas reutilizables?</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/13-b.mp3" data-voice="English B">Yes, they are near the register.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/13-b.mp3" data-voice="Spanish B">Sí, están cerca de la caja.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/14-a.mp3" data-voice="English A">Perfect. I will take one.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/14-a.mp3" data-voice="Spanish A">Perfecto. Quiero una.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/15-b.mp3" data-voice="English B">That will be nine dollars total.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/15-b.mp3" data-voice="Spanish B">Todo es nueve dólares.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/16-a.mp3" data-voice="English A">Here you go. Thank you.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/16-a.mp3" data-voice="Spanish A">Aquí tiene. Gracias.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="13/audio/en/17-b.mp3" data-voice="English B">Thank you. Have a nice day.</p></div>
+        <div class="line es" lang="es"><p data-audio="13/audio/es/17-b.mp3" data-voice="Spanish B">Gracias. Que tenga buen día.</p></div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="player.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+[
+  {
+    "file": "13/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hello, my name is ____."
+  },
+  {
+    "file": "13/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, mi nombre es ____."
+  },
+  {
+    "file": "13/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "It is nice to meet you."
+  },
+  {
+    "file": "13/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Mucho gusto."
+  },
+  {
+    "file": "13/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good morning. Do you have tomatoes today?"
+  },
+  {
+    "file": "13/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buenos días. ¿Tiene tomates hoy?"
+  },
+  {
+    "file": "13/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, fresh ones just arrived."
+  },
+  {
+    "file": "13/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, acaban de llegar frescos."
+  },
+  {
+    "file": "13/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Great. How much are they per pound?"
+  },
+  {
+    "file": "13/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Qué bien. ¿Cuánto cuestan por libra?"
+  },
+  {
+    "file": "13/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "One dollar fifty per pound."
+  },
+  {
+    "file": "13/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Un dólar cincuenta por libra."
+  },
+  {
+    "file": "13/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I will take two pounds, please."
+  },
+  {
+    "file": "13/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Quiero dos libras, por favor."
+  },
+  {
+    "file": "13/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Anything else?"
+  },
+  {
+    "file": "13/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Algo más?"
+  },
+  {
+    "file": "13/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, do you have eggs?"
+  },
+  {
+    "file": "13/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, ¿tiene huevos?"
+  },
+  {
+    "file": "13/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, they are in the refrigerator at the back."
+  },
+  {
+    "file": "13/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, están en el refrigerador al fondo."
+  },
+  {
+    "file": "13/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "And I need some rice."
+  },
+  {
+    "file": "13/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Y necesito arroz."
+  },
+  {
+    "file": "13/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Rice is on aisle three, next to the beans."
+  },
+  {
+    "file": "13/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "El arroz está en el pasillo tres, al lado de los frijoles."
+  },
+  {
+    "file": "13/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you. Oh—do you sell reusable bags?"
+  },
+  {
+    "file": "13/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias. Ah—¿vende bolsas reutilizables?"
+  },
+  {
+    "file": "13/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, they are near the register."
+  },
+  {
+    "file": "13/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, están cerca de la caja."
+  },
+  {
+    "file": "13/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Perfect. I will take one."
+  },
+  {
+    "file": "13/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Perfecto. Quiero una."
+  },
+  {
+    "file": "13/audio/en/15-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "That will be nine dollars total."
+  },
+  {
+    "file": "13/audio/es/15-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Todo es nueve dólares."
+  },
+  {
+    "file": "13/audio/en/16-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Here you go. Thank you."
+  },
+  {
+    "file": "13/audio/es/16-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Aquí tiene. Gracias."
+  },
+  {
+    "file": "13/audio/en/17-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you. Have a nice day."
+  },
+  {
+    "file": "13/audio/es/17-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Gracias. Que tenga buen día."
+  }
+]
