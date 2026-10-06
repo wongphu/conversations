@@ -96,17 +96,26 @@ function loadPsola() {
   return psolaPromise;
 }
 
-async function getDecoded(url) {
-  if (bufferCache.has(url)) return bufferCache.get(url);
+async function fetchDecoded(url) {
   const resp = await fetch(url);
   if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText}`);
   const arrBuf = await resp.arrayBuffer();
   // Older Safari only supports the callback form of decodeAudioData.
-  const audioBuf = await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     ctx.decodeAudioData(arrBuf, resolve, reject);
   });
-  bufferCache.set(url, audioBuf);
-  return audioBuf;
+}
+
+// Caches the promise, not the buffer, so a prefetch and the play that
+// follows it share one download.
+function getDecoded(url) {
+  if (!bufferCache.has(url)) {
+    bufferCache.set(url, fetchDecoded(url).catch((err) => {
+      bufferCache.delete(url);  // let a later play retry it
+      throw err;
+    }));
+  }
+  return bufferCache.get(url);
 }
 
 function stretch(psola, audioBuf, factor) {
@@ -306,6 +315,16 @@ function stopPlayAll() {
   if (silentTag && !currentButton) silentTag.pause();
 }
 
+// The languages "Play all" reads in a row: both, or the one not hidden.
+function rowLangs() {
+  const mode = document.body.className;
+  return mode === "hide-es" ? ["en"] : mode === "hide-en" ? ["es"] : ["en", "es"];
+}
+
+function clipIn(turn, lang) {
+  return turn.querySelector(".line." + lang + " p[data-audio]");
+}
+
 async function playAll() {
   const run = ++playAllRun;
   setPlayAll(true);
@@ -313,15 +332,20 @@ async function playAll() {
   let first = true;
   for (let t = 0; t < turns.length; t++) {
     // Read the toggle per row, so switching it mid-run takes effect.
-    const mode = document.body.className;
-    const langs = mode === "hide-es" ? ["en"] : mode === "hide-en" ? ["es"] : ["en", "es"];
+    const langs = rowLangs();
     for (let i = 0; i < langs.length; i++) {
       if (!first) await pause(i === 0 ? PAUSE_BETWEEN_ROWS : PAUSE_BETWEEN_LANGUAGES);
       if (run !== playAllRun) return;
       first = false;
-      const paragraph = turns[t].querySelector(".line." + langs[i] + " p[data-audio]");
+      const paragraph = clipIn(turns[t], langs[i]);
       if (i === 0) scrollToTurn(turns[t]);
-      const ok = await playClip(paragraph.dataset.audio, paragraph.querySelector(".speak"));
+      const played = playClip(paragraph.dataset.audio, paragraph.querySelector(".speak"));
+      // Fetch the next line while this one plays, so a slow download
+      // doesn't stretch the pause before it.
+      const next = i + 1 < langs.length ? clipIn(turns[t], langs[i + 1])
+        : t + 1 < turns.length ? clipIn(turns[t + 1], rowLangs()[0]) : null;
+      if (next) getDecoded(next.dataset.audio).catch(() => {});
+      const ok = await played;
       // Stopped, failed, or the user tapped a line: end the run.
       if (!ok || run !== playAllRun) {
         if (run === playAllRun) stopPlayAll();
