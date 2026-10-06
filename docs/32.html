@@ -5,79 +5,198 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>32. At the Market — En el mercado</title>
   <style>
-    :root { color-scheme: light; }
+    :root {
+      color-scheme: light dark;
+      --bg: #fbf8f2;
+      --fg: #1d1b18;
+      --muted: #857e72;
+      --es: #9b4d24;
+      --rule: #e6dfd2;
+      --hl: #f3ead8;
+      --accent: #7a3e1d;
+      --error: #b00020;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171513;
+        --fg: #ece6dc;
+        --muted: #8f877b;
+        --es: #e0a47e;
+        --rule: #2e2a25;
+        --hl: #2a241d;
+        --accent: #e0a47e;
+        --error: #ff6b6b;
+      }
+    }
 
     body {
       margin: 0;
-      background: #fff;
-      color: #111;
-      font-family: "Times New Roman", Times, "Liberation Serif", serif;
+      background: var(--bg);
+      color: var(--fg);
+      font: 19px/1.5 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
     }
 
     main {
       box-sizing: border-box;
-      max-width: 960px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 2rem 1.35rem 2.75rem;
+      padding: 1.4rem 1.5rem 4rem;
     }
 
     .back {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.85rem;
-      color: #2a45b0;
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
       text-decoration: none;
     }
 
-    .back:hover { text-decoration: underline; }
+    .back:hover { color: var(--fg); text-decoration: underline; }
+
+    header {
+      text-align: center;
+      margin: 0.8rem 0 0.6rem;
+    }
+
+    .num {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
 
     h1 {
-      margin: 0.6rem 0 1.1rem;
-      font-size: 1.5rem;
-      font-weight: 600;
-      line-height: 1.25;
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0.3rem 0 0;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-      font-size: 1.0625rem;
-      line-height: 1.32;
+    .subtitle {
+      margin: 0.2rem 0 0;
+      color: var(--es);
+      font-style: italic;
+      font-size: 1.2rem;
     }
 
-    td {
-      width: 50%;
-      border: 1.5px solid #111;
-      padding: 0.55rem 0.7rem 0.62rem 0.55rem;
-      vertical-align: top;
+    .toolbar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 0.3rem 0;
+      background: var(--bg);
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
     }
 
-    td p {
+    .toolbar > * { margin: 0.3rem 0.7rem; }
+
+    .seg {
+      display: inline-flex;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .seg button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .seg button[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+    }
+
+    .speed-control input[type="range"] {
+      width: 130px;
+      margin: 0 0.6rem;
+      accent-color: var(--accent);
+    }
+
+    .speed-control .speed-value {
+      min-width: 3.2em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hint {
+      min-height: 1.4em;
+      margin: 0 0 0.6rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .turn {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1fr;
+      grid-column-gap: 1.5rem;
+    }
+
+    .turn > * {
+      min-width: 0;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .turn.head > * {
+      padding: 0 0 0.4rem;
+      border-bottom-color: var(--fg);
+      font: 600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .who {
+      padding-top: 1.05rem;
+      font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .turn.b .who { color: var(--accent); }
+
+    .line p {
       display: flex;
       align-items: flex-start;
-      gap: 0.4rem;
       margin: 0;
-      padding: 0;
-      text-indent: 0;
     }
 
-    td p .words {
+    .line p .words {
       flex: 1 1 auto;
       min-width: 0;
-      padding-left: 1.65em;
-      text-indent: -1.65em;
     }
+
+    .line.es { color: var(--es); }
+
+    .line.playing .words { background: var(--hl); }
+
+    em { font-style: italic; }
 
     .speak {
       flex: 0 0 auto;
-      width: 1.55rem;
-      height: 1.55rem;
-      margin-top: 0.06em;
-      padding: 0.14rem;
-      border: 1px solid #222;
-      border-radius: 4px;
-      background: #fff;
-      color: #111;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0.15rem 0.5rem 0 0;
+      padding: 0.25rem;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--muted);
       cursor: pointer;
       line-height: 0;
     }
@@ -88,149 +207,148 @@
       height: 100%;
     }
 
-    .speak:hover { background: #f3f3f3; }
+    .speak:hover { color: var(--fg); }
 
     .speak:focus-visible {
-      outline: 2px solid #1d3f8f;
+      outline: 2px solid var(--accent);
       outline-offset: 1px;
     }
 
     .speak.playing {
-      background: #1d3f8f;
-      border-color: #1d3f8f;
-      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
     }
-
-    td.playing { background: #f4f7ff; }
 
     .speak.error {
-      border-color: #b00020;
-      color: #b00020;
+      border-color: var(--error);
+      color: var(--error);
     }
 
-    em { font-style: italic; }
-
-    td[lang="en"] { color: #444; }
-    td[lang="es"] { color: #A0522D; }
-
-    .mark {
-      text-decoration: underline;
-      text-decoration-color: #2a45b0;
-      text-decoration-thickness: 1.5px;
-      text-underline-offset: 0.12em;
+    body.hide-en .line.en:not(.shown) .words,
+    body.hide-es .line.es:not(.shown) .words {
+      -webkit-filter: blur(6px);
+      filter: blur(6px);
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
-    .speed-control {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 1rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.85rem;
-      color: #333;
-    }
-
-    .speed-control label {
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .speed-control input[type="range"] {
-      flex: 0 1 160px;
-      accent-color: #2a45b0;
-    }
-
-    .speed-control .speed-value {
-      min-width: 3.2em;
-      text-align: right;
-      font-variant-numeric: tabular-nums;
-    }
-
-    @media (max-width: 700px) {
-      main { padding: 0.7rem 0.35rem 1.4rem; }
-      h1 { font-size: 1.2rem; }
-      table { font-size: 0.78rem; }
-      td { padding: 0.4rem 0.32rem 0.45rem; }
+    @media (max-width: 640px) {
+      body { font-size: 17px; }
+      main { padding: 0.9rem 1rem 3rem; }
+      h1 { font-size: 1.6rem; }
+      .turn { display: block; }
+      .turn.head { display: none; }
+      .turn > * { padding: 0.2rem 0; border: 0; }
+      .who { margin-top: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--rule); }
     }
   </style>
 </head>
 <body>
   <main>
     <a class="back" href="index.html">&larr; All conversations / Todas las conversaciones</a>
-    <h1>32. At the Market — En el mercado</h1>
-    <div class="speed-control">
-      <label for="speed">Speed / Velocidad</label>
-      <input type="range" id="speed" min="50" max="150" value="100" step="5">
-      <span class="speed-value" id="speedValue">100%</span>
+    <header>
+      <div class="num">CONVERSATION 32</div>
+      <h1>At the Market</h1>
+      <p class="subtitle" lang="es">En el mercado</p>
+    </header>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Show">
+        <button type="button" data-mode="" aria-pressed="true">Both</button>
+        <button type="button" data-mode="hide-es" aria-pressed="false">Hide Spanish</button>
+        <button type="button" data-mode="hide-en" aria-pressed="false">Hide English</button>
+      </div>
+      <div class="speed-control">
+        <label for="speed">Speed / Velocidad</label>
+        <input type="range" id="speed" min="50" max="150" value="100" step="5">
+        <span class="speed-value" id="speedValue">100%</span>
+      </div>
     </div>
-    <table>
-      <tbody>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/00-a.mp3" data-voice="English A">A. Good morning, Carlos! What are you doing here at the market?</p></td>
-          <td lang="es"><p data-audio="32/audio/es/00-a.mp3" data-voice="Spanish A">A. ¡Buenos días, Carlos! ¿Qué haces aquí en el mercado?</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/01-b.mp3" data-voice="English B">B. Good morning, Ana! I am shopping for vegetables and fruit. I want to cook dinner for my family tonight.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/01-b.mp3" data-voice="Spanish B">B. ¡Buenos días, Ana! Estoy comprando verduras y frutas. Quiero cocinar la cena para mi familia esta noche.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/02-a.mp3" data-voice="English A">A. That sounds nice. What are you going to cook?</p></td>
-          <td lang="es"><p data-audio="32/audio/es/02-a.mp3" data-voice="Spanish A">A. Qué bueno. ¿Qué vas a cocinar?</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/03-b.mp3" data-voice="English B">B. I am going to make chicken soup with vegetables and a fresh salad. My children love soup.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/03-b.mp3" data-voice="Spanish B">B. Voy a hacer sopa de pollo con verduras y una ensalada fresca. A mis hijos les encanta la sopa.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/04-a.mp3" data-voice="English A">A. That is a good choice. The vegetables look very fresh today.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/04-a.mp3" data-voice="Spanish A">A. Buena elección. Las verduras se ven bien frescas hoy.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/05-b.mp3" data-voice="English B">B. Yes, they do. Look at these tomatoes. They are very red.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/05-b.mp3" data-voice="Spanish B">B. Sí, ¿verdad? Mira estos tomates. Están bien rojos.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/06-a.mp3" data-voice="English A">A. And the lettuce looks fresh too. I will buy one head of lettuce.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/06-a.mp3" data-voice="Spanish A">A. Y la lechuga también se ve fresca. Compraré una lechuga.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/07-b.mp3" data-voice="English B">B. I need carrots. How much are the carrots?</p></td>
-          <td lang="es"><p data-audio="32/audio/es/07-b.mp3" data-voice="Spanish B">B. Yo necesito zanahorias. ¿A cómo están las zanahorias?</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/08-a.mp3" data-voice="English A">A. The sign says two dollars per kilo.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/08-a.mp3" data-voice="Spanish A">A. El cartel dice dos balboas el kilo.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/09-b.mp3" data-voice="English B">B. Oh, I didn't see that, I will get two kilos.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/09-b.mp3" data-voice="Spanish B">B. Ah, no lo vi, voy a comprar dos kilos.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/10-a.mp3" data-voice="English A">A. Do you also need potatoes?</p></td>
-          <td lang="es"><p data-audio="32/audio/es/10-a.mp3" data-voice="Spanish A">A. ¿También necesitas papas?</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/11-b.mp3" data-voice="English B">B. Yes, I need some potatoes for the soup. They make the soup thicker.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/11-b.mp3" data-voice="Spanish B">B. Sí, necesito papas para la sopa. Le dan más consistencia.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/12-a.mp3" data-voice="English A">A. That is true. I also need onions. I use onions in almost every meal.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/12-a.mp3" data-voice="Spanish A">A. Es verdad. Yo también necesito cebollas. Yo uso cebolla en casi todas las comidas.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/13-b.mp3" data-voice="English B">B. Me too! Onions give good flavor to food. I think I will take one kilo.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/13-b.mp3" data-voice="Spanish B">B. ¡Yo también! La cebolla le da buen sabor a la comida. Creo que me llevaré un kilo.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/14-a.mp3" data-voice="English A">A. It was nice to see you. Enjoy your cooking this evening.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/14-a.mp3" data-voice="Spanish A">A. Me alegró verte. Disfruta cocinando esta noche.</p></td>
-        </tr>
-        <tr>
-          <td lang="en"><p data-audio="32/audio/en/15-b.mp3" data-voice="English B">B. It was nice to see you too. Say hello to your family for me.</p></td>
-          <td lang="es"><p data-audio="32/audio/es/15-b.mp3" data-voice="Spanish B">B. Me alegré de verte también. Saluda a tu familia de mi parte.</p></td>
-        </tr>
-      </tbody>
-    </table>
+    <p class="hint" id="hint"></p>
+    <div class="turns">
+      <div class="turn head" aria-hidden="true"><div></div><div>ENGLISH</div><div>ESPAÑOL</div></div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/00-a.mp3" data-voice="English A">Good morning, Carlos! What are you doing here at the market?</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/00-a.mp3" data-voice="Spanish A">¡Buenos días, Carlos! ¿Qué haces aquí en el mercado?</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/01-b.mp3" data-voice="English B">Good morning, Ana! I am shopping for vegetables and fruit. I want to cook dinner for my family tonight.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/01-b.mp3" data-voice="Spanish B">¡Buenos días, Ana! Estoy comprando verduras y frutas. Quiero cocinar la cena para mi familia esta noche.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/02-a.mp3" data-voice="English A">That sounds nice. What are you going to cook?</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/02-a.mp3" data-voice="Spanish A">Qué bueno. ¿Qué vas a cocinar?</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/03-b.mp3" data-voice="English B">I am going to make chicken soup with vegetables and a fresh salad. My children love soup.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/03-b.mp3" data-voice="Spanish B">Voy a hacer sopa de pollo con verduras y una ensalada fresca. A mis hijos les encanta la sopa.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/04-a.mp3" data-voice="English A">That is a good choice. The vegetables look very fresh today.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/04-a.mp3" data-voice="Spanish A">Buena elección. Las verduras se ven bien frescas hoy.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/05-b.mp3" data-voice="English B">Yes, they do. Look at these tomatoes. They are very red.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/05-b.mp3" data-voice="Spanish B">Sí, ¿verdad? Mira estos tomates. Están bien rojos.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/06-a.mp3" data-voice="English A">And the lettuce looks fresh too. I will buy one head of lettuce.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/06-a.mp3" data-voice="Spanish A">Y la lechuga también se ve fresca. Compraré una lechuga.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/07-b.mp3" data-voice="English B">I need carrots. How much are the carrots?</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/07-b.mp3" data-voice="Spanish B">Yo necesito zanahorias. ¿A cómo están las zanahorias?</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/08-a.mp3" data-voice="English A">The sign says two dollars per kilo.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/08-a.mp3" data-voice="Spanish A">El cartel dice dos balboas el kilo.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/09-b.mp3" data-voice="English B">Oh, I didn't see that, I will get two kilos.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/09-b.mp3" data-voice="Spanish B">Ah, no lo vi, voy a comprar dos kilos.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/10-a.mp3" data-voice="English A">Do you also need potatoes?</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/10-a.mp3" data-voice="Spanish A">¿También necesitas papas?</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/11-b.mp3" data-voice="English B">Yes, I need some potatoes for the soup. They make the soup thicker.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/11-b.mp3" data-voice="Spanish B">Sí, necesito papas para la sopa. Le dan más consistencia.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/12-a.mp3" data-voice="English A">That is true. I also need onions. I use onions in almost every meal.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/12-a.mp3" data-voice="Spanish A">Es verdad. Yo también necesito cebollas. Yo uso cebolla en casi todas las comidas.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/13-b.mp3" data-voice="English B">Me too! Onions give good flavor to food. I think I will take one kilo.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/13-b.mp3" data-voice="Spanish B">¡Yo también! La cebolla le da buen sabor a la comida. Creo que me llevaré un kilo.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/14-a.mp3" data-voice="English A">It was nice to see you. Enjoy your cooking this evening.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/14-a.mp3" data-voice="Spanish A">Me alegró verte. Disfruta cocinando esta noche.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="32/audio/en/15-b.mp3" data-voice="English B">It was nice to see you too. Say hello to your family for me.</p></div>
+        <div class="line es" lang="es"><p data-audio="32/audio/es/15-b.mp3" data-voice="Spanish B">Me alegré de verte también. Saluda a tu familia de mi parte.</p></div>
+      </div>
+    </div>
   </main>
   <script type="module" src="player.js"></script>
 </body>

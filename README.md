@@ -31,7 +31,10 @@ textbook image  →  OCR  →  refine (AI)  →  clips.json  →  TTS  →  HTML
 ```
 
 Each conversation page is a static HTML file (sharing `docs/player.js`) with:
-- A two-column table (English left, Spanish right)
+- A two-column script layout (speaker letter, English, Spanish) that stacks on phones,
+  with dark mode
+- A Both / Hide Spanish / Hide English toggle for self-testing: hidden lines blur
+  until tapped or played
 - Play buttons on each line
 - A speed slider (50%–150%) that changes playback rate without pitch distortion
 

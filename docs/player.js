@@ -136,7 +136,7 @@ async function playClip(url, button) {
   button.classList.remove("error");
   button.classList.add("playing");
   button.setAttribute("aria-pressed", "true");
-  button.closest("td").classList.add("playing");
+  button.closest(".line").classList.add("playing");
 
   try {
     const buf = await getDecoded(url);
@@ -171,7 +171,7 @@ function stopSpeaking() {
   if (currentButton) {
     currentButton.classList.remove("playing");
     currentButton.setAttribute("aria-pressed", "false");
-    currentButton.closest("td").classList.remove("playing");
+    currentButton.closest(".line").classList.remove("playing");
   }
   currentButton = null;
   currentUrl = null;
@@ -209,4 +209,31 @@ document.querySelectorAll("p[data-audio]").forEach((paragraph) => {
     playClip(paragraph.dataset.audio, button);
   });
   paragraph.append(button, words);
+});
+
+// Study toggle: blur one language's lines; tapping a blurred line or
+// playing it reveals it. Picking a mode hides every line again.
+const hint = document.getElementById("hint");
+const modeButtons = document.querySelectorAll(".seg button");
+Array.prototype.forEach.call(modeButtons, (button) => {
+  button.addEventListener("click", () => {
+    Array.prototype.forEach.call(modeButtons, (other) => {
+      other.setAttribute("aria-pressed", other === button ? "true" : "false");
+    });
+    document.body.className = button.dataset.mode;
+    Array.prototype.forEach.call(document.querySelectorAll(".line.shown"), (line) => {
+      line.classList.remove("shown");
+    });
+    if (hint) {
+      hint.textContent = button.dataset.mode
+        ? "Say it aloud, then tap the blurred line (or play it) to check."
+        : "";
+    }
+  });
+});
+document.addEventListener("click", (event) => {
+  const line = event.target.closest(".line");
+  if (line && (event.target.closest(".words") || event.target.closest(".speak"))) {
+    line.classList.add("shown");
+  }
 });

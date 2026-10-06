@@ -115,7 +115,7 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   If you refactor paths, keep it CWD-independent.
 - **`docs/index.html` is generated — don't edit it by hand.** Every `generate_html.py`
   run rewrites it: one link per `docs/NN.html`, in number order, labelled from the
-  `# NN. English — Spanish` line of `texts/NN.md` with the em dash shown as a slash.
+  `# NN. English — Spanish` line of `texts/NN.md`, the Spanish title on a line below.
   To change the index's look, edit `INDEX_HEAD`/`INDEX_ROW`/`INDEX_TAIL` in
   `generate_html.py`. To drop a page from it, delete `docs/NN.html` and re-run.
 - **`*italics*` in `texts/NN.md` are display-only:** `generate_html.py` renders them as
@@ -142,8 +142,9 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   silent `<audio>` element while a clip plays.
 - **`docs/player.js` is the player's source, not a build output.** Every page loads it with
   `<script type="module" src="player.js">`, so a player fix is one edit there — no
-  regenerating pages. It relies on the page's `#speed`/`#speedValue` controls and
-  `p[data-audio]` rows that `generate_html.py` emits, so keep the two in step.
+  regenerating pages. It relies on the page's `#speed`/`#speedValue` controls, the
+  `.seg` hide toggle and `#hint`, and `p[data-audio]` lines inside `.line` wrappers
+  that `generate_html.py` emits, so keep the two in step.
 
 ## Voices
 `voices/voices.json` defines 3 speakers in both languages — `en_a`/`es_a` (woman, 40s),

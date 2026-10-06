@@ -5,76 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Conversations</title>
   <style>
-    :root { color-scheme: light; }
+    :root {
+      color-scheme: light dark;
+      --bg: #fbf8f2;
+      --fg: #1d1b18;
+      --muted: #857e72;
+      --es: #9b4d24;
+      --rule: #e6dfd2;
+      --hl: #f3ead8;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171513;
+        --fg: #ece6dc;
+        --muted: #8f877b;
+        --es: #e0a47e;
+        --rule: #2e2a25;
+        --hl: #2a241d;
+      }
+    }
 
     body {
       margin: 0;
-      background: #fff;
-      color: #111;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      font: 19px/1.4 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
     }
 
     main {
-      max-width: 600px;
+      box-sizing: border-box;
+      max-width: 680px;
       margin: 0 auto;
-      padding: 3rem 1.5rem;
+      padding: 2.4rem 1.5rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.8rem;
     }
 
     h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .subtitle {
+      margin: 0.2rem 0 0;
+      color: var(--es);
+      font-style: italic;
+      font-size: 1.2rem;
     }
 
     ol {
       list-style: none;
-      padding: 0;
       margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--fg);
     }
 
-    li {
-      margin-bottom: 0.5rem;
-    }
+    li { border-bottom: 1px solid var(--rule); }
 
     a {
-      display: block;
-      padding: 0.75rem 1rem;
-      border: 1.5px solid #ddd;
-      border-radius: 6px;
+      display: flex;
+      align-items: baseline;
+      padding: 0.75rem 0.4rem;
+      color: inherit;
       text-decoration: none;
-      color: #111;
-      transition: border-color 0.15s, background 0.15s;
     }
 
-    a:hover {
-      border-color: #2a45b0;
-      background: #f4f7ff;
+    a:hover { background: var(--hl); }
+
+    .num {
+      flex: 0 0 2.6rem;
+      font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+      color: var(--muted);
     }
 
-    a .num {
-      font-weight: 600;
-      color: #2a45b0;
-      margin-right: 0.5rem;
+    .es {
+      display: block;
+      color: var(--es);
+      font-style: italic;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 640px) {
+      body { font-size: 17px; }
+      main { padding: 1.6rem 1rem 3rem; }
+      h1 { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
   <main>
-    <h1>Conversations / Conversaciones</h1>
+    <header>
+      <h1>Conversations</h1>
+      <p class="subtitle" lang="es">Conversaciones</p>
+    </header>
     <ol>
-      <li><a href="5.html"><span class="num">5</span> At the Market / En el mercado</a></li>
-      <li><a href="7.html"><span class="num">7</span> Asking for Directions / Pidiendo indicaciones</a></li>
-      <li><a href="10.html"><span class="num">10</span> At the Restaurant / En el restaurante</a></li>
-      <li><a href="15.html"><span class="num">15</span> Emergencies / Emergencias</a></li>
-      <li><a href="19.html"><span class="num">19</span> At the Bus Terminal / En la terminal de autobuses</a></li>
-      <li><a href="29.html"><span class="num">29</span> Lost on the Road / Perdido en el camino</a></li>
-      <li><a href="32.html"><span class="num">32</span> At the Market / En el mercado</a></li>
-      <li><a href="33.html"><span class="num">33</span> A Friendly Chat / Una charla amistosa</a></li>
-      <li><a href="35.html"><span class="num">35</span> Mexico City or Panama City? / ¿Ciudad de México o Ciudad de Panamá?</a></li>
-      <li><a href="36.html"><span class="num">36</span> Technology &amp; Communication / Tecnología y comunicación</a></li>
-      <li><a href="40.html"><span class="num">40</span> At the Doctor / En el consultorio médico</a></li>
-      <li><a href="41.html"><span class="num">41</span> Hotel Check-In / Check-in en el hotel</a></li>
-      <li><a href="42.html"><span class="num">42</span> At the Pharmacy / En la farmacia</a></li>
+      <li><a href="5.html"><span class="num">5</span><span>At the Market<span class="es" lang="es">En el mercado</span></span></a></li>
+      <li><a href="7.html"><span class="num">7</span><span>Asking for Directions<span class="es" lang="es">Pidiendo indicaciones</span></span></a></li>
+      <li><a href="10.html"><span class="num">10</span><span>At the Restaurant<span class="es" lang="es">En el restaurante</span></span></a></li>
+      <li><a href="15.html"><span class="num">15</span><span>Emergencies<span class="es" lang="es">Emergencias</span></span></a></li>
+      <li><a href="19.html"><span class="num">19</span><span>At the Bus Terminal<span class="es" lang="es">En la terminal de autobuses</span></span></a></li>
+      <li><a href="29.html"><span class="num">29</span><span>Lost on the Road<span class="es" lang="es">Perdido en el camino</span></span></a></li>
+      <li><a href="32.html"><span class="num">32</span><span>At the Market<span class="es" lang="es">En el mercado</span></span></a></li>
+      <li><a href="33.html"><span class="num">33</span><span>A Friendly Chat<span class="es" lang="es">Una charla amistosa</span></span></a></li>
+      <li><a href="35.html"><span class="num">35</span><span>Mexico City or Panama City?<span class="es" lang="es">¿Ciudad de México o Ciudad de Panamá?</span></span></a></li>
+      <li><a href="36.html"><span class="num">36</span><span>Technology &amp; Communication<span class="es" lang="es">Tecnología y comunicación</span></span></a></li>
+      <li><a href="40.html"><span class="num">40</span><span>At the Doctor<span class="es" lang="es">En el consultorio médico</span></span></a></li>
+      <li><a href="41.html"><span class="num">41</span><span>Hotel Check-In<span class="es" lang="es">Check-in en el hotel</span></span></a></li>
+      <li><a href="42.html"><span class="num">42</span><span>At the Pharmacy<span class="es" lang="es">En la farmacia</span></span></a></li>
     </ol>
   </main>
 </body>
