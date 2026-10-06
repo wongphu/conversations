@@ -12,7 +12,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCS = PROJECT_ROOT / "docs"
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
-from generate_html import generate_html, generate_index, render_text  # noqa: E402
+from generate_html import generate_html, generate_index, player_version, render_text  # noqa: E402
 
 
 class CommittedPages(unittest.TestCase):
@@ -33,11 +33,21 @@ class CommittedPages(unittest.TestCase):
             html = path.read_text()
             for marker in ('data-audio="', 'src="', 'href="'):
                 for chunk in html.split(marker)[1:]:
-                    ref = chunk.split('"', 1)[0]
+                    ref = chunk.split('"', 1)[0].split("?", 1)[0]
                     if ref.startswith(("http:", "https:", "#")):
                         continue
                     with self.subTest(page=path.name, ref=ref):
                         self.assertTrue((DOCS / ref).is_file())
+
+
+class PlayerVersion(unittest.TestCase):
+    def test_pages_load_the_current_player(self):
+        # A stale hash would let browsers keep running a cached older player.
+        src = f'src="player.js?v={player_version()}"'
+        for path in DOCS.glob("*.html"):
+            if path.stem.isdigit():
+                with self.subTest(page=path.name):
+                    self.assertIn(src, path.read_text())
 
 
 class RenderText(unittest.TestCase):

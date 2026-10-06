@@ -116,6 +116,39 @@
       color: var(--bg);
     }
 
+    .play-all {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      padding: 0.3rem 0.9rem 0.3rem 0.6rem;
+      cursor: pointer;
+    }
+
+    .play-all svg {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.35rem;
+    }
+
+    .play-all .stop-icon,
+    .play-all[aria-pressed="true"] .play-icon { display: none; }
+
+    .play-all[aria-pressed="true"] .stop-icon { display: block; }
+
+    .play-all[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .play-all:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     .speed-control {
       display: flex;
       align-items: center;
@@ -254,6 +287,11 @@
       <p class="subtitle" lang="es">En el mercado</p>
     </header>
     <div class="toolbar">
+      <button type="button" class="play-all" id="playAll" aria-pressed="false">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12.5-7.5z"></path></svg>
+        <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 6h12v12H6z"></path></svg>
+        <span id="playAllLabel">Play all</span>
+      </button>
       <div class="seg" role="group" aria-label="Show">
         <button type="button" data-mode="" aria-pressed="true">Both</button>
         <button type="button" data-mode="hide-es" aria-pressed="false">Hide Spanish</button>
@@ -340,6 +378,6 @@
       </div>
     </div>
   </main>
-  <script type="module" src="player.js"></script>
+  <script type="module" src="player.js?v=a310cf1b3a"></script>
 </body>
 </html>

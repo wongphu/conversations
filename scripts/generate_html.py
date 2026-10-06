@@ -3,22 +3,25 @@
 Generate an interactive HTML page for a conversation from clips.json.
 
 Usage:
-    python scripts/generate_html.py [<conversation_number>]
+    python scripts/generate_html.py [<conversation_number> | --all]
 
 Example:
     python scripts/generate_html.py 41
     python scripts/generate_html.py 36
+    python scripts/generate_html.py --all     # every page, e.g. after editing player.js
 
 Reads:
     docs/<N>/clips.json
     texts/<N>.md                – for the page title (its "# ..." H1), if present
 
 Writes:
-    docs/<N>.html               – loads the shared player, docs/player.js
+    docs/<N>.html               – loads the shared player, docs/player.js, as
+                                  player.js?v=<hash of its contents>
     docs/index.html             – rebuilt every run: one link per docs/NN.html
 """
 
 import argparse
+import hashlib
 import html
 import json
 import re
@@ -29,6 +32,7 @@ from collections import defaultdict
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = PROJECT_ROOT / "docs"
 TEXTS_DIR = PROJECT_ROOT / "texts"
+PLAYER_PATH = DOCS_DIR / "player.js"
 
 ITALIC_RE = re.compile(r"\*(.+?)\*")
 
@@ -148,6 +152,39 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
     .seg button[aria-pressed="true"] {{
       background: var(--accent);
       color: var(--bg);
+    }}
+
+    .play-all {{
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      padding: 0.3rem 0.9rem 0.3rem 0.6rem;
+      cursor: pointer;
+    }}
+
+    .play-all svg {{
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.35rem;
+    }}
+
+    .play-all .stop-icon,
+    .play-all[aria-pressed="true"] .play-icon {{ display: none; }}
+
+    .play-all[aria-pressed="true"] .stop-icon {{ display: block; }}
+
+    .play-all[aria-pressed="true"] {{
+      background: var(--accent);
+      color: var(--bg);
+    }}
+
+    .play-all:focus-visible {{
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }}
 
     .speed-control {{
@@ -286,6 +323,11 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
 {header}
     </header>
     <div class="toolbar">
+      <button type="button" class="play-all" id="playAll" aria-pressed="false">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12.5-7.5z"></path></svg>
+        <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 6h12v12H6z"></path></svg>
+        <span id="playAllLabel">Play all</span>
+      </button>
       <div class="seg" role="group" aria-label="Show">
         <button type="button" data-mode="" aria-pressed="true">Both</button>
         <button type="button" data-mode="hide-es" aria-pressed="false">Hide Spanish</button>
@@ -440,10 +482,20 @@ TEMPLATE_ROW = '''      <div class="turn {speaker_class}">
 
 TEMPLATE_SCRIPT = '''    </div>
   </main>
-  <script type="module" src="player.js"></script>
+  <script type="module" src="player.js?v={player_version}"></script>
 </body>
 </html>
 '''
+
+
+def player_version() -> str:
+    """A short hash of docs/player.js for the page's script URL.
+
+    A browser that cached an older player.js would otherwise run it against
+    a newer page (after the restyle, the old player looked for <td>s and
+    every play button threw). A new hash makes it fetch the matching one.
+    """
+    return hashlib.sha256(PLAYER_PATH.read_bytes()).hexdigest()[:10]
 
 
 def read_title(conv_num: int) -> str:
@@ -534,19 +586,26 @@ def generate_html(conv_num: int) -> str:
             es_text=render_text(es["text"]),
         )
 
-    page += TEMPLATE_SCRIPT
+    page += TEMPLATE_SCRIPT.format(player_version=player_version())
     return page
 
 
 def main():
     parser = argparse.ArgumentParser(description="Generate HTML for a conversation, and the index.")
-    parser.add_argument("conversation", type=int, nargs="?",
+    target = parser.add_mutually_exclusive_group()
+    target.add_argument("conversation", type=int, nargs="?",
                         help="Conversation number (omit to rebuild only the index)")
+    target.add_argument("--all", action="store_true",
+                        help="Rebuild every existing docs/NN.html (e.g. after editing player.js)")
     args = parser.parse_args()
 
-    if args.conversation is not None:
-        out_path = DOCS_DIR / f"{args.conversation}.html"
-        out_path.write_text(generate_html(args.conversation))
+    if args.all:
+        convs = sorted(int(path.stem) for path in DOCS_DIR.glob("*.html") if path.stem.isdigit())
+    else:
+        convs = [args.conversation] if args.conversation is not None else []
+    for conv in convs:
+        out_path = DOCS_DIR / f"{conv}.html"
+        out_path.write_text(generate_html(conv))
         print(f"Written to {out_path}")
 
     index_path = DOCS_DIR / "index.html"

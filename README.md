@@ -36,6 +36,8 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 - A Both / Hide Spanish / Hide English toggle for self-testing: hidden lines blur
   until tapped or played
 - Play buttons on each line
+- A Play all button that reads every row in turn, in both languages or only the
+  one the toggle shows, pausing between lines
 - A speed slider (50%–150%) that changes playback rate without pitch distortion
 
 ## Directory Structure
@@ -155,10 +157,11 @@ Uses Qwen3-TTS 1.7B with voice cloning to generate MP3 clips.
 Builds the static `docs/NN.html` page from `docs/NN/clips.json`
 (English in the left column, Spanish in the right, with a play button per line
 and a speed control). The page's title and H1 come from the `# ...` line of
-`texts/NN.md`. The playback code lives in `docs/player.js`, which every page loads, so a player fix needs no regeneration. Each run also rebuilds `docs/index.html` with one link per `docs/NN.html` (run it with no number to rebuild only the index).
+`texts/NN.md`. The playback code lives in `docs/player.js`, which every page loads as `player.js?v=<hash>` so browsers never pair a cached older player with a newer page; after editing it, run `generate_html.py --all`. Each run also rebuilds `docs/index.html` with one link per `docs/NN.html` (run it with no number to rebuild only the index).
 
 ```bash
 .venv/bin/python scripts/generate_html.py 41
+.venv/bin/python scripts/generate_html.py --all   # every page, e.g. after editing player.js
 ```
 
 ### `pipeline.py` — Everything after the refine step

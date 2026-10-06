@@ -86,7 +86,8 @@ def check_conversation(conv: int, problems: list[str], notes: list[str]) -> set[
     if not page_path.exists():
         problems.append(f"{conv}: docs/{conv}.html is missing")
     elif page_path.read_text() != generate_html(conv):
-        problems.append(f"{conv}: docs/{conv}.html is out of date")
+        problems.append(f"{conv}: docs/{conv}.html is out of date "
+                        f"(run scripts/generate_html.py {conv}, or --all after editing player.js)")
 
     return {clip["speaker"] for clip in clips}
 

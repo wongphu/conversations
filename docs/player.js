@@ -58,6 +58,9 @@ const bufferCache = new Map();
 let currentSource = null;
 let currentButton = null;
 let currentUrl = null;
+// Resolves the promise playClip returned: true when the clip played to
+// the end, false when it was stopped, replaced or failed.
+let finishCurrent = null;
 // Bumped by every stop/play, so a clip that finishes loading after the
 // user has moved on (clicked another line, or stopped) is discarded.
 let playToken = 0;
@@ -117,6 +120,8 @@ function stretch(psola, audioBuf, factor) {
   return out;
 }
 
+// Returns a promise that resolves to true once the clip has played to the
+// end, or to false if it is stopped first or can't be played.
 async function playClip(url, button) {
   stopSpeaking();
   try {
@@ -125,9 +130,10 @@ async function playClip(url, button) {
     console.error("Web Audio unavailable", err);
     button.classList.add("error");
     button.title = "This browser can't play audio";
-    return;
+    return false;
   }
   const token = playToken;
+  const ended = new Promise((resolve) => { finishCurrent = resolve; });
 
   // Mark the line as active right away (while loading), so a second click
   // on it stops it instead of starting a second copy.
@@ -140,24 +146,31 @@ async function playClip(url, button) {
 
   try {
     const buf = await getDecoded(url);
-    if (token !== playToken) return;
+    if (token !== playToken) return ended;
     const factor = getSpeedFactor();
     const psola = factor === 1 ? null : await loadPsola();
-    if (token !== playToken) return;
+    if (token !== playToken) return ended;
 
     const src = ctx.createBufferSource();
     src.buffer = psola ? stretch(psola, buf, factor) : buf;
     src.connect(ctx.destination);
-    src.onended = () => { if (currentSource === src) stopSpeaking(); };
+    src.onended = () => {
+      if (currentSource !== src) return;
+      const finish = finishCurrent;
+      finishCurrent = null;
+      stopSpeaking();
+      if (finish) finish(true);
+    };
     src.start(0);
     currentSource = src;
   } catch (err) {
-    if (token !== playToken) return;
+    if (token !== playToken) return ended;
     console.error("Could not play " + url, err);
     stopSpeaking();
     button.classList.add("error");
     button.title = "Could not load audio (serve the page over http://, not file://)";
   }
+  return ended;
 }
 
 function stopSpeaking() {
@@ -167,7 +180,9 @@ function stopSpeaking() {
     try { currentSource.stop(0); } catch (e) {}
     currentSource = null;
   }
-  if (silentTag) silentTag.pause();
+  // During "Play all" the silent tag keeps looping across the pauses:
+  // older iOS won't restart it outside a tap.
+  if (silentTag && !playAllRunning) silentTag.pause();
   if (currentButton) {
     currentButton.classList.remove("playing");
     currentButton.setAttribute("aria-pressed", "false");
@@ -175,14 +190,24 @@ function stopSpeaking() {
   }
   currentButton = null;
   currentUrl = null;
+  if (finishCurrent) {
+    const finish = finishCurrent;
+    finishCurrent = null;
+    finish(false);
+  }
 }
 
 function applySpeed() {
   const pct = Number(speedSlider.value);
   speedValue.textContent = pct + "%";
   if (currentSource && currentUrl) {
+    // Restart the clip at the new speed. Hand its promise on, so a running
+    // "Play all" carries on instead of seeing the restart as a stop.
     const btn = currentButton;
-    playClip(currentUrl, btn);
+    const finish = finishCurrent;
+    finishCurrent = null;
+    const restarted = playClip(currentUrl, btn);
+    if (finish) restarted.then(finish);
   }
 }
 speedSlider.addEventListener("input", applySpeed);
@@ -237,3 +262,84 @@ document.addEventListener("click", (event) => {
     line.classList.add("shown");
   }
 });
+
+// "Play all": every row in order, in the languages the study toggle shows
+// (both, or only the one that isn't hidden), with a pause between lines.
+const PAUSE_BETWEEN_LANGUAGES = 600;  // ms, English to Spanish in one row
+const PAUSE_BETWEEN_ROWS = 1200;      // ms, one speaker's turn to the next
+const playAllButton = document.getElementById("playAll");
+const playAllLabel = document.getElementById("playAllLabel");
+let playAllRunning = false;
+let playAllRun = 0;
+let pauseTimer = null;
+let wakePause = null;
+
+// Slower playback gets longer pauses, to keep the same rhythm.
+function pause(ms) {
+  return new Promise((resolve) => {
+    wakePause = resolve;
+    pauseTimer = setTimeout(resolve, ms * getSpeedFactor());
+  });
+}
+
+function scrollToTurn(turn) {
+  const rect = turn.getBoundingClientRect();
+  const toolbar = document.querySelector(".toolbar").getBoundingClientRect();
+  if (rect.top < toolbar.bottom || rect.bottom > window.innerHeight) {
+    window.scrollBy(0, rect.top - window.innerHeight / 3);
+  }
+}
+
+function setPlayAll(running) {
+  playAllRunning = running;
+  playAllButton.setAttribute("aria-pressed", running ? "true" : "false");
+  playAllLabel.textContent = running ? "Stop" : "Play all";
+}
+
+function stopPlayAll() {
+  playAllRun++;
+  clearTimeout(pauseTimer);
+  if (wakePause) wakePause();
+  wakePause = null;
+  setPlayAll(false);
+  // A line tapped mid-run is playing now and still needs the silent tag.
+  if (silentTag && !currentButton) silentTag.pause();
+}
+
+async function playAll() {
+  const run = ++playAllRun;
+  setPlayAll(true);
+  const turns = document.querySelectorAll(".turn:not(.head)");
+  let first = true;
+  for (let t = 0; t < turns.length; t++) {
+    // Read the toggle per row, so switching it mid-run takes effect.
+    const mode = document.body.className;
+    const langs = mode === "hide-es" ? ["en"] : mode === "hide-en" ? ["es"] : ["en", "es"];
+    for (let i = 0; i < langs.length; i++) {
+      if (!first) await pause(i === 0 ? PAUSE_BETWEEN_ROWS : PAUSE_BETWEEN_LANGUAGES);
+      if (run !== playAllRun) return;
+      first = false;
+      const paragraph = turns[t].querySelector(".line." + langs[i] + " p[data-audio]");
+      if (i === 0) scrollToTurn(turns[t]);
+      const ok = await playClip(paragraph.dataset.audio, paragraph.querySelector(".speak"));
+      // Stopped, failed, or the user tapped a line: end the run.
+      if (!ok || run !== playAllRun) {
+        if (run === playAllRun) stopPlayAll();
+        return;
+      }
+    }
+  }
+  stopPlayAll();
+}
+
+// A page cached from before "Play all" has no button; the rest still works.
+if (playAllButton) {
+  playAllButton.addEventListener("click", () => {
+    if (playAllRunning) {
+      stopPlayAll();
+      stopSpeaking();
+    } else {
+      playAll();
+    }
+  });
+}

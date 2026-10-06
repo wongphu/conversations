@@ -39,7 +39,8 @@ bump `mlx-audio` in `requirements.txt` casually: a new TTS version can change th
 Source page images go in `inputs/`.
 
 `generate_html.py NN` also rebuilds `docs/index.html`, so a full run needs no manual
-steps. `generate_html.py` with no number rebuilds just the index.
+steps. `generate_html.py` with no number rebuilds just the index; `--all` rebuilds every
+page and the index.
 
 Run the tests after changing any script (stdlib `unittest`, no extra deps; well under
 a second):
@@ -140,10 +141,13 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   mutes Web Audio on iOS: the page sets
   `navigator.audioSession.type = "playback"` (iOS 16.4+), and on older iOS loops a
   silent `<audio>` element while a clip plays.
-- **`docs/player.js` is the player's source, not a build output.** Every page loads it with
-  `<script type="module" src="player.js">`, so a player fix is one edit there — no
-  regenerating pages. It relies on the page's `#speed`/`#speedValue` controls, the
-  `.seg` hide toggle and `#hint`, and `p[data-audio]` lines inside `.line` wrappers
+- **`docs/player.js` is the player's source, not a build output.** Every page loads it as
+  `player.js?v=<hash of its contents>`, so after editing it run
+  `generate_html.py --all` (`check.py` and the tests flag every page until you do). The
+  hash stops a browser that cached an older player running it against a newer page:
+  after the restyle, a cached player looked for `<td>`s, so every play button threw and
+  nothing played. It relies on the page's `#speed`/`#speedValue` controls, the
+  `.seg` hide toggle and `#hint`, the `#playAll`/`#playAllLabel` button, and `p[data-audio]` lines inside `.line` wrappers
   that `generate_html.py` emits, so keep the two in step.
 
 ## Voices
