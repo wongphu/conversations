@@ -15,6 +15,12 @@
       --hl: #f3ead8;
       --accent: #7a3e1d;
       --error: #b00020;
+      --level-a: #3d6b45;
+      --level-a-bg: #e2ede0;
+      --level-b: #85561a;
+      --level-b-bg: #f3e4c6;
+      --level-c: #9b3324;
+      --level-c-bg: #f5dcd5;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -27,6 +33,12 @@
         --hl: #2a241d;
         --accent: #e0a47e;
         --error: #ff6b6b;
+        --level-a: #a6cfa9;
+        --level-a-bg: #1f2b21;
+        --level-b: #e3bd78;
+        --level-b-bg: #30271a;
+        --level-c: #eda193;
+        --level-c-bg: #3a201c;
       }
     }
 
@@ -62,6 +74,20 @@
       letter-spacing: 0.25em;
       color: var(--muted);
     }
+
+    .level {
+      display: inline-block;
+      margin-left: 0.5rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      vertical-align: 0.1em;
+      font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+    }
+
+    .level-a { color: var(--level-a); background: var(--level-a-bg); }
+    .level-b { color: var(--level-b); background: var(--level-b-bg); }
+    .level-c { color: var(--level-c); background: var(--level-c-bg); }
 
     h1 {
       font-weight: 400;
@@ -282,7 +308,7 @@
   <main>
     <a class="back" href="index.html">&larr; All conversations / Todas las conversaciones</a>
     <header>
-      <div class="num">CONVERSATION 33</div>
+      <div class="num">CONVERSATION 33<span class="level level-a" title="CEFR A2: elementary">A2</span></div>
       <h1>A Friendly Chat</h1>
       <p class="subtitle" lang="es">Una charla amistosa</p>
     </header>

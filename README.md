@@ -114,7 +114,7 @@ A coding-agent step (not a script) that cleans the raw OCR output. It reads
 1. Add a title at the top (a short H1 including the conversation number, e.g. `# 41. Hotel Check-In — Check-in en el hotel`).
 2. Normalize column order to **English left, Spanish right** (the raw OCR output may be reversed).
 3. Correct misspellings and inconsistencies (OCR artifacts, inconsistent speaker labels, broken punctuation) — while preserving the dialogue.
-4. Add the conversation's CEFR level (A1–C2) as a `Level: A2` line under the title, which the index shows as a badge.
+4. Add the conversation's CEFR level (A1–C2) as a `Level: A2` line under the title, which the index and the page header show as a badge.
 
 Full instructions live in [`scripts/refine_ocr.md`](scripts/refine_ocr.md). Run it by asking a coding agent such as pi:
 

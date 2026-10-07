@@ -9,7 +9,7 @@ Example:
     python scripts/pipeline.py 10
 
 Starts from texts/NN.md, so run it after the refine step (OCR and refine come
-first; see AGENTS.md), which also gives it the "Level: A2" line the index needs. Safe to re-run after editing texts/NN.md: it deletes the
+first; see AGENTS.md), which also gives it the "Level: A2" line the badges need. Safe to re-run after editing texts/NN.md: it deletes the
 MP3s of only the lines whose text changed, and generate_audio.py voices just
 those (plus any new lines). Unchanged lines keep their audio, since re-voicing
 them would drift the voices slightly. It never passes --force.

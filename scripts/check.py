@@ -10,7 +10,7 @@ Example:
     python scripts/check.py 10     # one conversation, and the index
 
 Problems (exit status 1):
-    - texts/NN.md has no "Level: A1…C2" line (the CEFR level the index shows)
+    - texts/NN.md has no "Level: A1…C2" line (the CEFR level the badges show)
     - docs/NN/clips.json, docs/NN.html or docs/index.html differ from what
       make_clips.py / generate_html.py would produce from the current sources
     - an MP3 in clips.json is missing or empty, or an MP3 on disk is in no

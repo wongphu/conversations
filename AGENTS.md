@@ -69,7 +69,7 @@ The transforms:
    are marginal notes, not dialogue.
 5. **Add the CEFR level:** a `Level: A2` line under the title, judged with the rubric
    in `refine_ocr.md` so it stays consistent with the existing conversations. The index
-   shows it as a badge; `pipeline.py` refuses to build without it and `check.py` flags
+   and the page header show it as a badge; `pipeline.py` refuses to build without it and `check.py` flags
    it.
 
 Preserve the dialogue: correct errors only; do not reword, translate, add, or remove

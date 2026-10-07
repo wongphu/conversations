@@ -52,7 +52,7 @@ Apply these four transformations to the raw table:
 
 4. **Add the CEFR level.** Under the title, on a line of its own, write
    `Level: ` and one of `A1 A2 B1 B2 C1 C2` (e.g. `Level: A2`). The index
-   shows it as a badge; `pipeline.py` won't build a conversation without it,
+   and the page header show it as a badge; `pipeline.py` won't build a conversation without it,
    and `check.py` flags a missing one. Judge the whole dialogue, in both
    languages, by what a learner must understand and say: its typical turn, not
    its hardest sentence. A set phrase (*que tenga un buen día*) or a few

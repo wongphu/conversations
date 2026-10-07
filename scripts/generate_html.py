@@ -13,7 +13,7 @@ Example:
 Reads:
     docs/<N>/clips.json
     texts/<N>.md                – for the page title (its "# ..." H1), if present,
-                                  and the CEFR level (its "Level: A2" line) for the index
+                                  and the CEFR level (its "Level: A2" line) for the badges
 
 Writes:
     docs/<N>.html               – loads the shared player, docs/player.js, as
@@ -54,6 +54,12 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
       --hl: #f3ead8;
       --accent: #7a3e1d;
       --error: #b00020;
+      --level-a: #3d6b45;
+      --level-a-bg: #e2ede0;
+      --level-b: #85561a;
+      --level-b-bg: #f3e4c6;
+      --level-c: #9b3324;
+      --level-c-bg: #f5dcd5;
     }}
 
     @media (prefers-color-scheme: dark) {{
@@ -66,6 +72,12 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
         --hl: #2a241d;
         --accent: #e0a47e;
         --error: #ff6b6b;
+        --level-a: #a6cfa9;
+        --level-a-bg: #1f2b21;
+        --level-b: #e3bd78;
+        --level-b-bg: #30271a;
+        --level-c: #eda193;
+        --level-c-bg: #3a201c;
       }}
     }}
 
@@ -101,6 +113,20 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
       letter-spacing: 0.25em;
       color: var(--muted);
     }}
+
+    .level {{
+      display: inline-block;
+      margin-left: 0.5rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      vertical-align: 0.1em;
+      font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+    }}
+
+    .level-a {{ color: var(--level-a); background: var(--level-a-bg); }}
+    .level-b {{ color: var(--level-b); background: var(--level-b-bg); }}
+    .level-c {{ color: var(--level-c); background: var(--level-c-bg); }}
 
     h1 {{
       font-weight: 400;
@@ -503,7 +529,7 @@ INDEX_ROW = '''      <li><a href="{num}.html"><span class="num">{num}</span><spa
 
 INDEX_ROW_ES = '''<span class="es" lang="es">{title}</span>'''
 
-INDEX_LEVEL = '''<span class="level level-{band}" title="CEFR {level}: {name}">{level}</span>'''
+LEVEL_BADGE = '''<span class="level level-{band}" title="CEFR {level}: {name}">{level}</span>'''
 
 INDEX_TAIL = '''    </ol>
   </main>
@@ -521,7 +547,7 @@ LEVEL_NAMES = {
     "C1": "advanced", "C2": "proficient",
 }
 
-TEMPLATE_HEADER = '''      <div class="num">CONVERSATION {num}</div>
+TEMPLATE_HEADER = '''      <div class="num">CONVERSATION {num}{level}</div>
       <h1>{en_title}</h1>'''
 
 TEMPLATE_SUBTITLE = '''
@@ -578,6 +604,13 @@ def read_level(conv_num: int) -> str | None:
     return level
 
 
+def level_badge(level: str | None) -> str:
+    """The CEFR badge for the index and the page header, tinted by band; "" if no level."""
+    if level is None:
+        return ""
+    return LEVEL_BADGE.format(band=level[0].lower(), level=level, name=LEVEL_NAMES[level])
+
+
 def generate_index() -> str:
     """The landing page: one link per docs/NN.html, in conversation order.
 
@@ -591,13 +624,11 @@ def generate_index() -> str:
         match = TITLE_RE.match(read_title(num))
         title = match.group(2) if match else f"Conversation {num}"
         en_title, _, es_title = title.partition(" — ")
-        level = read_level(num)
         page += INDEX_ROW.format(
             num=num,
             en_title=render_text(en_title),
             es_title=INDEX_ROW_ES.format(title=render_text(es_title)) if es_title else "",
-            level=INDEX_LEVEL.format(band=level[0].lower(), level=level, name=LEVEL_NAMES[level])
-            if level else "",
+            level=level_badge(read_level(num)),
         )
     return page + INDEX_TAIL
 
@@ -630,7 +661,8 @@ def generate_html(conv_num: int) -> str:
     match = TITLE_RE.match(title)
     num, name = (match.group(1), match.group(2)) if match else (str(conv_num), title)
     en_title, _, es_title = name.partition(" — ")
-    header = TEMPLATE_HEADER.format(num=num, en_title=render_text(en_title))
+    header = TEMPLATE_HEADER.format(num=num, level=level_badge(read_level(conv_num)),
+                                    en_title=render_text(en_title))
     if es_title:
         header += TEMPLATE_SUBTITLE.format(es_title=render_text(es_title))
     page = TEMPLATE_HEAD.format(title=html.escape(title, quote=False), header=header)
