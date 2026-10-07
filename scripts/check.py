@@ -10,6 +10,7 @@ Example:
     python scripts/check.py 10     # one conversation, and the index
 
 Problems (exit status 1):
+    - texts/NN.md has no "Level: A1…C2" line (the CEFR level the index shows)
     - docs/NN/clips.json, docs/NN.html or docs/index.html differ from what
       make_clips.py / generate_html.py would produce from the current sources
     - an MP3 in clips.json is missing or empty, or an MP3 on disk is in no
@@ -30,7 +31,7 @@ import json
 import sys
 from pathlib import Path
 
-from generate_html import generate_html, generate_index
+from generate_html import generate_html, generate_index, parse_level
 from make_clips import build_clips, parse_markdown_table
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -59,6 +60,9 @@ def check_conversation(conv: int, problems: list[str], notes: list[str]) -> set[
         else:
             notes.append(f"{conv}: not refined yet (no texts/{conv}.md)")
         return set()
+    if parse_level(texts_path.read_text()) is None:
+        problems.append(f"{conv}: texts/{conv}.md has no CEFR level "
+                        f"(add a 'Level: A2' line under the title; see scripts/refine_ocr.md)")
     if not clips_path.exists():
         notes.append(f"{conv}: not built yet (run scripts/pipeline.py {conv})")
         return set()

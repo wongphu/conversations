@@ -9,7 +9,7 @@ Example:
     python scripts/pipeline.py 10
 
 Starts from texts/NN.md, so run it after the refine step (OCR and refine come
-first; see AGENTS.md). Safe to re-run after editing texts/NN.md: it deletes the
+first; see AGENTS.md), which also gives it the "Level: A2" line the index needs. Safe to re-run after editing texts/NN.md: it deletes the
 MP3s of only the lines whose text changed, and generate_audio.py voices just
 those (plus any new lines). Unchanged lines keep their audio, since re-voicing
 them would drift the voices slightly. It never passes --force.
@@ -20,6 +20,8 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+
+from generate_html import parse_level
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS_DIR = PROJECT_ROOT / "scripts"
@@ -61,6 +63,9 @@ def main():
     texts_path = TEXTS_DIR / f"{conv}.md"
     if not texts_path.exists():
         sys.exit(f"Error: texts/{conv}.md not found; OCR and refine it first")
+    if parse_level(texts_path.read_text()) is None:
+        sys.exit(f"Error: texts/{conv}.md has no CEFR level; add a 'Level: A2' line under "
+                 f"the title (the refine step, scripts/refine_ocr.md)")
 
     clips_path = DOCS_DIR / conv / "clips.json"
     old_clips = json.loads(clips_path.read_text()) if clips_path.exists() else []

@@ -12,7 +12,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCS = PROJECT_ROOT / "docs"
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
-from generate_html import generate_html, generate_index, player_version, render_text  # noqa: E402
+from generate_html import (  # noqa: E402
+    generate_html, generate_index, parse_level, player_version, render_text)
 
 
 class CommittedPages(unittest.TestCase):
@@ -48,6 +49,16 @@ class PlayerVersion(unittest.TestCase):
             if path.stem.isdigit():
                 with self.subTest(page=path.name):
                     self.assertIn(src, path.read_text())
+
+
+class ParseLevel(unittest.TestCase):
+    def test_level_line(self):
+        self.assertEqual(parse_level("# 5. At the Market — En el mercado\n\nLevel: A1\n\n| a | b |\n"), "A1")
+
+    def test_missing_or_invalid(self):
+        self.assertIsNone(parse_level("# 5. At the Market\n\n| a | b |\n"))
+        self.assertIsNone(parse_level("Level: D1\n"))
+        self.assertIsNone(parse_level("| Level: B1 | Nivel: B1 |\n"))
 
 
 class RenderText(unittest.TestCase):

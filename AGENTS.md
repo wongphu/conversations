@@ -23,7 +23,7 @@ After the refine step, **`scripts/pipeline.py NN`** runs everything below it —
 make_clips → generate_audio → generate_html → check — and is safe to re-run after
 editing `texts/NN.md` (see the `generate_audio.py` gotcha). **`scripts/check.py [NN]`**
 reports what's missing or stale: clips/page/index out of date with their sources,
-missing, empty or orphan MP3s, leftover `.part` files, missing voice WAVs, and
+a missing CEFR `Level:` line, missing, empty or orphan MP3s, leftover `.part` files, missing voice WAVs, and
 pages not refined or built yet. It exits 1 on a problem.
 
 Run every script from the **project root** with the project venv:
@@ -67,6 +67,10 @@ The transforms:
 3. Fix typos / inconsistent speaker labels / broken punctuation.
 4. **Remove stray textbook annotations** that OCR picks up (e.g. `Nota: ...`) — they
    are marginal notes, not dialogue.
+5. **Add the CEFR level:** a `Level: A2` line under the title, judged with the rubric
+   in `refine_ocr.md` so it stays consistent with the existing conversations. The index
+   shows it as a badge; `pipeline.py` refuses to build without it and `check.py` flags
+   it.
 
 Preserve the dialogue: correct errors only; do not reword, translate, add, or remove
 lines. One row = one utterance; keep the row count unchanged — except when the OCR
@@ -116,7 +120,8 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   If you refactor paths, keep it CWD-independent.
 - **`docs/index.html` is generated — don't edit it by hand.** Every `generate_html.py`
   run rewrites it: one link per `docs/NN.html`, in number order, labelled from the
-  `# NN. English — Spanish` line of `texts/NN.md`, the Spanish title on a line below.
+  `# NN. English — Spanish` line of `texts/NN.md`, the Spanish title on a line below, and
+  a CEFR badge from its `Level:` line, tinted by band (A, B, C).
   To change the index's look, edit `INDEX_HEAD`/`INDEX_ROW`/`INDEX_TAIL` in
   `generate_html.py`. To drop a page from it, delete `docs/NN.html` and re-run.
 - **`*italics*` in `texts/NN.md` are display-only:** `generate_html.py` renders them as

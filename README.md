@@ -109,11 +109,12 @@ contain OCR errors — the refine step below cleans that up.
 ### Refine OCR output — AI step (`refine_ocr.md`)
 
 A coding-agent step (not a script) that cleans the raw OCR output. It reads
-`ocrs/NN.md` and writes a refined `texts/NN.md`, doing three things:
+`ocrs/NN.md` and writes a refined `texts/NN.md`, doing four things:
 
 1. Add a title at the top (a short H1 including the conversation number, e.g. `# 41. Hotel Check-In — Check-in en el hotel`).
 2. Normalize column order to **English left, Spanish right** (the raw OCR output may be reversed).
 3. Correct misspellings and inconsistencies (OCR artifacts, inconsistent speaker labels, broken punctuation) — while preserving the dialogue.
+4. Add the conversation's CEFR level (A1–C2) as a `Level: A2` line under the title, which the index shows as a badge.
 
 Full instructions live in [`scripts/refine_ocr.md`](scripts/refine_ocr.md). Run it by asking a coding agent such as pi:
 
@@ -157,7 +158,7 @@ Uses Qwen3-TTS 1.7B with voice cloning to generate MP3 clips.
 Builds the static `docs/NN.html` page from `docs/NN/clips.json`
 (English in the left column, Spanish in the right, with a play button per line
 and a speed control). The page's title and H1 come from the `# ...` line of
-`texts/NN.md`. The playback code lives in `docs/player.js`, which every page loads as `player.js?v=<hash>` so browsers never pair a cached older player with a newer page; after editing it, run `generate_html.py --all`. Each run also rebuilds `docs/index.html` with one link per `docs/NN.html` (run it with no number to rebuild only the index).
+`texts/NN.md`. The playback code lives in `docs/player.js`, which every page loads as `player.js?v=<hash>` so browsers never pair a cached older player with a newer page; after editing it, run `generate_html.py --all`. Each run also rebuilds `docs/index.html` with one link per `docs/NN.html` and a badge with its CEFR level, from the `Level:` line of `texts/NN.md` (run it with no number to rebuild only the index).
 
 ```bash
 .venv/bin/python scripts/generate_html.py 41
@@ -179,8 +180,8 @@ and keeps the rest (re-voicing everything would drift the voices). It never pass
 ### `check.py` — Find missing or stale files
 
 Reports problems (exit status 1): `clips.json`, pages or the index out of date with
-their sources; missing, empty or orphan MP3s; leftover `.part` files; voices without a
-reference WAV. And notes: pages not refined or built yet, unused voices.
+their sources; a `texts/NN.md` without a CEFR `Level:` line; missing, empty or orphan
+MP3s; leftover `.part` files; voices without a reference WAV. And notes: pages not refined or built yet, unused voices.
 
 ```bash
 .venv/bin/python scripts/check.py      # everything
@@ -265,6 +266,7 @@ Given a new textbook page image:
 #      - add a title at the top (including the conversation number)
 #      - put English in the left column, Spanish in the right column
 #      - fix misspellings and inconsistencies
+#      - add the CEFR level (`Level: A2`) under the title
 
 # 3. Clips → audio → HTML page + index → check, in one go
 .venv/bin/python scripts/pipeline.py NN

@@ -12,7 +12,8 @@ Example:
 
 Reads:
     docs/<N>/clips.json
-    texts/<N>.md                – for the page title (its "# ..." H1), if present
+    texts/<N>.md                – for the page title (its "# ..." H1), if present,
+                                  and the CEFR level (its "Level: A2" line) for the index
 
 Writes:
     docs/<N>.html               – loads the shared player, docs/player.js, as
@@ -359,6 +360,12 @@ INDEX_HEAD = '''<!DOCTYPE html>
       --es: #9b4d24;
       --rule: #e6dfd2;
       --hl: #f3ead8;
+      --level-a: #3d6b45;
+      --level-a-bg: #e2ede0;
+      --level-b: #85561a;
+      --level-b-bg: #f3e4c6;
+      --level-c: #9b3324;
+      --level-c-bg: #f5dcd5;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -369,6 +376,12 @@ INDEX_HEAD = '''<!DOCTYPE html>
         --es: #e0a47e;
         --rule: #2e2a25;
         --hl: #2a241d;
+        --level-a: #a6cfa9;
+        --level-a-bg: #1f2b21;
+        --level-b: #e3bd78;
+        --level-b-bg: #30271a;
+        --level-c: #eda193;
+        --level-c-bg: #3a201c;
       }
     }
 
@@ -438,6 +451,35 @@ INDEX_HEAD = '''<!DOCTYPE html>
       font-size: 0.9em;
     }
 
+    .title {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding-right: 0.8rem;
+    }
+
+    .level {
+      flex: none;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+    }
+
+    .level-a { color: var(--level-a); background: var(--level-a-bg); }
+    .level-b { color: var(--level-b); background: var(--level-b-bg); }
+    .level-c { color: var(--level-c); background: var(--level-c-bg); }
+
+    .legend {
+      margin: 0.9rem 0 0;
+      font: 12px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+    }
+
+    .legend .level {
+      padding: 0.05rem 0.4rem;
+      font-size: 11px;
+    }
+
     @media (max-width: 640px) {
       body { font-size: 17px; }
       main { padding: 1.6rem 1rem 3rem; }
@@ -450,14 +492,18 @@ INDEX_HEAD = '''<!DOCTYPE html>
     <header>
       <h1>Conversations</h1>
       <p class="subtitle" lang="es">Conversaciones</p>
+      <p class="legend">CEFR level: <span class="level level-a">A</span> beginner &middot; <span class="level level-b">B</span> intermediate &middot; <span class="level level-c">C</span> advanced<br>
+        <span lang="es">Nivel MCER: A principiante &middot; B intermedio &middot; C avanzado</span></p>
     </header>
     <ol>
 '''
 
-INDEX_ROW = '''      <li><a href="{num}.html"><span class="num">{num}</span><span>{en_title}{es_title}</span></a></li>
+INDEX_ROW = '''      <li><a href="{num}.html"><span class="num">{num}</span><span class="title">{en_title}{es_title}</span>{level}</a></li>
 '''
 
 INDEX_ROW_ES = '''<span class="es" lang="es">{title}</span>'''
+
+INDEX_LEVEL = '''<span class="level level-{band}" title="CEFR {level}: {name}">{level}</span>'''
 
 INDEX_TAIL = '''    </ol>
   </main>
@@ -466,6 +512,14 @@ INDEX_TAIL = '''    </ol>
 '''
 
 TITLE_RE = re.compile(r"^(\d+)\.\s+(.*)$")
+
+# The refine step writes a "Level: A2" line under the title of texts/NN.md.
+LEVEL_RE = re.compile(r"^Level:\s*([ABC][12])\s*$", re.MULTILINE)
+LEVEL_NAMES = {
+    "A1": "beginner", "A2": "elementary",
+    "B1": "intermediate", "B2": "upper intermediate",
+    "C1": "advanced", "C2": "proficient",
+}
 
 TEMPLATE_HEADER = '''      <div class="num">CONVERSATION {num}</div>
       <h1>{en_title}</h1>'''
@@ -509,11 +563,27 @@ def read_title(conv_num: int) -> str:
     return f"Conversation {conv_num}"
 
 
+def parse_level(md_text: str) -> str | None:
+    """The CEFR level (A1…C2) from a texts/NN.md "Level: A2" line, or None."""
+    match = LEVEL_RE.search(md_text)
+    return match.group(1) if match else None
+
+
+def read_level(conv_num: int) -> str | None:
+    """The CEFR level of texts/NN.md; None (with a warning) if it has none."""
+    texts_path = TEXTS_DIR / f"{conv_num}.md"
+    level = parse_level(texts_path.read_text()) if texts_path.exists() else None
+    if level is None:
+        print(f"Warning: no 'Level: A1…C2' line in {texts_path}", file=sys.stderr)
+    return level
+
+
 def generate_index() -> str:
     """The landing page: one link per docs/NN.html, in conversation order.
 
     Its label is the page title with the number split off: the English title,
-    with the Spanish one (after the em dash) on a line below it.
+    with the Spanish one (after the em dash) on a line below it, then a badge
+    with the CEFR level, tinted by band (A, B or C).
     """
     nums = sorted(int(path.stem) for path in DOCS_DIR.glob("*.html") if path.stem.isdigit())
     page = INDEX_HEAD
@@ -521,10 +591,13 @@ def generate_index() -> str:
         match = TITLE_RE.match(read_title(num))
         title = match.group(2) if match else f"Conversation {num}"
         en_title, _, es_title = title.partition(" — ")
+        level = read_level(num)
         page += INDEX_ROW.format(
             num=num,
             en_title=render_text(en_title),
             es_title=INDEX_ROW_ES.format(title=render_text(es_title)) if es_title else "",
+            level=INDEX_LEVEL.format(band=level[0].lower(), level=level, name=LEVEL_NAMES[level])
+            if level else "",
         )
     return page + INDEX_TAIL
 

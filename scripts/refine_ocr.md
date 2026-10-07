@@ -22,7 +22,7 @@ to follow the instructions below on a specific file, e.g.:
 
 ## What to do
 
-Apply these three transformations to the raw table:
+Apply these four transformations to the raw table:
 
 1. **Add a title at the top.** A single H1 line starting with the conversation
    number, then the title in English and its Spanish translation (separated by
@@ -50,6 +50,25 @@ Apply these three transformations to the raw table:
      shows it as italics and the audio ignores the asterisks. OCR can't see
      italics, so check the page image.
 
+4. **Add the CEFR level.** Under the title, on a line of its own, write
+   `Level: ` and one of `A1 A2 B1 B2 C1 C2` (e.g. `Level: A2`). The index
+   shows it as a badge; `pipeline.py` won't build a conversation without it,
+   and `check.py` flags a missing one. Judge the whole dialogue, in both
+   languages, by what a learner must understand and say: its typical turn, not
+   its hardest sentence. A set phrase (*que tenga un buen día*) or a few
+   subjunctives don't lift a conversation whose English is plainly A2 (33 stays
+   A2). Keep new levels consistent with the existing conversations:
+
+   | Level | What it looks like | Conversations |
+   |-------|--------------------|---------------|
+   | A1 | Short turns of set phrases in the present: greetings, asking for things, prices and quantities | 5, 10, 13 |
+   | A2 | Simple past, *going to* / *will*, comparatives, polite formal requests; directions, travel information, simple symptoms; turns of a few sentences | 7, 15, 19, 32, 33, 41, 42 |
+   | B1 | Present perfect continuous, past habits against events (Spanish imperfect vs preterite), wishes and hypotheticals, subjunctive beyond set phrases (*puede que*, *cuando* + subjunctive, *ojalá* + imperfect subjunctive); longer turns that narrate or explain | 29, 36, 40 |
+   | B2 | Long turns weighing options or arguing a view; idiomatic, descriptive vocabulary | 35 |
+   | C1–C2 | Abstract or nuanced discussion, implied meaning, rare idioms | none yet |
+
+   If it sits on a boundary, pick one level and say why when you report.
+
 ## Guardrails (important)
 
 - **Preserve the dialogue.** Do not translate, reword, add, or remove lines.
@@ -69,8 +88,8 @@ Apply these three transformations to the raw table:
 
 ## Definition of done
 
-- `texts/NN.md` has a bilingual title, English-left / Spanish-right, no header
-  row, and a clean table.
+- `texts/NN.md` has a bilingual title, a `Level: A1…C2` line, English-left /
+  Spanish-right, no header row, and a clean table.
 - `make_clips.py texts/NN.md NN` produces a `clips.json` with the expected
   number of clips (2 per row) and no obvious errors.
 - Every English row has a speaker label, one per person: `make_clips.py`
