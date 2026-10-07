@@ -9,6 +9,10 @@ Bilingual (English/Spanish) textbook conversation pages, each rendered as a
 static HTML page with voice-cloned TTS audio, built from textbook page
 images.
 
+Planned improvements, with implementation notes and how to test player changes in a
+real browser, are in `ROADMAP.md`. Check it before starting site work, and tick items
+off there when they ship.
+
 ## The pipeline
 ```
 inputs/NN.jpeg

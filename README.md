@@ -82,6 +82,7 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 │   └── prompts/             # pi prompt templates (project slash-commands)
 │       ├── refine.md        # /refine N — OCR → refine, then check in
 │       └── pipeline.md      # /pipeline N — full run: OCR → refine → clips → audio → HTML → index
+├── ROADMAP.md               # Planned site improvements, with implementation notes
 ├── requirements.txt         # Pinned Python dependencies
 ├── .python-version          # Python version for .venv (3.14)
 └── .venv/                   # Python virtual environment (gitignored)
