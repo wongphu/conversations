@@ -18,7 +18,7 @@ Problems (exit status 1):
     - a clip's voice has no reference WAV in voices/
 
 Notes (informational):
-    - an input (inputs/NN.jpeg, inputs/NN - Title.docx…, or one in inputs/done/)
+    - an input (inputs/NN.jpeg, inputs/NN - Title.docx…, or one in done/)
       or ocrs/NN.md without texts/NN.md (not refined yet)
     - texts/NN.md not built yet
     - voices no conversation uses
