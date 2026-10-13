@@ -21,11 +21,13 @@ inputs/NN.jpeg  or  inputs/NN - Title.docx
             └─(make_clips.py)─→  docs/NN/clips.json
                  ├─(generate_audio.py)─→  docs/NN/audio/{en,es}/*.mp3
                  └─(generate_html.py)─→  docs/NN.html + docs/index.html
+                      └─ check passes → pipeline.py moves the source to inputs/done/
 ```
 
 After the refine step, **`scripts/pipeline.py NN`** runs everything below it —
-make_clips → generate_audio → generate_html → check — and is safe to re-run after
-editing `texts/NN.md` (see the `generate_audio.py` gotcha). **`scripts/check.py [NN]`**
+make_clips → generate_audio → generate_html → check, then moves the source to
+`inputs/done/` — and is safe to re-run after editing `texts/NN.md` (see the
+`generate_audio.py` gotcha). **`scripts/check.py [NN]`**
 reports what's missing or stale: clips/page/index out of date with their sources,
 a missing CEFR `Level:` line, missing, empty or orphan MP3s, leftover `.part` files, missing voice WAVs, and
 pages not refined or built yet. It exits 1 on a problem.
@@ -42,7 +44,11 @@ checks for `ffmpeg` and Apple Silicon, and runs the tests; it's safe to re-run. 
 bump `mlx-audio` in `requirements.txt` casually: a new TTS version can change the voices.
 Source page images and Word files go in `inputs/`, named with the conversation number
 first (`41.jpeg`, `1 - Greetings, introductions.docx`). `extract_text.py NN` finds the one
-for NN and writes `ocrs/NN.md`; it also takes a path.
+for NN and writes `ocrs/NN.md`; it also takes a path. Once `pipeline.py` has built a page
+and `check.py` passes, it moves the source to `inputs/done/`, so `inputs/` holds only
+what's still to do. A failed run leaves it in `inputs/`. `extract_text.py NN` and
+`check.py` look in `inputs/done/` too (a newer file in `inputs/` wins), so a processed
+page can still be re-extracted.
 
 `generate_html.py NN` also rebuilds `docs/index.html`, so a full run needs no manual
 steps. `generate_html.py` with no number rebuilds just the index; `--all` rebuilds every

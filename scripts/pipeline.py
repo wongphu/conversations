@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Build a refined conversation: clips → audio → HTML (+ index) → check.
+Build a refined conversation: clips → audio → HTML (+ index) → check, then
+move its source from inputs/ to inputs/done/.
 
 Usage:
     python scripts/pipeline.py <conversation_number> [--skip-audio]
@@ -13,6 +14,10 @@ first; see AGENTS.md), which also gives it the "Level: A2" line the badges need.
 MP3s of only the lines whose text changed, and generate_audio.py voices just
 those (plus any new lines). Unchanged lines keep their audio, since re-voicing
 them would drift the voices slightly. It never passes --force.
+
+Once check.py passes, the conversation's page image or .docx moves from
+inputs/ to inputs/done/, so inputs/ lists only the pages still to do. If a
+step or the check fails, the source stays where it is.
 """
 
 import argparse
@@ -21,6 +26,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from extract_text import move_to_done
 from generate_html import parse_level
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -76,6 +82,7 @@ def main():
         run("generate_audio.py", conv)
     run("generate_html.py", conv)
     run("check.py", conv)
+    move_to_done(args.conversation)
 
 
 if __name__ == "__main__":

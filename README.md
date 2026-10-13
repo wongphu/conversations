@@ -71,10 +71,11 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 │   ├── generate_html.py     # clips.json (+ title from texts/) → interactive HTML page
 │   ├── design_voice.py      # voices.json description → reference WAV (new speakers)
 │   ├── setup.sh             # First-time setup: .venv + requirements + tests
-│   ├── pipeline.py          # texts/NN.md → clips → audio → HTML → check, in one go
+│   ├── pipeline.py          # texts/NN.md → clips → audio → HTML → check, then file the source
 │   └── check.py             # Report missing / stale / orphan files
 │
-├── inputs/                  # Sources: NN.jpeg (textbook pages), NN - Title.docx (handouts)
+├── inputs/                  # Sources to do: NN.jpeg (textbook pages), NN - Title.docx (handouts)
+│   └── done/                # Sources whose page is built (pipeline.py moves them here)
 ├── ocrs/                    # Raw extract_text.py output: NN.md
 ├── texts/                   # Refined markdown (after the refine step): NN.md
 ├── tests/                   # unittest suite: .venv/bin/python -m unittest discover tests
@@ -105,7 +106,8 @@ refine step below cleans that up.
 
 The output is named after the number the source's name starts with, so a Word
 file can keep a descriptive name (`1 - Greetings, introductions.docx`). Given a
-number instead of a path, it finds that conversation's file in `inputs/`.
+number instead of a path, it finds that conversation's file in `inputs/`, or in
+`inputs/done/` once its page is built.
 
 **Design decisions:**
 - **RapidOCR** over alternatives (macOS Vision, EasyOCR, PaddleOCR): best Spanish accent accuracy, lightweight (ONNX Runtime, ~10MB models), runs in ~2s per page
@@ -184,7 +186,9 @@ Runs `make_clips.py` → `generate_audio.py` → `generate_html.py` → `check.p
 conversation. Before voicing, it deletes the MP3s of lines whose text changed since the
 last `clips.json`, so re-running after editing `texts/NN.md` re-voices just those lines
 and keeps the rest (re-voicing everything would drift the voices). It never passes
-`--force`. `--skip-audio` skips the TTS step (it needs Apple Silicon).
+`--force`. `--skip-audio` skips the TTS step (it needs Apple Silicon). When the check
+passes, it moves the conversation's source from `inputs/` to `inputs/done/`, so
+`inputs/` lists only the pages still to do; if any step fails, the source stays put.
 
 ```bash
 .venv/bin/python scripts/pipeline.py 41
@@ -282,7 +286,8 @@ conversation number first (`NN.jpeg`, `NN - Title.docx`):
 #      - fix misspellings and inconsistencies
 #      - add the CEFR level (`Level: A2`) under the title
 
-# 3. Clips → audio → HTML page + index → check, in one go
+# 3. Clips → audio → HTML page + index → check, in one go; then the source
+#    moves to inputs/done/
 .venv/bin/python scripts/pipeline.py NN
 ```
 

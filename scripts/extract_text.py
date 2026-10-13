@@ -12,7 +12,8 @@ Example:
 
 <source> is a page image (.jpeg, .jpg, .png), read with RapidOCR, or a Word
 file (.docx), whose tables are read directly. It can also be a conversation
-number: the file in inputs/ whose name starts with that number. Writes a raw
+number: the file whose name starts with that number, in inputs/ or, once
+pipeline.py has built its page, in inputs/done/. Writes a raw
 markdown table into ocrs/NN.md by default, NN being the number the source's
 name starts with ("1 - Greetings.docx" → ocrs/1.md), or to the path given with -o.
 
@@ -55,20 +56,38 @@ def conversation_number(path: Path) -> int | None:
     return int(match.group()) if match else None
 
 
+def sources_in(folder: Path) -> list[Path]:
+    """The page images and Word files directly in <folder>."""
+    if not folder.is_dir():
+        return []
+    return sorted(p for p in folder.iterdir() if p.is_file() and p.suffix.lower() in INPUT_SUFFIXES)
+
+
 def input_files() -> list[Path]:
-    """Every source file in inputs/ (page images and Word files)."""
-    return sorted(p for p in INPUTS_DIR.iterdir() if p.suffix.lower() in INPUT_SUFFIXES)
+    """Every source file: new ones in inputs/, processed ones in inputs/done/."""
+    return sources_in(INPUTS_DIR) + sources_in(INPUTS_DIR / "done")
 
 
 def find_input(conv: int) -> Path:
-    """The one file in inputs/ for conversation <conv>."""
-    matches = [p for p in input_files() if conversation_number(p) == conv]
-    if not matches:
-        sys.exit(f"Error: no page image or .docx in inputs/ whose name starts with {conv}")
-    if len(matches) > 1:
-        names = ", ".join(p.name for p in matches)
-        sys.exit(f"Error: several inputs for conversation {conv} ({names}); pass the path instead")
-    return matches[0]
+    """Conversation <conv>'s file in inputs/, or else in inputs/done/."""
+    for folder in (INPUTS_DIR, INPUTS_DIR / "done"):
+        matches = [p for p in sources_in(folder) if conversation_number(p) == conv]
+        if len(matches) > 1:
+            names = ", ".join(p.name for p in matches)
+            sys.exit(f"Error: several inputs for conversation {conv} ({names}); pass the path instead")
+        if matches:
+            return matches[0]
+    sys.exit(f"Error: no page image or .docx in inputs/ or inputs/done/ whose name starts with {conv}")
+
+
+def move_to_done(conv: int) -> None:
+    """Move conversation <conv>'s sources from inputs/ to inputs/done/ (pipeline.py
+    does this once the page is built, so inputs/ lists only what's left to do)."""
+    for source in sources_in(INPUTS_DIR):
+        if conversation_number(source) == conv:
+            (INPUTS_DIR / "done").mkdir(exist_ok=True)
+            source.replace(INPUTS_DIR / "done" / source.name)
+            print(f"  moved inputs/{source.name} to inputs/done/")
 
 
 def extract_table(image_path: str, row_gap_threshold: float = 100.0) -> str:
@@ -212,7 +231,7 @@ def extract_docx(docx_path: str) -> str:
 def main():
     parser = argparse.ArgumentParser(description="Convert a conversation page to a raw markdown table.")
     parser.add_argument("source", type=str,
-                        help="Page image or .docx, or a conversation number to find in inputs/")
+                        help="Page image or .docx, or a conversation number to find in inputs/ or inputs/done/")
     parser.add_argument("-o", "--output", type=str, default=None,
                         help="Output markdown file (default: ocrs/<number>.md; use - for stdout)")
     parser.add_argument("--row-gap", type=float, default=100.0,

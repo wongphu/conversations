@@ -18,7 +18,8 @@ to follow the instructions below on a specific file, e.g.:
   It has **no header row**; the two columns are positional (left / right) and
   their order is whatever appeared in the page image (may be either way round),
   and it may contain OCR errors. When the source is a Word file
-  (`inputs/NN - Title.docx`), the rows are the Word table's rows, read exactly:
+  (`inputs/NN - Title.docx`, or in `inputs/done/` once built), the rows are the
+  Word table's rows, read exactly:
   no OCR errors, but the author's typos remain, and it usually opens with a
   title row and an instructions row (drop the instructions; they are not
   dialogue).

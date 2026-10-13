@@ -4,6 +4,8 @@ Run from the project root:
     .venv/bin/python -m unittest discover tests
 """
 
+import contextlib
+import io
 import sys
 import tempfile
 import unittest
@@ -15,7 +17,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 import extract_text  # noqa: E402
-from extract_text import conversation_number, extract_docx, find_input  # noqa: E402
+from extract_text import conversation_number, extract_docx, find_input, input_files, move_to_done  # noqa: E402
 
 NAMESPACES = ('xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '
               'xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"')
@@ -98,21 +100,40 @@ class FindInput(unittest.TestCase):
     def test_finds_the_input_by_number(self):
         with tempfile.TemporaryDirectory() as tmp:
             inputs = Path(tmp)
-            for name in ("1 - Greetings.docx", "10.jpeg", "12.jpeg", "12 - Shopping.docx", "3 - Notes.txt"):
+            (inputs / "done").mkdir()
+            for name in ("10.jpeg", "12.jpeg", "12 - Shopping.docx", "3 - Notes.txt", "5.jpeg",
+                         "done/1 - Greetings.docx", "done/5.jpeg"):
                 (inputs / name).write_bytes(b"")
             with mock.patch.object(extract_text, "INPUTS_DIR", inputs):
-                self.assertEqual(find_input(1).name, "1 - Greetings.docx")
-                self.assertEqual(find_input(10).name, "10.jpeg")
+                self.assertEqual(find_input(10), inputs / "10.jpeg")
+                self.assertEqual(find_input(1), inputs / "done" / "1 - Greetings.docx")  # processed
+                self.assertEqual(find_input(5), inputs / "5.jpeg")  # a new version beats the old
                 with self.assertRaises(SystemExit):
                     find_input(12)  # ambiguous
                 with self.assertRaises(SystemExit):
                     find_input(3)   # not a page image or .docx
+                self.assertEqual([p.relative_to(inputs).as_posix() for p in input_files()],
+                                 ["10.jpeg", "12 - Shopping.docx", "12.jpeg", "5.jpeg",
+                                  "done/1 - Greetings.docx", "done/5.jpeg"])
+
+    def test_moves_a_built_conversations_sources_to_done(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            inputs = Path(tmp)
+            for name in ("1 - Greetings.docx", "10.jpeg", "1 - Notes.txt"):
+                (inputs / name).write_bytes(b"")
+            with mock.patch.object(extract_text, "INPUTS_DIR", inputs), \
+                    contextlib.redirect_stdout(io.StringIO()):
+                move_to_done(1)
+                move_to_done(1)   # already moved: nothing to do
+                move_to_done(7)   # no source: nothing to do
+            self.assertEqual(sorted(p.relative_to(inputs).as_posix() for p in inputs.rglob("*") if p.is_file()),
+                             ["1 - Notes.txt", "10.jpeg", "done/1 - Greetings.docx"])
 
 
 class CommittedOcrs(unittest.TestCase):
     def test_docx_inputs_match_their_ocrs(self):
         """Word extraction is deterministic, so ocrs/NN.md must match it once extracted."""
-        for docx in sorted((PROJECT_ROOT / "inputs").glob("*.docx")):
+        for docx in (p for p in input_files() if p.suffix.lower() == ".docx"):
             ocr = PROJECT_ROOT / "ocrs" / f"{conversation_number(docx)}.md"
             if not ocr.exists():
                 continue  # not extracted yet; check.py notes it
