@@ -1,29 +1,40 @@
 #!/usr/bin/env python3
 """
-Convert a conversation page image to a RAW markdown table using RapidOCR.
+Convert a conversation page (image or Word file) to a RAW markdown table.
 
 Usage:
-    python extract_text.py <image_path> [-o output.md]
+    python extract_text.py <source> [-o output.md]
 
 Example:
     python extract_text.py inputs/41.jpeg            # writes ocrs/41.md
     python extract_text.py inputs/36.jpeg -o ocrs/36.md
+    python extract_text.py 1                         # finds inputs/1 - Greetings, introductions.docx
 
-Writes a raw two-column markdown table (left / right as laid out in the
-image) into ocrs/<image_stem>.md by default, or to the path given with -o.
+<source> is a page image (.jpeg, .jpg, .png), read with RapidOCR, or a Word
+file (.docx), whose tables are read directly. It can also be a conversation
+number: the file in inputs/ whose name starts with that number. Writes a raw
+markdown table into ocrs/NN.md by default, NN being the number the source's
+name starts with ("1 - Greetings.docx" → ocrs/1.md), or to the path given with -o.
 
-Note: the column order is whatever appears in the page image, so the raw
-output is NOT guaranteed to be English-left / Spanish-right, and it may
-contain OCR errors. That normalization is done by the refine step (see
+Note: the column order is whatever appears in the page, so the raw output is
+NOT guaranteed to be English-left / Spanish-right, and it may contain OCR
+errors (or, from a Word file, the author's typos, a title row and
+instructions). That normalization is done by the refine step (see
 refine_ocr.md), which reads from ocrs/ and writes the cleaned result to texts/.
 """
 
 import argparse
 import re
 import sys
+import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from rapidocr import RapidOCR
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+INPUTS_DIR = PROJECT_ROOT / "inputs"
+
+IMAGE_SUFFIXES = {".jpeg", ".jpg", ".png"}
+INPUT_SUFFIXES = IMAGE_SUFFIXES | {".docx"}
 
 # Matches speaker labels at the start of a line:
 #   "R: ", "H. ", "A. ", "B. ", "Recepcionista: ", "Huésped: "
@@ -31,9 +42,39 @@ from rapidocr import RapidOCR
 # OCR misreads like "Anņa:".
 SPEAKER_RE = re.compile(r'^[A-ZÁÉÍÓÚÑ][^\W\d_]*[.:] ')
 
+W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+MC_FALLBACK = "{http://schemas.openxmlformats.org/markup-compatibility/2006}Fallback"
+
+# Invisible characters Word documents pick up from pasted text
+INVISIBLE_RE = re.compile("[­​‌‍⁠﻿]")
+
+
+def conversation_number(path: Path) -> int | None:
+    """The number a source file's name starts with: 41.jpeg → 41, "1 - Greetings.docx" → 1."""
+    match = re.match(r"\d+", path.stem)
+    return int(match.group()) if match else None
+
+
+def input_files() -> list[Path]:
+    """Every source file in inputs/ (page images and Word files)."""
+    return sorted(p for p in INPUTS_DIR.iterdir() if p.suffix.lower() in INPUT_SUFFIXES)
+
+
+def find_input(conv: int) -> Path:
+    """The one file in inputs/ for conversation <conv>."""
+    matches = [p for p in input_files() if conversation_number(p) == conv]
+    if not matches:
+        sys.exit(f"Error: no page image or .docx in inputs/ whose name starts with {conv}")
+    if len(matches) > 1:
+        names = ", ".join(p.name for p in matches)
+        sys.exit(f"Error: several inputs for conversation {conv} ({names}); pass the path instead")
+    return matches[0]
+
 
 def extract_table(image_path: str, row_gap_threshold: float = 100.0) -> str:
     """Extract a two-column markdown table from an image."""
+    from rapidocr import RapidOCR  # loaded here so Word files don't need the OCR engine
+
     engine = RapidOCR()
     result = engine(image_path)
 
@@ -108,27 +149,96 @@ def extract_table(image_path: str, row_gap_threshold: float = 100.0) -> str:
     return "\n".join(lines)
 
 
+def word_text(element: ET.Element) -> str:
+    """The visible text of a Word element, its paragraphs and line breaks as spaces."""
+    parts = []
+    for child in element:
+        if child.tag == f"{W}t":
+            parts.append(child.text or "")
+        elif child.tag in (f"{W}tab", f"{W}br", f"{W}cr"):
+            parts.append(" ")
+        elif child.tag == f"{W}noBreakHyphen":
+            parts.append("-")
+        elif child.tag == f"{W}p":
+            parts.append(f" {word_text(child)} ")
+        elif child.tag != MC_FALLBACK:  # a Fallback repeats its Choice (e.g. a text box)
+            parts.append(word_text(child))
+    return "".join(parts)
+
+
+def clean(text: str) -> str:
+    return " ".join(INVISIBLE_RE.sub("", text).split())
+
+
+def blocks(element: ET.Element):
+    """Children of a Word element, looking through content controls (w:sdt)."""
+    for child in element:
+        if child.tag == f"{W}sdt":
+            content = child.find(f"{W}sdtContent")
+            if content is not None:
+                yield from blocks(content)
+        else:
+            yield child
+
+
+def extract_docx(docx_path: str) -> str:
+    """Extract a Word file's tables as markdown rows, one per table row.
+
+    Cells are kept as they are, left to right, so a two-column table gives
+    the same raw two-column rows as the OCR. Paragraphs outside a table (a
+    heading, say) are kept as plain lines in document order. Headers and
+    footers (e.g. a page or conversation number) are left out.
+    """
+    with zipfile.ZipFile(docx_path) as docx:
+        body = ET.fromstring(docx.read("word/document.xml")).find(f"{W}body")
+
+    lines = []
+    for block in blocks(body):
+        if block.tag == f"{W}p":
+            if text := clean(word_text(block)):
+                lines.append(text)
+        elif block.tag == f"{W}tbl":
+            for row in blocks(block):
+                if row.tag != f"{W}tr":
+                    continue
+                cells = [clean(word_text(cell)).replace("|", "\\|")
+                         for cell in blocks(row) if cell.tag == f"{W}tc"]
+                if any(cells):
+                    lines.append(f"| {' | '.join(cells)} |")
+
+    return "\n".join(lines) if lines else "No text found."
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Convert a conversation image to a raw markdown table.")
-    parser.add_argument("image", type=str, help="Path to the image file")
+    parser = argparse.ArgumentParser(description="Convert a conversation page to a raw markdown table.")
+    parser.add_argument("source", type=str,
+                        help="Page image or .docx, or a conversation number to find in inputs/")
     parser.add_argument("-o", "--output", type=str, default=None,
-                        help="Output markdown file (default: ocrs/<image_stem>.md; use - for stdout)")
+                        help="Output markdown file (default: ocrs/<number>.md; use - for stdout)")
     parser.add_argument("--row-gap", type=float, default=100.0,
-                        help="Min pixel gap between rows (default: 100)")
+                        help="Min pixel gap between rows in an image (default: 100)")
     args = parser.parse_args()
 
-    image_path = Path(args.image)
-    if not image_path.exists():
-        sys.exit(f"Error: {image_path} not found")
+    source = find_input(int(args.source)) if args.source.isdigit() else Path(args.source)
+    if not source.exists():
+        sys.exit(f"Error: {source} not found")
+    suffix = source.suffix.lower()
+    if suffix not in INPUT_SUFFIXES:
+        sys.exit(f"Error: {source.name}: expected a page image ({', '.join(sorted(IMAGE_SUFFIXES))}) "
+                 f"or a .docx (save a .doc as .docx first)")
 
-    markdown = extract_table(str(image_path), row_gap_threshold=args.row_gap)
+    if suffix == ".docx":
+        markdown = extract_docx(str(source))
+    else:
+        markdown = extract_table(str(source), row_gap_threshold=args.row_gap)
 
     if args.output == "-":
         print(markdown)
         return
 
     if args.output is None:
-        out_path = Path(__file__).resolve().parent.parent / "ocrs" / f"{image_path.stem}.md"
+        conv = conversation_number(source)
+        out_path = PROJECT_ROOT / "ocrs" / f"{source.stem if conv is None else conv}.md"
     else:
         out_path = Path(args.output)
 

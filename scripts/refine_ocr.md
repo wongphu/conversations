@@ -17,7 +17,11 @@ to follow the instructions below on a specific file, e.g.:
 - **Read:** `ocrs/NN.md` — the raw two-column markdown table from `extract_text.py`.
   It has **no header row**; the two columns are positional (left / right) and
   their order is whatever appeared in the page image (may be either way round),
-  and it may contain OCR errors.
+  and it may contain OCR errors. When the source is a Word file
+  (`inputs/NN - Title.docx`), the rows are the Word table's rows, read exactly:
+  no OCR errors, but the author's typos remain, and it usually opens with a
+  title row and an instructions row (drop the instructions; they are not
+  dialogue).
 - **Write:** `texts/NN.md` — the refined table (a human/agent-edited artifact).
 
 ## What to do
@@ -27,8 +31,9 @@ Apply these four transformations to the raw table:
 1. **Add a title at the top.** A single H1 line starting with the conversation
    number, then the title in English and its Spanish translation (separated by
    an em dash), e.g. `# 41. Hotel Check-In — Check-in en el hotel`. Take the
-   number from the filename (`ocrs/NN.md`). Derive the words from the content;
-   keep it short (a few words).
+   number from the filename (`ocrs/NN.md`). Derive the words from the content,
+   or from the source's own title row if it has one (fixing its typos); keep it
+   short (a few words).
 
 2. **Normalize column order: English on the left, Spanish on the right.**
    Detect which column is which (Spanish is reliably identifiable by accented
@@ -44,11 +49,18 @@ Apply these four transformations to the raw table:
      `Recepcionista:` another) — pick one label per speaker and use it
      consistently. Labels pick the voices, so every row needs one, and a
      textbook mislabel must be fixed (flag it). A label is one word, optionally
-     followed by a number (`Customer 2:`).
+     followed by a number (`Customer 2:`). A source with no speakers at all (a
+     phrase list that each partner practices, as Word handouts often are) needs
+     labels too: whether one voice reads every line or two partners alternate
+     is a judgment call, so flag it.
    - Stray OCR garbage (page numbers, running headers, stray characters).
    - Text the textbook sets in italics can be marked `*like this*`; the page
-     shows it as italics and the audio ignores the asterisks. OCR can't see
-     italics, so check the page image.
+     shows it as italics and the audio ignores the asterisks. Neither the OCR
+     nor the Word extraction keeps italics, so check the page image or the
+     Word file.
+   - Fill-in blanks of any length (`___`, `________`): write each as exactly
+     four underscores, `____`. `voices/pronunciations.json` turns that into a
+     pause for the TTS; other lengths reach it as raw underscores.
 
 4. **Add the CEFR level.** Under the title, on a line of its own, write
    `Level: ` and one of `A1 A2 B1 B2 C1 C2` (e.g. `Level: A2`). The index

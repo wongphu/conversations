@@ -1,6 +1,6 @@
 # Conversations
 
-Interactive bilingual (English/Spanish) conversation pages with voice-cloned audio, built from textbook page images.
+Interactive bilingual (English/Spanish) conversation pages with voice-cloned audio, built from textbook page images or Word (.docx) handouts.
 
 ## First-Time Setup
 
@@ -25,7 +25,7 @@ Off Apple Silicon, everything but audio still works: `scripts/pipeline.py NN --s
 ## How It Works
 
 ```
-textbook image  →  OCR  →  refine (AI)  →  clips.json  →  TTS  →  HTML page
+image or .docx  →  OCR  →  refine (AI)  →  clips.json  →  TTS  →  HTML page
   inputs/NN.jpeg   ocrs/NN.md   texts/NN.md    docs/NN/...    docs/NN.html
   (extract_text.py) (refine_ocr.md) (make_clips.py) (generate_audio.py) (generate_html.py)
 ```
@@ -64,7 +64,7 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 │           └── es/          # Spanish MP3 clips
 │
 ├── scripts/
-│   ├── extract_text.py      # Image → raw markdown (ocrs/)
+│   ├── extract_text.py      # Image or .docx → raw markdown (ocrs/)
 │   ├── refine_ocr.md        # AI step: ocrs/ → texts/ (agent task, not a script)
 │   ├── make_clips.py        # Markdown (texts/) → clips.json
 │   ├── generate_audio.py    # clips.json → MP3 files (TTS)
@@ -74,8 +74,8 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 │   ├── pipeline.py          # texts/NN.md → clips → audio → HTML → check, in one go
 │   └── check.py             # Report missing / stale / orphan files
 │
-├── inputs/                  # Source images (textbook pages): NN.jpeg
-├── ocrs/                    # Raw OCR output (extract_text.py): NN.md
+├── inputs/                  # Sources: NN.jpeg (textbook pages), NN - Title.docx (handouts)
+├── ocrs/                    # Raw extract_text.py output: NN.md
 ├── texts/                   # Refined markdown (after the refine step): NN.md
 ├── tests/                   # unittest suite: .venv/bin/python -m unittest discover tests
 ├── .pi/
@@ -90,22 +90,34 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 
 ## Scripts
 
-### `extract_text.py` — Image to raw markdown (OCR)
+### `extract_text.py` — Image or Word file to raw markdown
 
 Uses RapidOCR to extract the two-column table from a textbook page image into
-`ocrs/`. The column order is whatever appears in the page (left / right), so
-the raw output is **not** guaranteed to be English-left / Spanish-right and may
-contain OCR errors — the refine step below cleans that up.
+`ocrs/`, or reads the table of a Word file (`.docx`) directly. The column order is
+whatever appears in the page (left / right), so the raw output is **not**
+guaranteed to be English-left / Spanish-right and may contain OCR errors — the
+refine step below cleans that up.
 
 ```bash
 .venv/bin/python scripts/extract_text.py inputs/41.jpeg   # → ocrs/41.md
+.venv/bin/python scripts/extract_text.py 1                # finds inputs/1 - Greetings, introductions.docx → ocrs/1.md
 ```
+
+The output is named after the number the source's name starts with, so a Word
+file can keep a descriptive name (`1 - Greetings, introductions.docx`). Given a
+number instead of a path, it finds that conversation's file in `inputs/`.
 
 **Design decisions:**
 - **RapidOCR** over alternatives (macOS Vision, EasyOCR, PaddleOCR): best Spanish accent accuracy, lightweight (ONNX Runtime, ~10MB models), runs in ~2s per page
 - **Gap-based row detection**: lines are grouped into rows by vertical spacing. A gap > 100px indicates a new row; smaller gaps mean continuation within a cell
 - **Speaker pattern heuristic**: a capitalized word followed by `.` or `:` and a space (e.g., "R:", "A.", "Huésped:", even OCR misreads like "Anņa:") with a gap > 30px from the previous line triggers a new row. This fixes cases where annotation blocks cause rows to merge
 - **Column detection**: x-center of each text fragment determines left vs. right column
+- **Word files without a library**: a `.docx` is a zip of XML, so the standard library
+  (`zipfile`, `ElementTree`) reads it; no `python-docx` dependency. Each table row
+  becomes one markdown row, cells as they are, with paragraphs in a cell joined by a
+  space and invisible characters (zero-width spaces, soft hyphens) removed. Deleted
+  tracked changes, headers and footers are left out. Paragraphs outside a table are
+  kept as plain lines for the refine step to use or drop
 
 ### Refine OCR output — AI step (`refine_ocr.md`)
 
@@ -255,11 +267,12 @@ Design is random: listen to the WAVs and re-run until they fit. Don't redesign a
 > project slash-commands — `/refine N` (through the refine step, then check in) and
 > `/pipeline N` (full run). See [Prompt Templates](#prompt-templates-pi-commands).
 
-Given a new textbook page image:
+Given a new textbook page image or Word file, saved in `inputs/` with the
+conversation number first (`NN.jpeg`, `NN - Title.docx`):
 
 ```bash
-# 1. OCR the page image → ocrs/NN.md
-.venv/bin/python scripts/extract_text.py inputs/new_page.jpeg -o ocrs/NN.md
+# 1. OCR the page image, or read the Word table → ocrs/NN.md
+.venv/bin/python scripts/extract_text.py NN
 
 # 2. Refine the OCR output (AI agent step) → texts/NN.md
 #    Ask a coding agent (e.g. pi) to follow scripts/refine_ocr.md, which

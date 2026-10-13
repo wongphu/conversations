@@ -18,7 +18,8 @@ Problems (exit status 1):
     - a clip's voice has no reference WAV in voices/
 
 Notes (informational):
-    - inputs/NN.jpeg or ocrs/NN.md without texts/NN.md (not refined yet)
+    - an input (inputs/NN.jpeg, inputs/NN - Title.docx…) or ocrs/NN.md without
+      texts/NN.md (not refined yet)
     - texts/NN.md not built yet
     - voices no conversation uses
 
@@ -31,6 +32,7 @@ import json
 import sys
 from pathlib import Path
 
+from extract_text import conversation_number, input_files
 from generate_html import generate_html, generate_index, parse_level
 from make_clips import build_clips, parse_markdown_table
 
@@ -42,10 +44,11 @@ VOICES_DIR = PROJECT_ROOT / "voices"
 
 def conversation_numbers() -> set[int]:
     """Every conversation with a source or a built file."""
-    paths = [*(PROJECT_ROOT / "inputs").glob("*.jpeg"), *(PROJECT_ROOT / "ocrs").glob("*.md"),
-             *TEXTS_DIR.glob("*.md"), *DOCS_DIR.glob("*.html"), *DOCS_DIR.glob("*/clips.json")]
+    paths = [*(PROJECT_ROOT / "ocrs").glob("*.md"), *TEXTS_DIR.glob("*.md"),
+             *DOCS_DIR.glob("*.html"), *DOCS_DIR.glob("*/clips.json")]
     stems = [p.parent.name if p.name == "clips.json" else p.stem for p in paths]
-    return {int(s) for s in stems if s.isdigit()}
+    inputs = {conversation_number(p) for p in input_files()} - {None}
+    return {int(s) for s in stems if s.isdigit()} | inputs
 
 
 def check_conversation(conv: int, problems: list[str], notes: list[str]) -> set[str]:

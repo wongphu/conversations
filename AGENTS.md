@@ -7,7 +7,7 @@ the non-obvious gotchas. Prefer this for *how to act*; consult README for *why*.
 ## What this is
 Bilingual (English/Spanish) textbook conversation pages, each rendered as a
 static HTML page with voice-cloned TTS audio, built from textbook page
-images.
+images or Word (.docx) handouts.
 
 Planned improvements, with implementation notes and how to test player changes in a
 real browser, are in `ROADMAP.md`. Check it before starting site work, and tick items
@@ -15,7 +15,7 @@ off there when they ship.
 
 ## The pipeline
 ```
-inputs/NN.jpeg
+inputs/NN.jpeg  or  inputs/NN - Title.docx
   └─(extract_text.py)─→  ocrs/NN.md        # raw OCR: 2 positional columns, either order, has typos + annotations
        └─(refine step, YOU)─→  texts/NN.md  # agent step: title + EN-left/ES-right + fixes
             └─(make_clips.py)─→  docs/NN/clips.json
@@ -40,7 +40,9 @@ If `.venv` is missing (it's gitignored), run **`scripts/setup.sh`** first. It cr
 venv with the Python in `.python-version` (3.14), installs the pinned `requirements.txt`,
 checks for `ffmpeg` and Apple Silicon, and runs the tests; it's safe to re-run. Don't
 bump `mlx-audio` in `requirements.txt` casually: a new TTS version can change the voices.
-Source page images go in `inputs/`.
+Source page images and Word files go in `inputs/`, named with the conversation number
+first (`41.jpeg`, `1 - Greetings, introductions.docx`). `extract_text.py NN` finds the one
+for NN and writes `ocrs/NN.md`; it also takes a path.
 
 `generate_html.py NN` also rebuilds `docs/index.html`, so a full run needs no manual
 steps. `generate_html.py` with no number rebuilds just the index; `--all` rebuilds every
@@ -85,6 +87,14 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
 - **Raw OCR column order is positional, not labeled.** `extract_text.py` writes no
   `| English | Spanish |` header — just left/right cells. The refine step is what
   guarantees English-left/Spanish-right.
+- **A `.docx` is read, not OCR'd.** `extract_text.py` writes its table rows as they are
+  (no OCR errors, no italics; paragraphs outside the table as plain lines; headers and
+  footers dropped), so `ocrs/NN.md` from a `.docx` is deterministic and a test checks it
+  still matches. Re-run `extract_text.py NN` after editing the `.docx` or the extractor.
+  Word handouts tend to open with a title row and an instructions row: the refine step
+  takes the title for the H1 and drops the instructions like any annotation. They may
+  be phrase lists with no speaker labels, and fill-in blanks of any length (`___`,
+  `________`): see `refine_ocr.md`.
 - **`make_clips.py` detects language per *column*, not per line:** whichever column has
   the higher share of accented chars (`á é í ó ú ñ ¿ ¡ ü`) is `es`. It exits if it can't
   tell. A Spanish annotation leaking into the English column can still tip it. Fix the
