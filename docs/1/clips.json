@@ -1,0 +1,290 @@
+[
+  {
+    "file": "1/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hello, my name is Linda."
+  },
+  {
+    "file": "1/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, mi nombre es Linda."
+  },
+  {
+    "file": "1/audio/en/01-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It is nice to meet you."
+  },
+  {
+    "file": "1/audio/es/01-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Mucho gusto."
+  },
+  {
+    "file": "1/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I am from Canada."
+  },
+  {
+    "file": "1/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Soy de Canadá."
+  },
+  {
+    "file": "1/audio/en/03-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I have lived here for five years."
+  },
+  {
+    "file": "1/audio/es/03-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "He vivido aquí durante cinco años."
+  },
+  {
+    "file": "1/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I like Volcan very much."
+  },
+  {
+    "file": "1/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me gusta mucho Volcán."
+  },
+  {
+    "file": "1/audio/en/05-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "The people are very friendly."
+  },
+  {
+    "file": "1/audio/es/05-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "La gente es muy amigable."
+  },
+  {
+    "file": "1/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I have two children."
+  },
+  {
+    "file": "1/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Tengo dos hijos."
+  },
+  {
+    "file": "1/audio/en/07-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "They live in Toronto."
+  },
+  {
+    "file": "1/audio/es/07-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Ellos viven en Toronto."
+  },
+  {
+    "file": "1/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "They are thirty-two and thirty-five years old."
+  },
+  {
+    "file": "1/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Tienen treinta y dos y treinta y cinco años."
+  },
+  {
+    "file": "1/audio/en/09-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I work at a school."
+  },
+  {
+    "file": "1/audio/es/09-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Trabajo en una escuela."
+  },
+  {
+    "file": "1/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I was a nurse, but now I am retired."
+  },
+  {
+    "file": "1/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Yo era enfermera, pero ahora estoy jubilada."
+  },
+  {
+    "file": "1/audio/en/11-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I like to walk."
+  },
+  {
+    "file": "1/audio/es/11-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me gusta caminar."
+  },
+  {
+    "file": "1/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I like to swim."
+  },
+  {
+    "file": "1/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me gusta nadar."
+  },
+  {
+    "file": "1/audio/en/13-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I like to go to the movies."
+  },
+  {
+    "file": "1/audio/es/13-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me gusta ir al cine."
+  },
+  {
+    "file": "1/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I like to travel."
+  },
+  {
+    "file": "1/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me gusta viajar."
+  },
+  {
+    "file": "1/audio/en/15-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I like to read."
+  },
+  {
+    "file": "1/audio/es/15-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me gusta leer."
+  },
+  {
+    "file": "1/audio/en/16-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "My favorite food is chicken and rice."
+  },
+  {
+    "file": "1/audio/es/16-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Mi comida favorita es el arroz con pollo."
+  },
+  {
+    "file": "1/audio/en/17-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I usually eat out."
+  },
+  {
+    "file": "1/audio/es/17-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Generalmente como fuera."
+  },
+  {
+    "file": "1/audio/en/18-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I usually cook at home."
+  },
+  {
+    "file": "1/audio/es/18-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Generalmente cocino en casa."
+  },
+  {
+    "file": "1/audio/en/19-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can you tell me the best place to buy clothing in Volcan?"
+  },
+  {
+    "file": "1/audio/es/19-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Me puedes decir el mejor lugar para comprar ropa en Volcán?"
+  },
+  {
+    "file": "1/audio/en/20-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can you tell me the best place to buy food in Volcan?"
+  },
+  {
+    "file": "1/audio/es/20-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Me puedes decir el mejor lugar para comprar comida en Volcán?"
+  },
+  {
+    "file": "1/audio/en/21-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can you tell me the best place to buy tools in Volcan?"
+  },
+  {
+    "file": "1/audio/es/21-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Me puedes decir el mejor lugar para comprar herramientas en Volcán?"
+  },
+  {
+    "file": "1/audio/en/22-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can you tell me the best place to buy appliances in Volcan?"
+  },
+  {
+    "file": "1/audio/es/22-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Me puedes decir el mejor lugar para comprar electrodomésticos en Volcán?"
+  },
+  {
+    "file": "1/audio/en/23-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I want to learn Spanish."
+  },
+  {
+    "file": "1/audio/es/23-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Quiero aprender español."
+  }
+]

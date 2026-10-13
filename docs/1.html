@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1. Introductions — Introducciones</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fbf8f2;
+      --fg: #1d1b18;
+      --muted: #857e72;
+      --es: #9b4d24;
+      --rule: #e6dfd2;
+      --hl: #f3ead8;
+      --accent: #7a3e1d;
+      --error: #b00020;
+      --level-a: #3d6b45;
+      --level-a-bg: #e2ede0;
+      --level-b: #85561a;
+      --level-b-bg: #f3e4c6;
+      --level-c: #9b3324;
+      --level-c-bg: #f5dcd5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171513;
+        --fg: #ece6dc;
+        --muted: #8f877b;
+        --es: #e0a47e;
+        --rule: #2e2a25;
+        --hl: #2a241d;
+        --accent: #e0a47e;
+        --error: #ff6b6b;
+        --level-a: #a6cfa9;
+        --level-a-bg: #1f2b21;
+        --level-b: #e3bd78;
+        --level-b-bg: #30271a;
+        --level-c: #eda193;
+        --level-c-bg: #3a201c;
+      }
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 19px/1.5 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    main {
+      box-sizing: border-box;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.4rem 1.5rem 4rem;
+    }
+
+    .back {
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .back:hover { color: var(--fg); text-decoration: underline; }
+
+    header {
+      text-align: center;
+      margin: 0.8rem 0 0.6rem;
+    }
+
+    .num {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
+
+    .level {
+      display: inline-block;
+      margin-left: 0.5rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      vertical-align: 0.1em;
+      font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+    }
+
+    .level-a { color: var(--level-a); background: var(--level-a-bg); }
+    .level-b { color: var(--level-b); background: var(--level-b-bg); }
+    .level-c { color: var(--level-c); background: var(--level-c-bg); }
+
+    h1 {
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0.3rem 0 0;
+    }
+
+    .subtitle {
+      margin: 0.2rem 0 0;
+      color: var(--es);
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    .toolbar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 0.3rem 0;
+      background: var(--bg);
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+    }
+
+    .toolbar > * { margin: 0.3rem 0.7rem; }
+
+    .seg {
+      display: inline-flex;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .seg button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .seg button[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .play-all {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      padding: 0.3rem 0.9rem 0.3rem 0.6rem;
+      cursor: pointer;
+    }
+
+    .play-all svg {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.35rem;
+    }
+
+    .play-all .stop-icon,
+    .play-all[aria-pressed="true"] .play-icon { display: none; }
+
+    .play-all[aria-pressed="true"] .stop-icon { display: block; }
+
+    .play-all[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .play-all:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+    }
+
+    .speed-control input[type="range"] {
+      width: 130px;
+      margin: 0 0.6rem;
+      accent-color: var(--accent);
+    }
+
+    .speed-control .speed-value {
+      min-width: 3.2em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hint {
+      min-height: 1.4em;
+      margin: 0 0 0.6rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .turn {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1fr;
+      grid-column-gap: 1.5rem;
+    }
+
+    .turn > * {
+      min-width: 0;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .turn.head > * {
+      padding: 0 0 0.4rem;
+      border-bottom-color: var(--fg);
+      font: 600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .who {
+      padding-top: 1.05rem;
+      font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .turn.b .who { color: var(--accent); }
+
+    .line p {
+      display: flex;
+      align-items: flex-start;
+      margin: 0;
+    }
+
+    .line p .words {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .line.es { color: var(--es); }
+
+    .line.playing .words { background: var(--hl); }
+
+    em { font-style: italic; }
+
+    .speak {
+      flex: 0 0 auto;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0.15rem 0.5rem 0 0;
+      padding: 0.25rem;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 0;
+    }
+
+    .speak svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .speak:hover { color: var(--fg); }
+
+    .speak:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .speak.playing {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .speak.error {
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    body.hide-en .line.en:not(.shown) .words,
+    body.hide-es .line.es:not(.shown) .words {
+      -webkit-filter: blur(6px);
+      filter: blur(6px);
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    @media (max-width: 640px) {
+      body { font-size: 17px; }
+      main { padding: 0.9rem 1rem 3rem; }
+      h1 { font-size: 1.6rem; }
+      .turn { display: block; }
+      .turn.head { display: none; }
+      .turn > * { padding: 0.2rem 0; border: 0; }
+      .who { margin-top: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--rule); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; All conversations / Todas las conversaciones</a>
+    <header>
+      <div class="num">CONVERSATION 1<span class="level level-a" title="CEFR A1: beginner">A1</span></div>
+      <h1>Introductions</h1>
+      <p class="subtitle" lang="es">Introducciones</p>
+    </header>
+    <div class="toolbar">
+      <button type="button" class="play-all" id="playAll" aria-pressed="false">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12.5-7.5z"></path></svg>
+        <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 6h12v12H6z"></path></svg>
+        <span id="playAllLabel">Play all</span>
+      </button>
+      <div class="seg" role="group" aria-label="Show">
+        <button type="button" data-mode="" aria-pressed="true">Both</button>
+        <button type="button" data-mode="hide-es" aria-pressed="false">Hide Spanish</button>
+        <button type="button" data-mode="hide-en" aria-pressed="false">Hide English</button>
+      </div>
+      <div class="speed-control">
+        <label for="speed">Speed / Velocidad</label>
+        <input type="range" id="speed" min="50" max="150" value="100" step="5">
+        <span class="speed-value" id="speedValue">100%</span>
+      </div>
+    </div>
+    <p class="hint" id="hint"></p>
+    <div class="turns">
+      <div class="turn head" aria-hidden="true"><div></div><div>ENGLISH</div><div>ESPAÑOL</div></div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/00-a.mp3" data-voice="English A">Hello, my name is Linda.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/00-a.mp3" data-voice="Spanish A">Hola, mi nombre es Linda.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/01-a.mp3" data-voice="English A">It is nice to meet you.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/01-a.mp3" data-voice="Spanish A">Mucho gusto.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/02-a.mp3" data-voice="English A">I am from Canada.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/02-a.mp3" data-voice="Spanish A">Soy de Canadá.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/03-a.mp3" data-voice="English A">I have lived here for five years.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/03-a.mp3" data-voice="Spanish A">He vivido aquí durante cinco años.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/04-a.mp3" data-voice="English A">I like Volcan very much.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/04-a.mp3" data-voice="Spanish A">Me gusta mucho Volcán.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/05-a.mp3" data-voice="English A">The people are very friendly.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/05-a.mp3" data-voice="Spanish A">La gente es muy amigable.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/06-a.mp3" data-voice="English A">I have two children.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/06-a.mp3" data-voice="Spanish A">Tengo dos hijos.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/07-a.mp3" data-voice="English A">They live in Toronto.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/07-a.mp3" data-voice="Spanish A">Ellos viven en Toronto.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/08-a.mp3" data-voice="English A">They are thirty-two and thirty-five years old.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/08-a.mp3" data-voice="Spanish A">Tienen treinta y dos y treinta y cinco años.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/09-a.mp3" data-voice="English A">I work at a school.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/09-a.mp3" data-voice="Spanish A">Trabajo en una escuela.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/10-a.mp3" data-voice="English A">I was a nurse, but now I am retired.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/10-a.mp3" data-voice="Spanish A">Yo era enfermera, pero ahora estoy jubilada.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/11-a.mp3" data-voice="English A">I like to walk.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/11-a.mp3" data-voice="Spanish A">Me gusta caminar.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/12-a.mp3" data-voice="English A">I like to swim.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/12-a.mp3" data-voice="Spanish A">Me gusta nadar.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/13-a.mp3" data-voice="English A">I like to go to the movies.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/13-a.mp3" data-voice="Spanish A">Me gusta ir al cine.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/14-a.mp3" data-voice="English A">I like to travel.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/14-a.mp3" data-voice="Spanish A">Me gusta viajar.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/15-a.mp3" data-voice="English A">I like to read.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/15-a.mp3" data-voice="Spanish A">Me gusta leer.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/16-a.mp3" data-voice="English A">My favorite food is chicken and rice.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/16-a.mp3" data-voice="Spanish A">Mi comida favorita es el arroz con pollo.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/17-a.mp3" data-voice="English A">I usually eat out.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/17-a.mp3" data-voice="Spanish A">Generalmente como fuera.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/18-a.mp3" data-voice="English A">I usually cook at home.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/18-a.mp3" data-voice="Spanish A">Generalmente cocino en casa.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/19-a.mp3" data-voice="English A">Can you tell me the best place to buy clothing in Volcan?</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/19-a.mp3" data-voice="Spanish A">¿Me puedes decir el mejor lugar para comprar ropa en Volcán?</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/20-a.mp3" data-voice="English A">Can you tell me the best place to buy food in Volcan?</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/20-a.mp3" data-voice="Spanish A">¿Me puedes decir el mejor lugar para comprar comida en Volcán?</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/21-a.mp3" data-voice="English A">Can you tell me the best place to buy tools in Volcan?</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/21-a.mp3" data-voice="Spanish A">¿Me puedes decir el mejor lugar para comprar herramientas en Volcán?</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/22-a.mp3" data-voice="English A">Can you tell me the best place to buy appliances in Volcan?</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/22-a.mp3" data-voice="Spanish A">¿Me puedes decir el mejor lugar para comprar electrodomésticos en Volcán?</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="1/audio/en/23-a.mp3" data-voice="English A">I want to learn Spanish.</p></div>
+        <div class="line es" lang="es"><p data-audio="1/audio/es/23-a.mp3" data-voice="Spanish A">Quiero aprender español.</p></div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="player.js?v=35d97a009e"></script>
+</body>
+</html>
