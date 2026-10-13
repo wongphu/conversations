@@ -18,19 +18,28 @@ Reads:
 Writes:
     docs/<N>/<file>             – generated MP3 audio clips
 
+Each new clip's pitch is checked against its voice's reference WAV: a take
+whose median pitch is PITCH_TOLERANCE semitones or more off is recorded
+again, up to MAX_TAKES takes, keeping the closest. Voice cloning varies take
+to take, and an off-pitch line sounds like a different mood next to its
+neighbours. Existing MP3s are not re-checked.
+
 Dependencies:
-    pip install mlx-audio soundfile
+    pip install mlx-audio soundfile praat-parselmouth
     brew install ffmpeg
 """
 
 import argparse
 import json
+import math
 import re
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
+import numpy as np
+import parselmouth
 import soundfile as sf
 
 # --- Config ---
@@ -43,6 +52,13 @@ DOCS_DIR = PROJECT_ROOT / "docs"
 # Same model mlx-audio's generate_audio() defaults to when no ref_text is given.
 STT_MODEL = "mlx-community/whisper-large-v3-turbo-asr-fp16"
 
+# Pitch check: re-record a take whose median pitch is this many semitones or
+# more from its voice's reference WAV, keeping the closest of MAX_TAKES takes.
+PITCH_TOLERANCE = 3.0
+MAX_TAKES = 5
+PITCH_FLOOR, PITCH_CEILING = 75, 600  # Hz; covers the voices without octave errors
+MIN_VOICED_FRAMES = 10  # ~0.1 s of voiced sound; less is too little to judge
+
 
 def load_json(path: Path) -> dict | list:
     with open(path) as f:
@@ -54,6 +70,44 @@ def apply_pronunciations(text: str, lang: str, pronunciations: dict) -> str:
     for word, spoken in pronunciations.get(lang, {}).items():
         text = re.sub(rf"\b{re.escape(word)}\b", spoken, text)
     return text
+
+
+def median_pitch(path: Path) -> float | None:
+    """Median pitch (Hz) of a recording's voiced parts, or None if too little is voiced."""
+    pitch = parselmouth.Sound(str(path)).to_pitch(pitch_floor=PITCH_FLOOR, pitch_ceiling=PITCH_CEILING)
+    f0 = pitch.selected_array["frequency"]
+    voiced = f0[f0 > 0]
+    return float(np.median(voiced)) if len(voiced) >= MIN_VOICED_FRAMES else None
+
+
+def semitones(pitch: float, ref: float) -> float:
+    return 12 * math.log2(pitch / ref)
+
+
+def best_take(record, ref_pitch: float | None) -> Path | None:
+    """Record takes until one is within PITCH_TOLERANCE of ref_pitch, at most MAX_TAKES.
+
+    record(n) records take n and returns its WAV (None if nothing was generated).
+    Returns the take closest to the reference pitch, or None if no take produced audio.
+    """
+    best, best_off = None, math.inf
+    for n in range(1, MAX_TAKES + 1):
+        wav = record(n)
+        if wav is None:
+            continue
+        pitch = median_pitch(wav)
+        if pitch is None or ref_pitch is None:
+            return wav  # too short to judge: keep it
+        off = semitones(pitch, ref_pitch)
+        if abs(off) < abs(best_off):
+            best, best_off = wav, off
+        if abs(off) < PITCH_TOLERANCE:
+            return wav
+        print(f"         take {n}: pitch {pitch:.0f} Hz, {off:+.1f} semitones from the voice's "
+              f"{ref_pitch:.0f} Hz" + ("; recording another" if n < MAX_TAKES else ""))
+    if best is not None:
+        print(f"         ! kept the closest of {MAX_TAKES} takes ({best_off:+.1f} semitones)")
+    return best
 
 
 def wav_to_mp3(wav_path: Path, mp3_path: Path) -> None:
@@ -143,6 +197,7 @@ def main():
 
     model = load_model(model_path=model_name)
     ref_texts = transcribe_refs(sorted(set(ref_paths.values())), model.sample_rate)
+    ref_pitches = {path: median_pitch(path) for path in ref_texts}
 
     print(f"\nGenerating {len(to_generate)} clips...\n")
     failed = 0
@@ -159,26 +214,29 @@ def main():
         print(f"  [{i}/{len(to_generate)}] {clip['file']}")
         print(f"         {speaker}  \"{text[:60]}{'...' if len(text) > 60 else ''}\"")
 
-        # Generate into a temp directory (mlx-audio uses output_path as a dir)
+        # Generate into a temp directory (mlx-audio uses output_path as a dir),
+        # one subdirectory per take
         with tempfile.TemporaryDirectory() as tmpdir:
-            generate_audio(
-                text=text,
-                model=model,
-                ref_audio=str(ref_path),
-                ref_text=ref_texts[ref_path],
-                output_path=tmpdir,
-                file_prefix="clip",
-                verbose=False,
-            )
+            def record(take: int) -> Path | None:
+                take_dir = Path(tmpdir) / f"take{take}"
+                take_dir.mkdir()
+                generate_audio(
+                    text=text,
+                    model=model,
+                    ref_audio=str(ref_path),
+                    ref_text=ref_texts[ref_path],
+                    output_path=str(take_dir),
+                    file_prefix="clip",
+                    verbose=False,
+                )
+                return next(take_dir.glob("*.wav"), None)
 
-            # Find the generated WAV
-            wavs = list(Path(tmpdir).glob("*.wav"))
-            if not wavs:
+            wav_path = best_take(record, ref_pitches[ref_path])
+            if wav_path is None:
                 print(f"         ✗ no output generated")
                 failed += 1
                 continue
 
-            wav_path = wavs[0]
             duration = sf.info(str(wav_path)).duration
 
             # Convert to MP3

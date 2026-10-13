@@ -127,6 +127,14 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   stale one either. Do **not**
   `--force` a whole conversation to change a couple of lines: voice cloning varies
   run-to-run, so unchanged lines would get slightly different voices.
+- **`generate_audio.py` checks each new clip's pitch** against its voice's reference WAV
+  (Praat, via `praat-parselmouth`). A take whose median pitch is 3 or more semitones off
+  (`PITCH_TOLERANCE`) is recorded again, up to 5 takes (`MAX_TAKES`), keeping the closest;
+  the log shows each rejected take, and `! kept the closest` when none got within range.
+  Takes vary a lot: conversation 1's English lines first came out anywhere from 185 to
+  346 Hz around the voice's 232. Existing MP3s are not re-checked, so to fix an
+  off-pitch old clip, delete it and re-run. A line that is naturally higher (a question,
+  an exclamation) may need all 5 takes; that's expected, not a failure.
 - **Mispronounced names:** add a phonetic respelling to `voices/pronunciations.json`
   (per language, e.g. `"Tizingal": "Tee-seen-gahl"`). It's applied to the TTS input only;
   the page keeps the real spelling. Then delete just the affected MP3s and re-run.
