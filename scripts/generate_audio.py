@@ -54,7 +54,7 @@ STT_MODEL = "mlx-community/whisper-large-v3-turbo-asr-fp16"
 
 # Pitch check: re-record a take whose median pitch is this many semitones or
 # more from its voice's reference WAV, keeping the closest of MAX_TAKES takes.
-PITCH_TOLERANCE = 3.0
+PITCH_TOLERANCE = 4.0
 MAX_TAKES = 5
 PITCH_FLOOR, PITCH_CEILING = 75, 600  # Hz; covers the voices without octave errors
 MIN_VOICED_FRAMES = 10  # ~0.1 s of voiced sound; less is too little to judge

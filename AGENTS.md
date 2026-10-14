@@ -128,7 +128,7 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   `--force` a whole conversation to change a couple of lines: voice cloning varies
   run-to-run, so unchanged lines would get slightly different voices.
 - **`generate_audio.py` checks each new clip's pitch** against its voice's reference WAV
-  (Praat, via `praat-parselmouth`). A take whose median pitch is 3 or more semitones off
+  (Praat, via `praat-parselmouth`). A take whose median pitch is 4 or more semitones off
   (`PITCH_TOLERANCE`) is recorded again, up to 5 takes (`MAX_TAKES`), keeping the closest;
   the log shows each rejected take, and `! kept the closest` when none got within range.
   Takes vary a lot: conversation 1's English lines first came out anywhere from 185 to

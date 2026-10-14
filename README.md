@@ -166,7 +166,7 @@ Uses Qwen3-TTS 1.7B with voice cloning to generate MP3 clips.
 - **MP3 output via ffmpeg**: `mlx-audio` outputs WAV; ffmpeg converts to MP3 (libmp3lame, quality 2) for smaller file sizes
 - **Pronunciation overrides**: `voices/pronunciations.json` maps words to phonetic respellings per language (e.g. "Tizingal" → "Tee-seen-gahl"). They are applied to the text sent to the TTS only; the page shows the original spelling (page 36 shows the textbook's "Volcan" but says "Volcán")
 - **Italics**: `*...*` in `texts/NN.md` becomes `<em>` on the page and is removed from the TTS input
-- **Pitch check**: voice cloning varies take to take, and a line recorded 5 semitones above the voice's usual pitch sounds like a different mood next to its neighbours. So each new clip's median pitch is measured with Praat (`praat-parselmouth`) against its voice's reference WAV; a take 3 or more semitones off is recorded again, up to 5 takes, keeping the closest. Existing clips are not re-checked (delete one to re-record it)
+- **Pitch check**: voice cloning varies take to take, and a line recorded 5 semitones above the voice's usual pitch sounds like a different mood next to its neighbours. So each new clip's median pitch is measured with Praat (`praat-parselmouth`) against its voice's reference WAV; a take 4 or more semitones off is recorded again, up to 5 takes, keeping the closest. Existing clips are not re-checked (delete one to re-record it)
 - **Skip existing files**: by default, clips that already exist are skipped. Use `--force` to regenerate. MP3s are encoded to a `.part` file and renamed, so an interrupted run never leaves a truncated clip that would be skipped
 
 ### `generate_html.py` — clips.json to HTML

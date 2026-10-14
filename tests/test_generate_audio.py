@@ -66,8 +66,11 @@ class BestTake(unittest.TestCase):
         self.assertEqual(self.run_takes([250]), (Path("take1.wav"), [1]))
 
     def test_re_records_until_on_pitch(self):
-        # 333 Hz is +6.2 semitones from 232 Hz, 185 Hz is -3.9: both re-recorded
-        self.assertEqual(self.run_takes([333, 185, 240]), (Path("take3.wav"), [1, 2, 3]))
+        # 333 Hz is +6.2 semitones from 232 Hz, 180 Hz is -4.4: both re-recorded
+        self.assertEqual(self.run_takes([333, 180, 240]), (Path("take3.wav"), [1, 2, 3]))
+
+    def test_accepts_a_take_just_inside_the_limit(self):
+        self.assertEqual(self.run_takes([185]), (Path("take1.wav"), [1]))  # -3.9 semitones
 
     def test_keeps_the_closest_when_no_take_is_on_pitch(self):
         wav, recorded = self.run_takes([333, 300, 175, 346, 310])
