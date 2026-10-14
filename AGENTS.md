@@ -152,6 +152,10 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   a CEFR badge from its `Level:` line, tinted by band (A, B, C).
   To change the index's look, edit `INDEX_HEAD`/`INDEX_ROW`/`INDEX_TAIL` in
   `generate_html.py`. To drop a page from it, delete `docs/NN.html` and re-run.
+- **Pages opt out of browser auto-translate** (`<html … translate="no">` plus
+  `<meta name="google" content="notranslate">`, in `TEMPLATE_HEAD` and `INDEX_HEAD`).
+  Users reported the browser offering to translate, or translating, the bilingual pages,
+  which wrecks them. Keep both on any template change.
 - **`*italics*` in `texts/NN.md` are display-only:** `generate_html.py` renders them as
   `<em>`, and `generate_audio.py` drops the `*` before TTS. Page 36 uses them to mirror
   the textbook's italics.

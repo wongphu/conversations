@@ -38,9 +38,10 @@ PLAYER_PATH = DOCS_DIR / "player.js"
 ITALIC_RE = re.compile(r"\*(.+?)\*")
 
 TEMPLATE_HEAD = '''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
   <meta charset="utf-8">
+  <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{title}</title>
   <style>
@@ -372,9 +373,10 @@ TEMPLATE_HEAD = '''<!DOCTYPE html>
 '''
 
 INDEX_HEAD = '''<!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
   <meta charset="utf-8">
+  <meta name="google" content="notranslate">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Conversations</title>
   <style>
