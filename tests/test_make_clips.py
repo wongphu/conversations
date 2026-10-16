@@ -18,6 +18,7 @@ from make_clips import (  # noqa: E402
     assign_speakers,
     clips_from_markdown,
     detect_column_languages,
+    has_table_header,
     parse_markdown_table,
     row_label,
 )
@@ -52,6 +53,22 @@ class ParseTable(unittest.TestCase):
     def test_skips_title_header_and_separator(self):
         md = "# 1. Title — Título\n\n| English | Spanish |\n|---|---|\n| A. Hi. | A. ¡Hola! |"
         self.assertEqual(parse_markdown_table(md), [{"left": "A. Hi.", "right": "A. ¡Hola!"}])
+
+
+class TableHeader(unittest.TestCase):
+    def test_header_and_separator(self):
+        self.assertTrue(has_table_header("# T\n\n| English | Español |\n|---|:--|\n| A. Hi. | A. ¡Hola! |"))
+
+    def test_missing_separator(self):
+        self.assertFalse(has_table_header("# T\n\n| English | Español |\n| A. Hi. | A. ¡Hola! |"))
+
+    def test_bare_rows(self):
+        self.assertFalse(has_table_header("# T\n\n| A. Hi. | A. ¡Hola! |\n| B. Bye. | B. Adiós. |"))
+
+    def test_committed_texts_have_header(self):
+        for path in sorted((PROJECT_ROOT / "texts").glob("*.md")):
+            with self.subTest(conversation=path.stem):
+                self.assertTrue(has_table_header(path.read_text()))
 
 
 class Labels(unittest.TestCase):

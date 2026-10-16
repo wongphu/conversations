@@ -127,7 +127,7 @@ A coding-agent step (not a script) that cleans the raw OCR output. It reads
 `ocrs/NN.md` and writes a refined `texts/NN.md`, doing four things:
 
 1. Add a title at the top (a short H1 including the conversation number, e.g. `# 41. Hotel Check-In — Check-in en el hotel`).
-2. Normalize column order to **English left, Spanish right** (the raw OCR output may be reversed).
+2. Normalize column order to **English left, Spanish right** (the raw OCR output may be reversed), under a `| English | Español |` header and `|---|---|` separator so it renders as a table.
 3. Correct misspellings and inconsistencies (OCR artifacts, inconsistent speaker labels, broken punctuation) — while preserving the dialogue.
 4. Add the conversation's CEFR level (A1–C2) as a `Level: A2` line under the title, which the index and the page header show as a badge.
 

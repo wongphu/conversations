@@ -11,6 +11,8 @@ Example:
 
 Problems (exit status 1):
     - texts/NN.md has no "Level: A1…C2" line (the CEFR level the badges show)
+    - texts/NN.md's table has no "| English | Español |" header and "|---|---|"
+      separator, so Markdown viewers show it as a paragraph
     - docs/NN/clips.json, docs/NN.html or docs/index.html differ from what
       make_clips.py / generate_html.py would produce from the current sources
     - an MP3 in clips.json is missing or empty, or an MP3 on disk is in no
@@ -34,7 +36,7 @@ from pathlib import Path
 
 from extract_text import conversation_number, input_files
 from generate_html import generate_html, generate_index, parse_level
-from make_clips import clips_from_markdown
+from make_clips import clips_from_markdown, has_table_header
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = PROJECT_ROOT / "docs"
@@ -66,6 +68,9 @@ def check_conversation(conv: int, problems: list[str], notes: list[str]) -> set[
     if parse_level(texts_path.read_text()) is None:
         problems.append(f"{conv}: texts/{conv}.md has no CEFR level "
                         f"(add a 'Level: A2' line under the title; see scripts/refine_ocr.md)")
+    if not has_table_header(texts_path.read_text()):
+        problems.append(f"{conv}: texts/{conv}.md's table has no '| English | Español |' "
+                        f"header and '|---|---|' separator (see scripts/refine_ocr.md)")
     if not clips_path.exists():
         notes.append(f"{conv}: not built yet (run scripts/pipeline.py {conv})")
         return set()

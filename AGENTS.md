@@ -91,8 +91,10 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
 
 ## Gotchas (learned the hard way)
 - **Raw OCR column order is positional, not labeled.** `extract_text.py` writes no
-  `| English | Spanish |` header — just left/right cells. The refine step is what
-  guarantees English-left/Spanish-right.
+  `| English | Español |` header — just left/right cells. The refine step is what
+  guarantees English-left/Spanish-right, and it adds that header and a `|---|---|`
+  separator: without them Markdown viewers don't render a table. `make_clips.py`
+  skips both, and `check.py` flags a `texts/NN.md` without them.
 - **A `.docx` is read, not OCR'd.** `extract_text.py` writes its table rows as they are
   (no OCR errors, no italics; paragraphs outside the table as plain lines; headers and
   footers dropped), so `ocrs/NN.md` from a `.docx` is deterministic and a test checks it

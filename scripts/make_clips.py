@@ -148,6 +148,18 @@ def parse_markdown_table(md_text: str) -> list[dict]:
     return rows
 
 
+def has_table_header(md_text: str) -> bool:
+    """Whether the table opens with the "| English | Español |" header and a
+    "|---|---|" separator, which Markdown viewers need to render it as a table."""
+    lines = [line.strip() for line in md_text.split("\n") if line.strip().startswith("|")]
+    if len(lines) < 2:
+        return False
+    header = [c.strip().lower() for c in lines[0].split("|")[1:-1]]
+    separator = [c.strip() for c in lines[1].split("|")[1:-1]]
+    return (header == ["english", "español"] and len(separator) == 2
+            and all(c and set(c) <= set("-:") and "-" in c for c in separator))
+
+
 def build_clips(rows: list[dict], conv_num: int, voices: list[str] = ()) -> list[dict]:
     """Build clips.json entries from parsed table rows.
 

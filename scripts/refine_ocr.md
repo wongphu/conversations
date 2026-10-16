@@ -40,8 +40,10 @@ Apply these four transformations to the raw table:
    Detect which column is which (Spanish is reliably identifiable by accented
    characters `á é í ó ú ñ ¿ ¡` and words like `el`, `de`, `que`, `no`, `sí`).
    If Spanish is currently on the left, swap the two cells of **every** row so
-   English is the left column and Spanish is the right column. Do **not** add a
-   header row — the file is the bare two-column table.
+   English is the left column and Spanish is the right column. Start the
+   table with the header row `| English | Español |` and the separator row
+   `|---|---|`: without them it isn't a Markdown table, and viewers (GitHub,
+   mdv) show the rows as one run-on paragraph. `make_clips.py` skips both.
 
 3. **Correct misspellings and inconsistencies.** Fix obvious OCR artifacts:
    - Misspelled or mangled words in either language.
@@ -94,15 +96,17 @@ Apply these four transformations to the raw table:
   OCR broke one utterance across two rows (a row that continues the previous
   sentence and has no label), join them and flag it. Otherwise the number of
   rows is unchanged.
-- **Keep it a valid table.** Two cells per row, `| ... | ... |`. There is no
-  header row. The result must be parseable by `make_clips.py`.
+- **Keep it a valid table.** Two cells per row, `| ... | ... |`, under the
+  `| English | Español |` header and `|---|---|` separator. The result must be
+  parseable by `make_clips.py`.
 - Do not invent content you are not confident about. If a cell is illegible,
   leave it as-is rather than guessing.
 
 ## Definition of done
 
 - `texts/NN.md` has a bilingual title, a `Level: A1…C2` line, English-left /
-  Spanish-right, no header row, and a clean table.
+  Spanish-right, a `| English | Español |` header and `|---|---|` separator,
+  and a clean table.
 - `make_clips.py texts/NN.md NN` produces a `clips.json` with the expected
   number of clips (2 per row) and no obvious errors.
 - Every English row has a speaker label, one per person: `make_clips.py`
