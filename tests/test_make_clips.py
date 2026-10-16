@@ -16,7 +16,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 from make_clips import (  # noqa: E402
     assign_speakers,
-    build_clips,
+    clips_from_markdown,
     detect_column_languages,
     parse_markdown_table,
     row_label,
@@ -28,7 +28,7 @@ def table(*rows: tuple[str, str]) -> str:
 
 
 def clips_for(md: str, conv: int = 99) -> list[dict]:
-    return build_clips(parse_markdown_table(md), conv)
+    return clips_from_markdown(md, conv)
 
 
 def by_lang(clips: list[dict], lang: str) -> list[dict]:
@@ -137,6 +137,26 @@ class Speakers(unittest.TestCase):
         with contextlib.redirect_stderr(io.StringIO()) as err:
             assign_speakers(rows)
         self.assertEqual(err.getvalue(), "")
+
+    def test_voices_line_picks_voices(self):
+        # Luis speaks first, but Ana (a woman) should get voice a.
+        clips = clips_for("Voices: Ana, Luis\n\n" + table(
+            ("Luis: Hello.", "Luis: Hola."),
+            ("Ana: Hi.", "Ana: Buenas."),
+            ("Carla: Hey!", "Carla: ¡Épale!"),
+        ))
+        self.assertEqual([c["speaker"] for c in by_lang(clips, "en")], ["en_b", "en_a", "en_c"])
+        self.assertEqual(clips[0]["file"], "99/audio/en/00-b.mp3")
+
+    def test_voices_line_must_name_labels(self):
+        md = table(("Luis: Hello.", "Luis: Hola."), ("Ana: Hi.", "Ana: Buenas."))
+        for line in ("Voices: Ana, Maria", "Voices: Ana, Ana"):
+            with self.subTest(line=line), self.assertRaises(SystemExit):
+                clips_for(f"{line}\n\n{md}")
+
+    def test_voices_line_needs_labels(self):
+        with self.assertRaises(SystemExit):
+            clips_for("Voices: Ana\n\n" + table(("Hello.", "Hola."), ("Hi.", "Buenas.")))
 
     def test_too_many_speakers(self):
         rows = [{"left": f"P{i}: Hi.", "right": f"P{i}: Hola."} for i in range(9)]

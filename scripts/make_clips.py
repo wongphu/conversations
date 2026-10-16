@@ -29,6 +29,11 @@ SPEAKER_RE = re.compile(r'^(\w+(?: \d+)?)[.:]\s+(.*)')
 
 SPEAKER_IDS = "abcdefgh"
 
+# Optional line under the title of texts/NN.md: "Voices: Ana, Luis" gives the
+# listed English labels voices a, b, … in that order, so a man who speaks first
+# need not get voice a (a woman). Labels it leaves out follow by first appearance.
+VOICES_RE = re.compile(r"^Voices:\s*(.+?)\s*$", re.MULTILINE)
+
 
 def spanish_score(text: str) -> float:
     """Fraction of characters that are Spanish indicators (accents, ñ, ¿, ¡)."""
@@ -70,20 +75,34 @@ def speaker_labels(texts: list[str]) -> set[str]:
     return {label for label, n in counts.items() if n >= 2}
 
 
-def assign_speakers(rows: list[dict]) -> list[str]:
+def voice_order(md_text: str) -> list[str]:
+    """The English labels named by a "Voices: Ana, Luis" line, in order ([] if none)."""
+    match = VOICES_RE.search(md_text)
+    return [name.strip() for name in match.group(1).split(",")] if match else []
+
+
+def assign_speakers(rows: list[dict], voices: list[str] = ()) -> list[str]:
     """Speaker id ("a", "b", "c"…) for each row.
 
     If every English cell has a label, speakers follow the labels, lettered in
     order of first appearance, so any number of speakers (and a speaker taking
-    two turns in a row) works. Otherwise it is a two-person dialogue and rows
-    alternate a, b, a, b….
+    two turns in a row) works; `voices` (see voice_order) letters the labels it
+    names first. Otherwise it is a two-person dialogue and rows alternate
+    a, b, a, b….
     """
     labels = [row_label(row["left"]) for row in rows]
     if not all(labels):
+        if voices:
+            sys.exit("Error: a Voices: line needs a speaker label on every English row")
         return ["a" if i % 2 == 0 else "b" for i in range(len(rows))]
 
+    unknown = [name for name in voices if name not in labels]
+    if unknown or len(set(voices)) != len(voices):
+        sys.exit(f"Error: Voices: line must name distinct English labels; "
+                 f"not labels: {', '.join(unknown) or 'none'}")
+
     ids: dict[str, str] = {}
-    for label in labels:
+    for label in [*voices, *labels]:
         if label not in ids:
             if len(ids) == len(SPEAKER_IDS):
                 sys.exit(f"Error: more than {len(SPEAKER_IDS)} speakers")
@@ -129,10 +148,10 @@ def parse_markdown_table(md_text: str) -> list[dict]:
     return rows
 
 
-def build_clips(rows: list[dict], conv_num: int) -> list[dict]:
+def build_clips(rows: list[dict], conv_num: int, voices: list[str] = ()) -> list[dict]:
     """Build clips.json entries from parsed table rows.
 
-    Speakers come from the row labels (see assign_speakers).
+    Speakers come from the row labels and `voices` (see assign_speakers).
     Each column has a single language detected from all its texts.
     """
     # Detect language per column using all texts in that column
@@ -140,7 +159,7 @@ def build_clips(rows: list[dict], conv_num: int) -> list[dict]:
     right_text = " ".join(row["right"] for row in rows if row["right"])
     left_lang, right_lang = detect_column_languages(left_text, right_text)
     labels = {col: speaker_labels([row[col] for row in rows]) for col in ("left", "right")}
-    speakers = assign_speakers(rows)
+    speakers = assign_speakers(rows, voices)
 
     clips = []
 
@@ -167,6 +186,11 @@ def build_clips(rows: list[dict], conv_num: int) -> list[dict]:
     return clips
 
 
+def clips_from_markdown(md_text: str, conv_num: int) -> list[dict]:
+    """clips.json entries for a texts/NN.md, honouring its Voices: line."""
+    return build_clips(parse_markdown_table(md_text), conv_num, voice_order(md_text))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Extract clips.json from a markdown conversation table.")
     parser.add_argument("markdown", type=str, help="Path to the markdown file")
@@ -184,7 +208,7 @@ def main():
     if not rows:
         sys.exit("Error: no table rows found in markdown")
 
-    clips = build_clips(rows, args.conversation)
+    clips = build_clips(rows, args.conversation, voice_order(md_text))
 
     output = json.dumps(clips, indent=2, ensure_ascii=False)
 

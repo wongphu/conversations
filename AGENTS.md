@@ -111,6 +111,11 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   there can be more than two speakers — but a textbook mislabel now changes the voice,
   so the refine step must fix labels. Labels are `Word` or `Word N` followed by `.`/`:`.
   If any English row is unlabeled, it falls back to row parity (a, b, a, b…).
+  Voice `a` is a woman and `b` a man, so when a man speaks first the refine step adds a
+  `Voices: Ana, Luis` line under `Level:`: the labels it lists get `a`, `b`… in that
+  order, and any others follow by first appearance (conversation 4). It must name
+  English labels and needs every English row labeled. Conversation 15 predates it, so
+  Manuel is voiced by `a`.
   Spanish labels don't pick voices; `make_clips.py` only warns if they don't pair 1:1
   with the English ones.
 - **Speaker labels are stripped when every row in the column has one**; otherwise only

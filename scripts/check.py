@@ -34,7 +34,7 @@ from pathlib import Path
 
 from extract_text import conversation_number, input_files
 from generate_html import generate_html, generate_index, parse_level
-from make_clips import build_clips, parse_markdown_table
+from make_clips import clips_from_markdown
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = PROJECT_ROOT / "docs"
@@ -71,7 +71,7 @@ def check_conversation(conv: int, problems: list[str], notes: list[str]) -> set[
         return set()
 
     clips = json.loads(clips_path.read_text())
-    expected = build_clips(parse_markdown_table(texts_path.read_text()), conv)
+    expected = clips_from_markdown(texts_path.read_text(), conv)
     if clips != expected:
         problems.append(f"{conv}: clips.json is out of date with texts/{conv}.md")
 
