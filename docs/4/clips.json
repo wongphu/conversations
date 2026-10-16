@@ -1,0 +1,194 @@
+[
+  {
+    "file": "4/audio/en/00-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Hello, my name is ____."
+  },
+  {
+    "file": "4/audio/es/00-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Hola, mi nombre es ____."
+  },
+  {
+    "file": "4/audio/en/01-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It is nice to meet you. My name is ____."
+  },
+  {
+    "file": "4/audio/es/01-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Mucho gusto. Mi nombre es ____."
+  },
+  {
+    "file": "4/audio/en/02-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Who is that woman?"
+  },
+  {
+    "file": "4/audio/es/02-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Quién es esa mujer?"
+  },
+  {
+    "file": "4/audio/en/03-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is my friend Carla. She is very friendly."
+  },
+  {
+    "file": "4/audio/es/03-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Es mi amiga Carla. Ella es muy amigable."
+  },
+  {
+    "file": "4/audio/en/04-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "She has long hair."
+  },
+  {
+    "file": "4/audio/es/04-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Tiene el cabello largo."
+  },
+  {
+    "file": "4/audio/en/05-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, and she is tall and thin."
+  },
+  {
+    "file": "4/audio/es/05-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, y es alta y delgada."
+  },
+  {
+    "file": "4/audio/en/06-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "What is that building behind her?"
+  },
+  {
+    "file": "4/audio/es/06-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Qué es ese edificio detrás de ella?"
+  },
+  {
+    "file": "4/audio/en/07-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is the museum."
+  },
+  {
+    "file": "4/audio/es/07-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Es el museo."
+  },
+  {
+    "file": "4/audio/en/08-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "It’s big and beautiful!"
+  },
+  {
+    "file": "4/audio/es/08-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Es grande y bonito!"
+  },
+  {
+    "file": "4/audio/en/09-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, and the door is red."
+  },
+  {
+    "file": "4/audio/es/09-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, y la puerta es roja."
+  },
+  {
+    "file": "4/audio/en/10-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "What are those things on the table?"
+  },
+  {
+    "file": "4/audio/es/10-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Qué son esas cosas en la mesa?"
+  },
+  {
+    "file": "4/audio/en/11-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "They are books and pencils for the art class."
+  },
+  {
+    "file": "4/audio/es/11-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Son libros y lápices para la clase de arte."
+  },
+  {
+    "file": "4/audio/en/12-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Nice! And what is that small object?"
+  },
+  {
+    "file": "4/audio/es/12-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Qué bien! ¿Y qué es ese objeto pequeño?"
+  },
+  {
+    "file": "4/audio/en/13-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is a phone. It is old, but it still works."
+  },
+  {
+    "file": "4/audio/es/13-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Es un teléfono. Es viejo, pero todavía funciona."
+  },
+  {
+    "file": "4/audio/en/14-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I like this place."
+  },
+  {
+    "file": "4/audio/es/14-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me gusta este lugar."
+  },
+  {
+    "file": "4/audio/en/15-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Me too!"
+  },
+  {
+    "file": "4/audio/es/15-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡A mí también!"
+  }
+]
