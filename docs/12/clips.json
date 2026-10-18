@@ -1,0 +1,170 @@
+[
+  {
+    "file": "12/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hi, can you tell me what we can recycle here?"
+  },
+  {
+    "file": "12/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, ¿puede decirme qué podemos reciclar aquí?"
+  },
+  {
+    "file": "12/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes. We accept plastics number 1, 2, 4, and 5."
+  },
+  {
+    "file": "12/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí. Aceptamos plásticos número 1, 2, 4 y 5."
+  },
+  {
+    "file": "12/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What about plastic number 3, PVC?"
+  },
+  {
+    "file": "12/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Y el plástico número 3, PVC?"
+  },
+  {
+    "file": "12/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "No, we do not accept PVC."
+  },
+  {
+    "file": "12/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No, no aceptamos el PVC."
+  },
+  {
+    "file": "12/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can I bring glass bottles?"
+  },
+  {
+    "file": "12/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Puedo traer botellas de vidrio?"
+  },
+  {
+    "file": "12/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, we accept glass jars and bottles."
+  },
+  {
+    "file": "12/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, aceptamos frascos y botellas de vidrio."
+  },
+  {
+    "file": "12/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What about cartons?"
+  },
+  {
+    "file": "12/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Y cartones?"
+  },
+  {
+    "file": "12/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, we accept tetrapack, paper, cardboard, and cans too."
+  },
+  {
+    "file": "12/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, también aceptamos tetrapack, papel, cartón y latas."
+  },
+  {
+    "file": "12/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "When can I bring my recycling?"
+  },
+  {
+    "file": "12/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Cuándo puedo traer mi reciclaje?"
+  },
+  {
+    "file": "12/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "On Fridays and Saturdays from 9 to noon."
+  },
+  {
+    "file": "12/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Los viernes y sábados de 9 a 12."
+  },
+  {
+    "file": "12/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you need volunteers?"
+  },
+  {
+    "file": "12/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Necesitan voluntarios?"
+  },
+  {
+    "file": "12/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, always. We need help sorting and organizing."
+  },
+  {
+    "file": "12/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, siempre. Necesitamos ayuda para clasificar y organizar."
+  },
+  {
+    "file": "12/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Great. I can come Saturday morning."
+  },
+  {
+    "file": "12/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Genial. Puedo venir el sábado por la mañana."
+  },
+  {
+    "file": "12/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you. That helps a lot!"
+  },
+  {
+    "file": "12/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Gracias. ¡Eso ayuda mucho!"
+  }
+]
