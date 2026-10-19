@@ -1,0 +1,206 @@
+[
+  {
+    "file": "6/audio/en/00-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Good morning. What brings you in today?"
+  },
+  {
+    "file": "6/audio/es/00-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Buenos días. ¿Por qué vino hoy?"
+  },
+  {
+    "file": "6/audio/en/01-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I do not feel well. I have a sore throat and a headache."
+  },
+  {
+    "file": "6/audio/es/01-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "No me siento bien. Tengo dolor de garganta y dolor de cabeza."
+  },
+  {
+    "file": "6/audio/en/02-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "How long have you felt this way?"
+  },
+  {
+    "file": "6/audio/es/02-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Hace cuánto tiempo se siente así?"
+  },
+  {
+    "file": "6/audio/en/03-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "For three days."
+  },
+  {
+    "file": "6/audio/es/03-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Desde hace tres días."
+  },
+  {
+    "file": "6/audio/en/04-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Do you have a fever?"
+  },
+  {
+    "file": "6/audio/es/04-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Tiene fiebre?"
+  },
+  {
+    "file": "6/audio/en/05-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, yesterday I had a high fever."
+  },
+  {
+    "file": "6/audio/es/05-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, ayer tuve fiebre alta."
+  },
+  {
+    "file": "6/audio/en/06-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Any cough or pain in your body?"
+  },
+  {
+    "file": "6/audio/es/06-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Tiene tos o dolor en el cuerpo?"
+  },
+  {
+    "file": "6/audio/en/07-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, I have a small cough and my back hurts."
+  },
+  {
+    "file": "6/audio/es/07-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, tengo un poco de tos y me duele la espalda."
+  },
+  {
+    "file": "6/audio/en/08-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Okay. I will check your temperature and listen to your breathing."
+  },
+  {
+    "file": "6/audio/es/08-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Está bien. Voy a tomar su temperatura y escuchar su respiración."
+  },
+  {
+    "file": "6/audio/en/09-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Okay, thank you."
+  },
+  {
+    "file": "6/audio/es/09-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Está bien, gracias."
+  },
+  {
+    "file": "6/audio/en/10-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You have a slight fever. It looks like you have the flu."
+  },
+  {
+    "file": "6/audio/es/10-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Tiene fiebre leve. Parece que tiene gripe."
+  },
+  {
+    "file": "6/audio/en/11-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Oh no! What should I do?"
+  },
+  {
+    "file": "6/audio/es/11-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡Oh no! ¿Qué debo hacer?"
+  },
+  {
+    "file": "6/audio/en/12-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Drink lots of water, rest, and take this medicine twice a day."
+  },
+  {
+    "file": "6/audio/es/12-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Tome mucha agua, descanse y tome esta medicina dos veces al día."
+  },
+  {
+    "file": "6/audio/en/13-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do I need to stay home?"
+  },
+  {
+    "file": "6/audio/es/13-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Debo quedarme en casa?"
+  },
+  {
+    "file": "6/audio/en/14-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, stay home for at least three days."
+  },
+  {
+    "file": "6/audio/es/14-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, quédese en casa por lo menos tres días."
+  },
+  {
+    "file": "6/audio/en/15-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you, Doctor."
+  },
+  {
+    "file": "6/audio/es/15-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias, doctor."
+  },
+  {
+    "file": "6/audio/en/16-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You are welcome. Feel better soon!"
+  },
+  {
+    "file": "6/audio/es/16-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "De nada. ¡Que se mejore pronto!"
+  }
+]
