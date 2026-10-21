@@ -1,0 +1,122 @@
+[
+  {
+    "file": "9/audio/en/00-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Are you going to the town celebration? It is on Tuesday, July 1."
+  },
+  {
+    "file": "9/audio/es/00-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Vas a la celebración del pueblo? Es el martes 1 de julio."
+  },
+  {
+    "file": "9/audio/en/01-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, it is for the founding of Nueva California, right?"
+  },
+  {
+    "file": "9/audio/es/01-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, es por la fundación de Nueva California, ¿verdad?"
+  },
+  {
+    "file": "9/audio/en/02-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, it will be from eight in the morning to eight at night."
+  },
+  {
+    "file": "9/audio/es/02-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, será desde las ocho de la mañana hasta las ocho de la noche."
+  },
+  {
+    "file": "9/audio/en/03-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What activities will there be?"
+  },
+  {
+    "file": "9/audio/es/03-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Qué actividades habrá?"
+  },
+  {
+    "file": "9/audio/en/04-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Games for kids and adults, music, and food stands."
+  },
+  {
+    "file": "9/audio/es/04-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Juegos para niños y adultos, música y puestos de comida."
+  },
+  {
+    "file": "9/audio/en/05-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That sounds like a lot of fun."
+  },
+  {
+    "file": "9/audio/es/05-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Eso suena muy divertido."
+  },
+  {
+    "file": "9/audio/en/06-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I am bringing my whole family."
+  },
+  {
+    "file": "9/audio/es/06-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Voy a llevar a toda mi familia."
+  },
+  {
+    "file": "9/audio/en/07-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I will see you there!"
+  },
+  {
+    "file": "9/audio/es/07-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡Nos vemos allí!"
+  },
+  {
+    "file": "9/audio/en/08-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, do not forget sunscreen and a hat."
+  },
+  {
+    "file": "9/audio/es/08-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, no olvides el protector solar y un sombrero."
+  },
+  {
+    "file": "9/audio/en/09-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good idea. It will be a long day."
+  },
+  {
+    "file": "9/audio/es/09-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buena idea. Será un día largo."
+  }
+]
