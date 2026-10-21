@@ -1,0 +1,194 @@
+[
+  {
+    "file": "46/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Who wants to play Uno? I have the cards."
+  },
+  {
+    "file": "46/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Quién quiere jugar al Uno? Tengo las cartas."
+  },
+  {
+    "file": "46/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I do! How many cards does each player get?"
+  },
+  {
+    "file": "46/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Yo! ¿Cuántas cartas recibe cada jugador?"
+  },
+  {
+    "file": "46/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Seven. Diego, can you shuffle and deal, please?"
+  },
+  {
+    "file": "46/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Siete. Diego, ¿puedes barajar y repartir, por favor?"
+  },
+  {
+    "file": "46/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Whose turn is it?"
+  },
+  {
+    "file": "46/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿A quién le toca?"
+  },
+  {
+    "file": "46/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It's your turn, Pablo. The first card is a red five."
+  },
+  {
+    "file": "46/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Te toca a ti, Pablo. La primera carta es un cinco rojo."
+  },
+  {
+    "file": "46/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I don't have any red cards, but I have a blue five."
+  },
+  {
+    "file": "46/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No tengo cartas rojas, pero tengo un cinco azul."
+  },
+  {
+    "file": "46/audio/en/06-c.mp3",
+    "speaker": "en_c",
+    "lang": "en",
+    "text": "My turn. I'm playing a skip card. Sorry, Marta!"
+  },
+  {
+    "file": "46/audio/es/06-c.mp3",
+    "speaker": "es_c",
+    "lang": "es",
+    "text": "Me toca. Juego una carta de salto. ¡Lo siento, Marta!"
+  },
+  {
+    "file": "46/audio/en/07-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That's not fair! So, Pablo plays again?"
+  },
+  {
+    "file": "46/audio/es/07-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡No es justo! ¿Entonces Pablo juega otra vez?"
+  },
+  {
+    "file": "46/audio/en/08-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes. Draw two cards, Diego!"
+  },
+  {
+    "file": "46/audio/es/08-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí. ¡Roba dos cartas, Diego!"
+  },
+  {
+    "file": "46/audio/en/09-c.mp3",
+    "speaker": "en_c",
+    "lang": "en",
+    "text": "Oh no! Now I have more cards than everyone."
+  },
+  {
+    "file": "46/audio/es/09-c.mp3",
+    "speaker": "es_c",
+    "lang": "es",
+    "text": "¡Ay, no! Ahora tengo más cartas que todos."
+  },
+  {
+    "file": "46/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I'm going to play a wild card. I choose green."
+  },
+  {
+    "file": "46/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Voy a jugar un comodín. Elijo el verde."
+  },
+  {
+    "file": "46/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I have a green card. Now I only have one left. Uno!"
+  },
+  {
+    "file": "46/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Tengo una carta verde. Ahora solo me queda una. ¡Uno!"
+  },
+  {
+    "file": "46/audio/en/12-c.mp3",
+    "speaker": "en_c",
+    "lang": "en",
+    "text": "I don't have any green cards. I have to draw."
+  },
+  {
+    "file": "46/audio/es/12-c.mp3",
+    "speaker": "es_c",
+    "lang": "es",
+    "text": "No tengo cartas verdes. Tengo que robar."
+  },
+  {
+    "file": "46/audio/en/13-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I don't have green either. I have to draw too."
+  },
+  {
+    "file": "46/audio/es/13-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Yo tampoco tengo verde. Tengo que robar también."
+  },
+  {
+    "file": "46/audio/en/14-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "A green seven. I won!"
+  },
+  {
+    "file": "46/audio/es/14-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Un siete verde. ¡Gané!"
+  },
+  {
+    "file": "46/audio/en/15-c.mp3",
+    "speaker": "en_c",
+    "lang": "en",
+    "text": "Good game. Let's play again. This time I'm going to win!"
+  },
+  {
+    "file": "46/audio/es/15-c.mp3",
+    "speaker": "es_c",
+    "lang": "es",
+    "text": "Buena partida. Vamos a jugar otra vez. ¡Esta vez voy a ganar yo!"
+  }
+]
