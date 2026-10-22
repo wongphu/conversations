@@ -1,0 +1,182 @@
+[
+  {
+    "file": "16/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good evening."
+  },
+  {
+    "file": "16/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buenas noches."
+  },
+  {
+    "file": "16/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Good evening. How many people?"
+  },
+  {
+    "file": "16/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Buenas noches. ¿Cuántas personas?"
+  },
+  {
+    "file": "16/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Two people."
+  },
+  {
+    "file": "16/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Dos personas."
+  },
+  {
+    "file": "16/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Right this way. Here are your menus."
+  },
+  {
+    "file": "16/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Por aquí. Aquí están sus menús."
+  },
+  {
+    "file": "16/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you. What do you recommend?"
+  },
+  {
+    "file": "16/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias. ¿Qué recomienda?"
+  },
+  {
+    "file": "16/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "The chicken with rice is very popular."
+  },
+  {
+    "file": "16/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "El arroz con pollo es muy popular."
+  },
+  {
+    "file": "16/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That sounds good. And what drinks do you have?"
+  },
+  {
+    "file": "16/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Suena bien. ¿Y qué bebidas tienen?"
+  },
+  {
+    "file": "16/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "We have water, soda, juice, and coffee."
+  },
+  {
+    "file": "16/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Tenemos agua, soda, jugo y café."
+  },
+  {
+    "file": "16/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I will have juice, please."
+  },
+  {
+    "file": "16/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Yo quiero un jugo, por favor."
+  },
+  {
+    "file": "16/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "And for you?"
+  },
+  {
+    "file": "16/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Y usted?"
+  },
+  {
+    "file": "16/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Water, please."
+  },
+  {
+    "file": "16/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Agua, por favor."
+  },
+  {
+    "file": "16/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Are you ready to order?"
+  },
+  {
+    "file": "16/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Están listos para ordenar?"
+  },
+  {
+    "file": "16/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes. I will have the chicken with rice. And my friend wants the fish with vegetables."
+  },
+  {
+    "file": "16/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí. Yo quiero arroz con pollo, y mi amigo quiere el pescado con vegetales."
+  },
+  {
+    "file": "16/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Perfect. It will be ready soon."
+  },
+  {
+    "file": "16/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Perfecto. Estará listo pronto."
+  },
+  {
+    "file": "16/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you very much."
+  },
+  {
+    "file": "16/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Muchas gracias."
+  }
+]
