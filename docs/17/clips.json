@@ -1,0 +1,158 @@
+[
+  {
+    "file": "17/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hello, I want to plan a meeting. What day is good for you?"
+  },
+  {
+    "file": "17/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, quiero planear una reunión. ¿Qué día te queda bien?"
+  },
+  {
+    "file": "17/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Let me see. Today is Monday, July 28. I am free this Friday."
+  },
+  {
+    "file": "17/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Déjame ver. Hoy es lunes, 28 de julio. Estoy libre este viernes."
+  },
+  {
+    "file": "17/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Friday is August 1, right?"
+  },
+  {
+    "file": "17/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "El viernes es 1 de agosto, ¿verdad?"
+  },
+  {
+    "file": "17/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, that is correct."
+  },
+  {
+    "file": "17/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, correcto."
+  },
+  {
+    "file": "17/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I cannot do Friday. How about Saturday, August 2?"
+  },
+  {
+    "file": "17/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "No puedo el viernes. ¿Qué tal el sábado, 2 de agosto?"
+  },
+  {
+    "file": "17/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I will be busy on Saturday. What about Sunday, August 3?"
+  },
+  {
+    "file": "17/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Estaré ocupado el sábado. ¿Y el domingo, 3 de agosto?"
+  },
+  {
+    "file": "17/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That works. At what time?"
+  },
+  {
+    "file": "17/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Eso sí me funciona. ¿A qué hora?"
+  },
+  {
+    "file": "17/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "In the afternoon. Maybe at 3:00 p.m."
+  },
+  {
+    "file": "17/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "En la tarde. Tal vez a las 3:00 p.m."
+  },
+  {
+    "file": "17/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Perfect. So, Sunday, August 3 at 3:00 p.m."
+  },
+  {
+    "file": "17/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Perfecto. Entonces, domingo 3 de agosto a las 3:00 p.m."
+  },
+  {
+    "file": "17/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Where do you want to meet?"
+  },
+  {
+    "file": "17/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Dónde nos vemos?"
+  },
+  {
+    "file": "17/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "At the library."
+  },
+  {
+    "file": "17/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "En la biblioteca."
+  },
+  {
+    "file": "17/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Great, see you then."
+  },
+  {
+    "file": "17/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Excelente, nos vemos entonces."
+  },
+  {
+    "file": "17/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you."
+  },
+  {
+    "file": "17/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Gracias."
+  }
+]
