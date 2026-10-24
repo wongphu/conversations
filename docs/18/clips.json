@@ -1,0 +1,182 @@
+[
+  {
+    "file": "18/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Excuse me, do you sell shirts?"
+  },
+  {
+    "file": "18/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Disculpe, ¿vende camisas?"
+  },
+  {
+    "file": "18/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, over there on that rack."
+  },
+  {
+    "file": "18/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, allá en ese estante."
+  },
+  {
+    "file": "18/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you have this in size medium?"
+  },
+  {
+    "file": "18/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Tiene esta en talla mediana?"
+  },
+  {
+    "file": "18/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Let me check. Yes, here it is."
+  },
+  {
+    "file": "18/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Déjeme ver. Sí, aquí está."
+  },
+  {
+    "file": "18/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "How much does it cost?"
+  },
+  {
+    "file": "18/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Cuánto cuesta?"
+  },
+  {
+    "file": "18/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Ten dollars."
+  },
+  {
+    "file": "18/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Diez dólares."
+  },
+  {
+    "file": "18/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can I try it on?"
+  },
+  {
+    "file": "18/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Puedo probármela?"
+  },
+  {
+    "file": "18/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, the fitting rooms are in the back."
+  },
+  {
+    "file": "18/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, los probadores están al fondo."
+  },
+  {
+    "file": "18/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It fits well. I will take it."
+  },
+  {
+    "file": "18/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me queda bien. Me la llevo."
+  },
+  {
+    "file": "18/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Great. Will that be all?"
+  },
+  {
+    "file": "18/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Perfecto. ¿Algo más?"
+  },
+  {
+    "file": "18/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, just the shirt."
+  },
+  {
+    "file": "18/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "No, solo la camisa."
+  },
+  {
+    "file": "18/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Cash or card?"
+  },
+  {
+    "file": "18/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Efectivo o tarjeta?"
+  },
+  {
+    "file": "18/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Cash."
+  },
+  {
+    "file": "18/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Efectivo."
+  },
+  {
+    "file": "18/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you. Have a nice day."
+  },
+  {
+    "file": "18/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Gracias. Que tenga buen día."
+  },
+  {
+    "file": "18/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "You too."
+  },
+  {
+    "file": "18/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Igualmente."
+  }
+]
