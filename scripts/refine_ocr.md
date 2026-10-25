@@ -62,8 +62,8 @@ Apply these four transformations to the raw table:
      nor the Word extraction keeps italics, so check the page image or the
      Word file.
    - Fill-in blanks of any length (`___`, `________`): write each as exactly
-     four underscores, `____`. `voices/pronunciations.json` turns that into a
-     pause for the TTS; other lengths reach it as raw underscores.
+     four underscores, `____`. `generate_audio.py` speaks that as a short pause;
+     other lengths reach the TTS as raw underscores.
 
 4. **Add the CEFR level.** Under the title, on a line of its own, write
    `Level: ` and one of `A1 A2 B1 B2 C1 C2` (e.g. `Level: A2`). The index

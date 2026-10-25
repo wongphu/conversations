@@ -1,0 +1,194 @@
+[
+  {
+    "file": "20/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good afternoon. My name is ____. Nice to meet you."
+  },
+  {
+    "file": "20/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buenas tardes. Mi nombre es ____. Mucho gusto."
+  },
+  {
+    "file": "20/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Good afternoon. Nice to meet you too. How can I help you?"
+  },
+  {
+    "file": "20/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Buenas tardes. Mucho gusto. ¿En qué puedo ayudarle?"
+  },
+  {
+    "file": "20/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I want to buy beans. Where can I find them?"
+  },
+  {
+    "file": "20/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Quiero comprar frijoles. ¿Dónde puedo encontrarlos?"
+  },
+  {
+    "file": "20/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "What kind of beans? Black beans? Red beans?"
+  },
+  {
+    "file": "20/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Qué tipo de frijoles? ¿Negros? ¿Rojos?"
+  },
+  {
+    "file": "20/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Black beans."
+  },
+  {
+    "file": "20/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Frijoles negros."
+  },
+  {
+    "file": "20/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You can find them at Romero or at any of the supermarkets."
+  },
+  {
+    "file": "20/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Los puedes encontrar en Romero o en cualquiera de los supermercados."
+  },
+  {
+    "file": "20/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "How far is it from here?"
+  },
+  {
+    "file": "20/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Qué tan lejos queda de aquí?"
+  },
+  {
+    "file": "20/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "About 5 minutes by car."
+  },
+  {
+    "file": "20/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Como 5 minutos en carro."
+  },
+  {
+    "file": "20/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I do not have a car. Can I walk?"
+  },
+  {
+    "file": "20/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "No tengo carro. ¿Puedo caminar?"
+  },
+  {
+    "file": "20/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, but it will take about 20 minutes walking."
+  },
+  {
+    "file": "20/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, pero se demora como 20 minutos caminando."
+  },
+  {
+    "file": "20/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Are they expensive?"
+  },
+  {
+    "file": "20/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Son caros?"
+  },
+  {
+    "file": "20/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "No, beans are cheap."
+  },
+  {
+    "file": "20/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No, los frijoles son baratos."
+  },
+  {
+    "file": "20/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Where is Romero?"
+  },
+  {
+    "file": "20/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Dónde está Romero?"
+  },
+  {
+    "file": "20/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "On the corner of Via Volcan and Via Cerro Punta across the street from the Delta Station."
+  },
+  {
+    "file": "20/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "En la esquina de Vía Volcán y Vía Cerro Punta frente a la Estación Delta."
+  },
+  {
+    "file": "20/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Thank you very much for the information."
+  },
+  {
+    "file": "20/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Muchas gracias por la información."
+  },
+  {
+    "file": "20/audio/en/15-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You are welcome."
+  },
+  {
+    "file": "20/audio/es/15-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "De nada."
+  }
+]

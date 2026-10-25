@@ -24,6 +24,10 @@ again, up to MAX_TAKES takes, keeping the closest. Voice cloning varies take
 to take, and an off-pitch line sounds like a different mood next to its
 neighbours. Existing MP3s are not re-checked.
 
+A fill-in blank (`____`) becomes BLANK_PAUSE seconds of silence: the text on
+either side is recorded separately and joined around it. The TTS reads
+punctuation or an ellipsis in its place as no pause at all.
+
 Dependencies:
     pip install mlx-audio soundfile praat-parselmouth
     brew install ffmpeg
@@ -57,6 +61,9 @@ STT_MODEL = "mlx-community/whisper-large-v3-turbo-asr-fp16"
 PITCH_TOLERANCE = 4.0
 MAX_TAKES = 5
 PITCH_FLOOR, PITCH_CEILING = 75, 600  # Hz; covers the voices without octave errors
+
+BLANK = "____"  # a fill-in blank, as the refine step writes it
+BLANK_PAUSE = 0.3  # seconds of silence spoken for a blank
 MIN_VOICED_FRAMES = 10  # ~0.1 s of voiced sound; less is too little to judge
 
 
@@ -70,6 +77,29 @@ def apply_pronunciations(text: str, lang: str, pronunciations: dict) -> str:
     for word, spoken in pronunciations.get(lang, {}).items():
         text = re.sub(rf"\b{re.escape(word)}\b", spoken, text)
     return text
+
+
+def split_blanks(text: str) -> list[str]:
+    """Split text at fill-in blanks into the parts spoken between them.
+
+    The punctuation that closed the blank ("is ____. Nice") starts the next
+    part, so it is dropped; a blank at either end leaves no empty part.
+    """
+    parts = [part.strip() for part in text.split(BLANK)]
+    parts = [parts[0]] + [part.lstrip(".,;:!? ") for part in parts[1:]]
+    return [part for part in parts if part]
+
+
+def join_with_pauses(wavs: list[Path], out_path: Path) -> Path:
+    """Concatenate WAVs with BLANK_PAUSE seconds of silence between them."""
+    chunks, rate = [], None
+    for wav in wavs:
+        audio, rate = sf.read(str(wav), dtype="float32")
+        if chunks:
+            chunks.append(np.zeros((round(BLANK_PAUSE * rate),) + audio.shape[1:], dtype="float32"))
+        chunks.append(audio)
+    sf.write(str(out_path), np.concatenate(chunks), rate)
+    return out_path
 
 
 def median_pitch(path: Path) -> float | None:
@@ -209,6 +239,7 @@ def main():
         speaker = clip["speaker"]
         text = clip["text"].replace("*", "")  # markdown italics are display-only
         text = apply_pronunciations(text, clip["lang"], pronunciations)
+        parts = split_blanks(text)
         ref_path = ref_paths[clip["file"]]
 
         print(f"  [{i}/{len(to_generate)}] {clip['file']}")
@@ -219,17 +250,26 @@ def main():
         with tempfile.TemporaryDirectory() as tmpdir:
             def record(take: int) -> Path | None:
                 take_dir = Path(tmpdir) / f"take{take}"
-                take_dir.mkdir()
-                generate_audio(
-                    text=text,
-                    model=model,
-                    ref_audio=str(ref_path),
-                    ref_text=ref_texts[ref_path],
-                    output_path=str(take_dir),
-                    file_prefix="clip",
-                    verbose=False,
-                )
-                return next(take_dir.glob("*.wav"), None)
+                wavs = []
+                for n, part in enumerate(parts):
+                    part_dir = take_dir / f"part{n}"
+                    part_dir.mkdir(parents=True)
+                    generate_audio(
+                        text=part,
+                        model=model,
+                        ref_audio=str(ref_path),
+                        ref_text=ref_texts[ref_path],
+                        output_path=str(part_dir),
+                        file_prefix="clip",
+                        verbose=False,
+                    )
+                    wav = next(part_dir.glob("*.wav"), None)
+                    if wav is None:
+                        return None
+                    wavs.append(wav)
+                if len(wavs) == 1:
+                    return wavs[0]
+                return join_with_pauses(wavs, take_dir / "clip.wav")
 
             wav_path = best_take(record, ref_pitches[ref_path])
             if wav_path is None:

@@ -19,7 +19,9 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 import generate_audio  # noqa: E402
-from generate_audio import MAX_TAKES, best_take, median_pitch, semitones  # noqa: E402
+from generate_audio import (  # noqa: E402
+    BLANK_PAUSE, MAX_TAKES, best_take, join_with_pauses, median_pitch, semitones, split_blanks,
+)
 
 
 class MedianPitch(unittest.TestCase):
@@ -84,6 +86,31 @@ class BestTake(unittest.TestCase):
     def test_keeps_a_take_too_short_to_judge(self):
         self.assertEqual(self.run_takes([None]), (Path("take1.wav"), [1]))
         self.assertEqual(self.run_takes([400], ref_pitch=None), (Path("take1.wav"), [1]))
+
+
+class Blanks(unittest.TestCase):
+    def test_splits_at_blanks_dropping_their_punctuation(self):
+        self.assertEqual(split_blanks("Good afternoon. My name is ____. Nice to meet you."),
+                         ["Good afternoon. My name is", "Nice to meet you."])
+        self.assertEqual(split_blanks("Tienen ____ y ____ años."), ["Tienen", "y", "años."])
+
+    def test_text_without_blanks_is_one_part(self):
+        self.assertEqual(split_blanks("Hello."), ["Hello."])
+
+    def test_a_blank_at_either_end_leaves_no_empty_part(self):
+        self.assertEqual(split_blanks("____. My name is ____."), ["My name is"])
+
+    def test_joins_with_silence_between(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            wavs = []
+            for n in range(2):
+                wavs.append(Path(tmp) / f"part{n}.wav")
+                sf.write(wavs[-1], np.full(100, 0.5), 1000)
+            audio, rate = sf.read(join_with_pauses(wavs, Path(tmp) / "clip.wav"))
+        gap = round(BLANK_PAUSE * rate)
+        self.assertEqual(len(audio), 200 + gap)
+        self.assertFalse(audio[100:100 + gap].any())
+        self.assertTrue((audio[100 + gap:] > 0.4).all())
 
 
 if __name__ == "__main__":
