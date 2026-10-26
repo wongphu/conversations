@@ -1,0 +1,170 @@
+[
+  {
+    "file": "21/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good morning, I am looking for gardening supplies."
+  },
+  {
+    "file": "21/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buenos días, estoy buscando suministros de jardinería."
+  },
+  {
+    "file": "21/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Is there something specific you need?"
+  },
+  {
+    "file": "21/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Hay algo específico que necesites?"
+  },
+  {
+    "file": "21/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, do you sell soil here?"
+  },
+  {
+    "file": "21/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, ¿usted vende tierra aquí?"
+  },
+  {
+    "file": "21/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, we have bags of soil and compost."
+  },
+  {
+    "file": "21/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, tenemos sacos de tierra y abono."
+  },
+  {
+    "file": "21/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I also need seeds for tomatoes."
+  },
+  {
+    "file": "21/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "También necesito semillas de tomate."
+  },
+  {
+    "file": "21/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "The seeds are on the second shelf."
+  },
+  {
+    "file": "21/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Las semillas están en la segunda repisa."
+  },
+  {
+    "file": "21/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Are tomatoes easy to grow in Volcan?"
+  },
+  {
+    "file": "21/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Es fácil cultivar tomates en Volcán?"
+  },
+  {
+    "file": "21/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Many people grow them, but they need protection from too much rain."
+  },
+  {
+    "file": "21/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Mucha gente los cultiva, pero necesitan protección contra la lluvia excesiva."
+  },
+  {
+    "file": "21/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is OK, I have a small greenhouse."
+  },
+  {
+    "file": "21/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Está bien, tengo un pequeño invernadero."
+  },
+  {
+    "file": "21/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "They should do well in the greenhouse."
+  },
+  {
+    "file": "21/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Ellos deberían hacerlo bien en el invernadero."
+  },
+  {
+    "file": "21/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you sell small shovels and gloves?"
+  },
+  {
+    "file": "21/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Venden palitas y guantes?"
+  },
+  {
+    "file": "21/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, they are next to the watering cans."
+  },
+  {
+    "file": "21/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, están al lado de las regaderas."
+  },
+  {
+    "file": "21/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Perfect, thank you very much."
+  },
+  {
+    "file": "21/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Perfecto, muchas gracias."
+  },
+  {
+    "file": "21/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "You are welcome."
+  },
+  {
+    "file": "21/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Con gusto."
+  }
+]
