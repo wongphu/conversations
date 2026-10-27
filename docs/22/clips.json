@@ -1,0 +1,134 @@
+[
+  {
+    "file": "22/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Good afternoon. My name is ____. What is your name?"
+  },
+  {
+    "file": "22/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Buenas tardes. Mi nombre es ____. ¿Cómo se llama?"
+  },
+  {
+    "file": "22/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "My name is ____."
+  },
+  {
+    "file": "22/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me llamo ____."
+  },
+  {
+    "file": "22/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It is nice to meet you."
+  },
+  {
+    "file": "22/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Con mucho gusto."
+  },
+  {
+    "file": "22/audio/en/03-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Who is that young man and who is the older man with him?"
+  },
+  {
+    "file": "22/audio/es/03-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Quién es ese joven y quién es el hombre mayor que está con él?"
+  },
+  {
+    "file": "22/audio/en/04-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "He is my neighbor and his father."
+  },
+  {
+    "file": "22/audio/es/04-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Él es mi vecino y su padre."
+  },
+  {
+    "file": "22/audio/en/05-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "The son is much taller than his father. The father is very short."
+  },
+  {
+    "file": "22/audio/es/05-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "El hijo es mucho más alto que su padre. El padre es muy bajo."
+  },
+  {
+    "file": "22/audio/en/06-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "The son is tall and thin."
+  },
+  {
+    "file": "22/audio/es/06-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "El hijo es alto y delgado."
+  },
+  {
+    "file": "22/audio/en/07-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What color is the hair of the father?"
+  },
+  {
+    "file": "22/audio/es/07-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿De qué color es el cabello del padre?"
+  },
+  {
+    "file": "22/audio/en/08-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "His hair is black and a little gray."
+  },
+  {
+    "file": "22/audio/es/08-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Su cabello es negro y un poco canoso."
+  },
+  {
+    "file": "22/audio/en/09-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you know if he likes gardening?"
+  },
+  {
+    "file": "22/audio/es/09-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Sabes si le gusta la jardinería?"
+  },
+  {
+    "file": "22/audio/en/10-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, he grows flowers and vegetables."
+  },
+  {
+    "file": "22/audio/es/10-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, cultiva flores y verduras."
+  }
+]
