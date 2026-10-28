@@ -146,7 +146,7 @@ manifest for audio generation.
 
 **Design decisions:**
 - **Column-level language detection**: the entire column is analyzed together rather than per-line, and the column with the higher share of Spanish indicator characters (á, é, í, ó, ú, ñ, ¿, ¡, ü) is Spanish. Comparing the two columns (instead of a fixed threshold) keeps accented place names like "Chiriquí" or "Volcán" from flipping an English column
-- **Speakers by label**: when every English cell has a label, each distinct label is a speaker, lettered by first appearance (`a`, `b`, `c`…). That supports three-person dialogues (page 10's Waiter / Customer / Customer 2) and a speaker taking two turns in a row. Only the English labels pick voices, so inconsistent Spanish labels (e.g., "H:" in Spanish vs. "G:" in English for the same person) don't matter; a warning is printed if they don't pair 1:1. If any English row is unlabeled, rows alternate `a`/`b` instead. An optional `Voices: Ana, Luis` line in `texts/NN.md` letters the labels it lists first, in that order, so a man who speaks first still gets the man's voice (`b`)
+- **Speakers by label**: when every English cell has a label, each distinct label is a speaker, lettered by first appearance (`a`, `b`, `c`…). That supports three-person dialogues (page 10's Waiter / Customer / Customer 2) and a speaker taking two turns in a row. Only the English labels pick voices, so inconsistent Spanish labels (e.g., "H:" in Spanish vs. "G:" in English for the same person) don't matter; a warning is printed if they don't pair 1:1. If any English row is unlabeled, rows alternate `a`/`b` instead. An optional `Voices: Ana, Luis` line in `texts/NN.md` letters the labels it lists first, in that order, so a man who speaks first still gets the man's voice (`b`); an entry like `Elena=d` names its voice instead, so a second woman gets voice `d`
 - **Speaker label stripping**: regex `^(\w+(?: \d+)?)[.:]\s+` finds a leading label (`\w` handles "Huésped:", the optional number "Customer 2:"). If every row in the column has one, all are removed; otherwise only labels that recur in the column are, so a one-off leading word like "No." or "Mr." is dialogue and is kept
 
 ### `generate_audio.py` — Generate Audio Clips
@@ -248,21 +248,23 @@ different TTS version can change how the voices sound), and the Python version i
 
 ## Voices
 
-Six voices defined in `voices/voices.json`:
+Eight voices defined in `voices/voices.json`:
 
 | ID | Description | Language |
 |----|-------------|----------|
 | `en_a` | Woman, 40s, warm American English | English |
 | `en_b` | Man, early 60s, reflective American English | English |
 | `en_c` | Young man, 20s, easygoing American English | English |
+| `en_d` | Woman, early 30s, upbeat American English (a second woman) | English |
 | `es_a` | Woman, 40s, warm Latin American Spanish | Spanish |
 | `es_b` | Man, early 60s, reflective Latin American Spanish | Spanish |
 | `es_c` | Young man, 20s, easygoing Latin American Spanish | Spanish |
+| `es_d` | Woman, early 30s, upbeat Latin American Spanish (a second woman) | Spanish |
 
-Each voice is designed once (using the VoiceDesign model) and the resulting WAV is used as a reference for cloning all subsequent lines. To add a speaker (e.g. `en_d`/`es_d` for a four-person dialogue), add its entries to `voices.json` and run:
+Each voice is designed once (using the VoiceDesign model) and the resulting WAV is used as a reference for cloning all subsequent lines. To add a speaker (e.g. `en_e`/`es_e`), add its entries to `voices.json` and run:
 
 ```bash
-.venv/bin/python scripts/design_voice.py en_d es_d   # --force to redesign
+.venv/bin/python scripts/design_voice.py en_e es_e   # --force to redesign
 ```
 
 Design is random: listen to the WAVs and re-run until they fit. Don't redesign a voice that pages already use.

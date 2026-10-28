@@ -115,7 +115,9 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   If any English row is unlabeled, it falls back to row parity (a, b, a, b…).
   Voice `a` is a woman and `b` a man, so when a man speaks first the refine step adds a
   `Voices: Ana, Luis` line under `Level:`: the labels it lists get `a`, `b`… in that
-  order, and any others follow by first appearance (conversation 4). It must name
+  order, and any others follow by first appearance (conversation 4). An entry can
+  name its voice instead, so two women get `Voices: Maria, Elena=d` (Elena → `d`, a
+  second woman; the others skip `d`; conversation 23). It must name
   English labels and needs every English row labeled. Conversation 15 predates it, so
   Manuel is voiced by `a`.
   Spanish labels don't pick voices; `make_clips.py` only warns if they don't pair 1:1
@@ -195,12 +197,13 @@ utterance across two rows (an unlabeled continuation row): join those (and flag 
   that `generate_html.py` emits, so keep the two in step.
 
 ## Voices
-`voices/voices.json` defines 3 speakers in both languages — `en_a`/`es_a` (woman, 40s),
-`en_b`/`es_b` (man, 60s) and `en_c`/`es_c` (young man, 20s, for a third speaker) — each
+`voices/voices.json` defines 4 speakers in both languages — `en_a`/`es_a` (woman, 40s),
+`en_b`/`es_b` (man, 60s), `en_c`/`es_c` (young man, 20s, for a third speaker) and
+`en_d`/`es_d` (woman, 30s, for a second woman, picked with `Elena=d`) — each
 with a reference WAV that is cloned for all of that speaker's lines. A voice clones only
-its own language. A conversation with a 4th speaker needs `en_d`/`es_d`: add them to
+its own language. Another voice needs `en_e`/`es_e`: add them to
 `voices.json` (an `instruct` description plus `ref_en`/`ref_es` sentences), then
-`scripts/design_voice.py en_d es_d` writes the WAVs. Design is random, so listen and
+`scripts/design_voice.py en_e es_e` writes the WAVs. Design is random, so listen and
 re-run with `--force` until it fits — but never redesign a voice already used by a
 page, or its old lines won't match new ones.
 

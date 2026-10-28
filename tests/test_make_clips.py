@@ -165,9 +165,23 @@ class Speakers(unittest.TestCase):
         self.assertEqual([c["speaker"] for c in by_lang(clips, "en")], ["en_b", "en_a", "en_c"])
         self.assertEqual(clips[0]["file"], "99/audio/en/00-b.mp3")
 
+    def test_voices_line_can_name_a_voice(self):
+        # Two women: Elena gets voice d, and the letters skip it.
+        clips = clips_for("Voices: Maria, Elena=d\n\n" + table(
+            ("Maria: Hello.", "María: Hola."),
+            ("Elena: Hi.", "Elena: Buenas."),
+            ("Luis: Hey!", "Luis: ¡Épale!"),
+            ("Carla: Bye.", "Carla: Adiós."),
+            ("Pablo: Bye.", "Pablo: Chao."),
+        ))
+        self.assertEqual([c["speaker"] for c in by_lang(clips, "en")],
+                         ["en_a", "en_d", "en_b", "en_c", "en_e"])
+        self.assertEqual(by_lang(clips, "es")[1]["file"], "99/audio/es/01-d.mp3")
+
     def test_voices_line_must_name_labels(self):
         md = table(("Luis: Hello.", "Luis: Hola."), ("Ana: Hi.", "Ana: Buenas."))
-        for line in ("Voices: Ana, Maria", "Voices: Ana, Ana"):
+        for line in ("Voices: Ana, Maria", "Voices: Ana, Ana", "Voices: Ana=b, Luis=b",
+                     "Voices: Ana=z", "Voices: Ana=a, Ana=b"):
             with self.subTest(line=line), self.assertRaises(SystemExit):
                 clips_for(f"{line}\n\n{md}")
 

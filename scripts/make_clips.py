@@ -31,8 +31,11 @@ SPEAKER_IDS = "abcdefgh"
 
 # Optional line under the title of texts/NN.md: "Voices: Ana, Luis" gives the
 # listed English labels voices a, b, … in that order, so a man who speaks first
-# need not get voice a (a woman). Labels it leaves out follow by first appearance.
+# need not get voice a (a woman). An entry like "Elena=d" names its voice
+# instead (a second woman gets voice d), and the others skip that letter.
+# Labels it leaves out follow by first appearance.
 VOICES_RE = re.compile(r"^Voices:\s*(.+?)\s*$", re.MULTILINE)
+VOICE_ENTRY_RE = re.compile(rf"^(\w+(?: \d+)?)(?:\s*=\s*([{SPEAKER_IDS}]))?$")
 
 
 def spanish_score(text: str) -> float:
@@ -87,7 +90,8 @@ def assign_speakers(rows: list[dict], voices: list[str] = ()) -> list[str]:
     If every English cell has a label, speakers follow the labels, lettered in
     order of first appearance, so any number of speakers (and a speaker taking
     two turns in a row) works; `voices` (see voice_order) letters the labels it
-    names first. Otherwise it is a two-person dialogue and rows alternate
+    names first, or as its "Elena=d" entries say. Otherwise it is a two-person
+    dialogue and rows alternate
     a, b, a, b….
     """
     labels = [row_label(row["left"]) for row in rows]
@@ -96,17 +100,25 @@ def assign_speakers(rows: list[dict], voices: list[str] = ()) -> list[str]:
             sys.exit("Error: a Voices: line needs a speaker label on every English row")
         return ["a" if i % 2 == 0 else "b" for i in range(len(rows))]
 
-    unknown = [name for name in voices if name not in labels]
-    if unknown or len(set(voices)) != len(voices):
+    entries = [VOICE_ENTRY_RE.match(entry) for entry in voices]
+    if not all(entries):
+        sys.exit("Error: Voices: entries must be English labels, optionally with a "
+                 f"voice (Elena={SPEAKER_IDS[3]}); got: {', '.join(voices)}")
+    named = [entry.group(1) for entry in entries]
+    unknown = [name for name in named if name not in labels]
+    if unknown or len(set(named)) != len(named):
         sys.exit(f"Error: Voices: line must name distinct English labels; "
                  f"not labels: {', '.join(unknown) or 'none'}")
 
-    ids: dict[str, str] = {}
-    for label in [*voices, *labels]:
+    ids = {entry.group(1): entry.group(2) for entry in entries if entry.group(2)}
+    if len(set(ids.values())) != len(ids):
+        sys.exit("Error: Voices: line gives two labels the same voice")
+    free = iter([letter for letter in SPEAKER_IDS if letter not in ids.values()])
+    for label in [*named, *labels]:
         if label not in ids:
-            if len(ids) == len(SPEAKER_IDS):
+            if (letter := next(free, None)) is None:
                 sys.exit(f"Error: more than {len(SPEAKER_IDS)} speakers")
-            ids[label] = SPEAKER_IDS[len(ids)]
+            ids[label] = letter
 
     # The refine step makes labels consistent, so an English label paired with
     # two different Spanish labels (or vice versa) means it missed one.

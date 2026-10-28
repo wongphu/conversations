@@ -113,7 +113,9 @@ Apply these four transformations to the raw table:
   gives each distinct label its own voice (`a`, `b`, `c`…, in order of first
   appearance). A third speaker needs `en_c`/`es_c`; more need new voices (see
   README "Voices").
-- Voice `a` is a woman (40s), `b` a man (60s), `c` a young man. If that order
-  gives someone the wrong voice (a man speaks first), add a line under
-  `Level:` listing the English labels in voice order, e.g. `Voices: Ana, Luis`
-  (Ana → `a`, Luis → `b`; unlisted labels follow by first appearance).
+- Voice `a` is a woman (40s), `b` a man (60s), `c` a young man, `d` a woman
+  (30s). If that order gives someone the wrong voice (a man speaks first), add
+  a line under `Level:` listing the English labels in voice order, e.g.
+  `Voices: Ana, Luis` (Ana → `a`, Luis → `b`; unlisted labels follow by first
+  appearance). An entry can name its voice instead: for two women, write
+  `Voices: Maria, Elena=d` (Maria → `a`, Elena → `d`; the others skip `d`).
