@@ -1,0 +1,170 @@
+[
+  {
+    "file": "23/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Are you an early riser?"
+  },
+  {
+    "file": "23/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Eres madrugadora?"
+  },
+  {
+    "file": "23/audio/en/01-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "Yes, I wake up at six o’clock every morning."
+  },
+  {
+    "file": "23/audio/es/01-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Sí, me despierto a las seis de la mañana todos los días."
+  },
+  {
+    "file": "23/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What do you do first?"
+  },
+  {
+    "file": "23/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Qué haces primero?"
+  },
+  {
+    "file": "23/audio/en/03-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I have coffee, then I get dressed."
+  },
+  {
+    "file": "23/audio/es/03-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Tomo café y luego me visto."
+  },
+  {
+    "file": "23/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you eat breakfast?"
+  },
+  {
+    "file": "23/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Desayunas?"
+  },
+  {
+    "file": "23/audio/en/05-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I usually eat eggs, toast and sometimes I like to eat fruit."
+  },
+  {
+    "file": "23/audio/es/05-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Suelo comer huevos, tostadas y a veces me gusta comer fruta."
+  },
+  {
+    "file": "23/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "And what time do you go to work?"
+  },
+  {
+    "file": "23/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Y a qué hora vas a trabajar?"
+  },
+  {
+    "file": "23/audio/en/07-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I leave home at seven thirty."
+  },
+  {
+    "file": "23/audio/es/07-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Salgo de casa a las siete y media."
+  },
+  {
+    "file": "23/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What time do you get off?"
+  },
+  {
+    "file": "23/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿A qué hora sales?"
+  },
+  {
+    "file": "23/audio/en/09-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I finish work at 5:30."
+  },
+  {
+    "file": "23/audio/es/09-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Termino de trabajar a las 5:30."
+  },
+  {
+    "file": "23/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What do you do after work?"
+  },
+  {
+    "file": "23/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Qué haces después del trabajo?"
+  },
+  {
+    "file": "23/audio/en/11-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "Sometimes I eat at home and sometimes I go out with friends."
+  },
+  {
+    "file": "23/audio/es/11-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "A veces como en casa y a veces salgo con amigos."
+  },
+  {
+    "file": "23/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What time do you go to bed?"
+  },
+  {
+    "file": "23/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿A qué hora te acuestas?"
+  },
+  {
+    "file": "23/audio/en/13-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I try to be in bed by 10 p.m."
+  },
+  {
+    "file": "23/audio/es/13-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Intento estar en la cama a las 10 de la noche."
+  }
+]
