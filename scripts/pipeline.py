@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Build a refined conversation: clips → audio → HTML (+ index) → check, then
-move its source from inputs/ to done/.
+move its source from inbox/ to done/.
 
 Usage:
     python scripts/pipeline.py <conversation_number> [--skip-audio]
@@ -16,7 +16,7 @@ those (plus any new lines). Unchanged lines keep their audio, since re-voicing
 them would drift the voices slightly. It never passes --force.
 
 Once check.py passes, the conversation's page image or .docx moves from
-inputs/ to done/, so inputs/ lists only the pages still to do. If a
+inbox/ to done/, so inbox/ lists only the pages still to do. If a
 step or the check fails, the source stays where it is.
 """
 

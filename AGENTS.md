@@ -15,7 +15,7 @@ off there when they ship.
 
 ## The pipeline
 ```
-inputs/NN.jpeg  or  inputs/NN - Title.docx
+inbox/NN.jpeg  or  inbox/NN - Title.docx
   └─(extract_text.py)─→  ocrs/NN.md        # raw OCR: 2 positional columns, either order, has typos + annotations
        └─(refine step, YOU)─→  texts/NN.md  # agent step: title + EN-left/ES-right + fixes
             └─(make_clips.py)─→  docs/NN/clips.json
@@ -42,12 +42,12 @@ If `.venv` is missing (it's gitignored), run **`scripts/setup.sh`** first. It cr
 venv with the Python in `.python-version` (3.14), installs the pinned `requirements.txt`,
 checks for `ffmpeg` and Apple Silicon, and runs the tests; it's safe to re-run. Don't
 bump `mlx-audio` in `requirements.txt` casually: a new TTS version can change the voices.
-Source page images and Word files go in `inputs/`, named with the conversation number
+Source page images and Word files go in `inbox/`, named with the conversation number
 first (`41.jpeg`, `1 - Greetings, introductions.docx`). `extract_text.py NN` finds the one
 for NN and writes `ocrs/NN.md`; it also takes a path. Once `pipeline.py` has built a page
-and `check.py` passes, it moves the source to `done/`, so `inputs/` holds only
-what's still to do. A failed run leaves it in `inputs/`. `extract_text.py NN` and
-`check.py` look in `done/` too (a newer file in `inputs/` wins), so a processed
+and `check.py` passes, it moves the source to `done/`, so `inbox/` holds only
+what's still to do. A failed run leaves it in `inbox/`. `extract_text.py NN` and
+`check.py` look in `done/` too (a newer file in `inbox/` wins), so a processed
 page can still be re-extracted.
 
 `generate_html.py NN` also rebuilds `docs/index.html`, so a full run needs no manual

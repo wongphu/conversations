@@ -26,7 +26,7 @@ Off Apple Silicon, everything but audio still works: `scripts/pipeline.py NN --s
 
 ```
 image or .docx  →  OCR  →  refine (AI)  →  clips.json  →  TTS  →  HTML page
-  inputs/NN.jpeg   ocrs/NN.md   texts/NN.md    docs/NN/...    docs/NN.html
+  inbox/NN.jpeg    ocrs/NN.md   texts/NN.md    docs/NN/...    docs/NN.html
   (extract_text.py) (refine_ocr.md) (make_clips.py) (generate_audio.py) (generate_html.py)
 ```
 
@@ -74,7 +74,7 @@ Each conversation page is a static HTML file (sharing `docs/player.js`) with:
 │   ├── pipeline.py          # texts/NN.md → clips → audio → HTML → check, then file the source
 │   └── check.py             # Report missing / stale / orphan files
 │
-├── inputs/                  # Sources to do: NN.jpeg (textbook pages), NN - Title.docx (handouts)
+├── inbox/                   # Sources to do: NN.jpeg (textbook pages), NN - Title.docx (handouts)
 ├── done/                    # Sources whose page is built (pipeline.py moves them here)
 ├── ocrs/                    # Raw extract_text.py output: NN.md
 ├── texts/                   # Refined markdown (after the refine step): NN.md
@@ -100,13 +100,13 @@ guaranteed to be English-left / Spanish-right and may contain OCR errors — the
 refine step below cleans that up.
 
 ```bash
-.venv/bin/python scripts/extract_text.py inputs/41.jpeg   # → ocrs/41.md
-.venv/bin/python scripts/extract_text.py 1                # finds inputs/1 - Greetings, introductions.docx → ocrs/1.md
+.venv/bin/python scripts/extract_text.py inbox/41.jpeg    # → ocrs/41.md
+.venv/bin/python scripts/extract_text.py 1                # finds inbox/1 - Greetings, introductions.docx → ocrs/1.md
 ```
 
 The output is named after the number the source's name starts with, so a Word
 file can keep a descriptive name (`1 - Greetings, introductions.docx`). Given a
-number instead of a path, it finds that conversation's file in `inputs/`, or in
+number instead of a path, it finds that conversation's file in `inbox/`, or in
 `done/` once its page is built.
 
 **Design decisions:**
@@ -188,8 +188,8 @@ conversation. Before voicing, it deletes the MP3s of lines whose text changed si
 last `clips.json`, so re-running after editing `texts/NN.md` re-voices just those lines
 and keeps the rest (re-voicing everything would drift the voices). It never passes
 `--force`. `--skip-audio` skips the TTS step (it needs Apple Silicon). When the check
-passes, it moves the conversation's source from `inputs/` to `done/`, so
-`inputs/` lists only the pages still to do; if any step fails, the source stays put.
+passes, it moves the conversation's source from `inbox/` to `done/`, so
+`inbox/` lists only the pages still to do; if any step fails, the source stays put.
 
 ```bash
 .venv/bin/python scripts/pipeline.py 41
@@ -275,7 +275,7 @@ Design is random: listen to the WAVs and re-run until they fit. Don't redesign a
 > project slash-commands — `/refine N` (through the refine step, then check in) and
 > `/pipeline N` (full run). See [Prompt Templates](#prompt-templates-pi-commands).
 
-Given a new textbook page image or Word file, saved in `inputs/` with the
+Given a new textbook page image or Word file, saved in `inbox/` with the
 conversation number first (`NN.jpeg`, `NN - Title.docx`):
 
 ```bash

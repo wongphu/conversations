@@ -38,7 +38,7 @@ network or file I/O.
 
 ## How it was tested
 
-- All 14 pages in `inputs/`, run with the official weights through PyTorch on
+- All 14 pages in `inbox/`, run with the official weights through PyTorch on
   MPS (Apple M3 Max), bf16, SDPA attention, greedy decoding.
 - Prompt: *"This is the image of a table. Please output the table in OTSL
   format."* The whole page goes in; no layout or crop step.
@@ -198,7 +198,7 @@ The test harness was throwaway and isn't in the repo. To rerun it:
    (`trust_remote_code=True`, `revision=` the pinned revision above), in bf16
    with `attn_implementation="sdpa"`, moved to `"mps"`. Use the `infer()` helper
    from the model card, with `do_sample=False` and `max_new_tokens=4096`.
-3. Downscale each `inputs/NN.jpeg` to 2400 px on the long side and send the
+3. Downscale each `inbox/NN.jpeg` to 2400 px on the long side and send the
    table prompt above.
 4. Parse the OTSL output (split rows on `<nl>`, cells on `<fcel>`/`<ecel>`), then
    score against `texts/NN.md` as described under *How it was tested*.

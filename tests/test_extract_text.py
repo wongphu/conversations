@@ -44,8 +44,8 @@ def write_docx(path: Path, body: str) -> None:
 
 @contextlib.contextmanager
 def source_dirs(root: Path):
-    """Point extract_text at <root>/inputs and <root>/done."""
-    with mock.patch.object(extract_text, "INPUTS_DIR", root / "inputs"), \
+    """Point extract_text at <root>/inbox and <root>/done."""
+    with mock.patch.object(extract_text, "INBOX_DIR", root / "inbox"), \
             mock.patch.object(extract_text, "DONE_DIR", root / "done"):
         yield
 
@@ -101,41 +101,41 @@ class ExtractDocx(unittest.TestCase):
 
 class FindInput(unittest.TestCase):
     def test_conversation_number(self):
-        self.assertEqual(conversation_number(Path("inputs/41.jpeg")), 41)
-        self.assertEqual(conversation_number(Path("inputs/1 - Greetings, introductions.docx")), 1)
-        self.assertIsNone(conversation_number(Path("inputs/cover.jpeg")))
+        self.assertEqual(conversation_number(Path("inbox/41.jpeg")), 41)
+        self.assertEqual(conversation_number(Path("inbox/1 - Greetings, introductions.docx")), 1)
+        self.assertIsNone(conversation_number(Path("inbox/cover.jpeg")))
 
     def test_finds_the_input_by_number(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            for name in ("inputs/10.jpeg", "inputs/12.jpeg", "inputs/12 - Shopping.docx",
-                         "inputs/3 - Notes.txt", "inputs/5.jpeg", "done/1 - Greetings.docx", "done/5.jpeg"):
+            for name in ("inbox/10.jpeg", "inbox/12.jpeg", "inbox/12 - Shopping.docx",
+                         "inbox/3 - Notes.txt", "inbox/5.jpeg", "done/1 - Greetings.docx", "done/5.jpeg"):
                 (root / name).parent.mkdir(exist_ok=True)
                 (root / name).write_bytes(b"")
             with source_dirs(root):
-                self.assertEqual(find_input(10), root / "inputs/10.jpeg")
+                self.assertEqual(find_input(10), root / "inbox/10.jpeg")
                 self.assertEqual(find_input(1), root / "done/1 - Greetings.docx")  # processed
-                self.assertEqual(find_input(5), root / "inputs/5.jpeg")  # a new version beats the old
+                self.assertEqual(find_input(5), root / "inbox/5.jpeg")  # a new version beats the old
                 with self.assertRaises(SystemExit):
                     find_input(12)  # ambiguous
                 with self.assertRaises(SystemExit):
                     find_input(3)   # not a page image or .docx
                 self.assertEqual([p.relative_to(root).as_posix() for p in input_files()],
-                                 ["inputs/10.jpeg", "inputs/12 - Shopping.docx", "inputs/12.jpeg",
-                                  "inputs/5.jpeg", "done/1 - Greetings.docx", "done/5.jpeg"])
+                                 ["inbox/10.jpeg", "inbox/12 - Shopping.docx", "inbox/12.jpeg",
+                                  "inbox/5.jpeg", "done/1 - Greetings.docx", "done/5.jpeg"])
 
     def test_moves_a_built_conversations_sources_to_done(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            (root / "inputs").mkdir()
+            (root / "inbox").mkdir()
             for name in ("1 - Greetings.docx", "10.jpeg", "1 - Notes.txt"):
-                (root / "inputs" / name).write_bytes(b"")
+                (root / "inbox" / name).write_bytes(b"")
             with source_dirs(root), contextlib.redirect_stdout(io.StringIO()):
                 move_to_done(1)
                 move_to_done(1)   # already moved: nothing to do
                 move_to_done(7)   # no source: nothing to do
             self.assertEqual(sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()),
-                             ["done/1 - Greetings.docx", "inputs/1 - Notes.txt", "inputs/10.jpeg"])
+                             ["done/1 - Greetings.docx", "inbox/1 - Notes.txt", "inbox/10.jpeg"])
 
 
 class CommittedOcrs(unittest.TestCase):
