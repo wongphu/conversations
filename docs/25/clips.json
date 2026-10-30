@@ -1,0 +1,158 @@
+[
+  {
+    "file": "25/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hello! Welcome to the library."
+  },
+  {
+    "file": "25/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¡Hola! Bienvenidos a la biblioteca."
+  },
+  {
+    "file": "25/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you. What are your hours?"
+  },
+  {
+    "file": "25/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Gracias. ¿Cuál es su horario?"
+  },
+  {
+    "file": "25/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "We are open on Tuesdays and Thursdays from one to five, Wednesdays from ten to two, Fridays from nine to noon, and Saturdays from ten to three."
+  },
+  {
+    "file": "25/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Abrimos los martes y jueves de la una a las cinco, los miércoles de las diez a las dos, los viernes de las nueve a mediodía y los sábados de las diez a las tres."
+  },
+  {
+    "file": "25/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Are there any activities for children?"
+  },
+  {
+    "file": "25/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Hay actividades para niños?"
+  },
+  {
+    "file": "25/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, every Saturday we have Story Time in English and Spanish."
+  },
+  {
+    "file": "25/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, todos los sábados tenemos la Hora del Cuento en inglés y español."
+  },
+  {
+    "file": "25/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "That sounds fun! When is Story Time?"
+  },
+  {
+    "file": "25/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Suena divertido! ¿Cuándo es la Hora del Cuento?"
+  },
+  {
+    "file": "25/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Story Time is at ten a.m. on Saturdays."
+  },
+  {
+    "file": "25/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "La Hora del Cuento es a las diez a. m. los sábados."
+  },
+  {
+    "file": "25/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Can I get a library card today?"
+  },
+  {
+    "file": "25/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Puedo obtener un carnet de biblioteca hoy?"
+  },
+  {
+    "file": "25/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Not now because the library is closed. You can get the form now and bring it back when the library is open. You need your cédula, and proof of address."
+  },
+  {
+    "file": "25/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Ahora no, porque la biblioteca está cerrada. Puede obtener el formulario ahora y traerlo cuando la biblioteca esté abierta. Necesita su cédula y comprobante de domicilio."
+  },
+  {
+    "file": "25/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "How much does it cost?"
+  },
+  {
+    "file": "25/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Cuánto cuesta?"
+  },
+  {
+    "file": "25/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It is one dollar for one year and the whole family can check out books."
+  },
+  {
+    "file": "25/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Es un dólar por un año y toda la familia puede sacar libros prestados."
+  },
+  {
+    "file": "25/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you for all the information."
+  },
+  {
+    "file": "25/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Gracias por toda la información."
+  },
+  {
+    "file": "25/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "We hope to see you back when the library is open."
+  },
+  {
+    "file": "25/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Esperamos verlos de regreso cuando la biblioteca esté abierta."
+  }
+]
