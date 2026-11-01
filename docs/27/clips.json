@@ -1,0 +1,194 @@
+[
+  {
+    "file": "27/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Welcome to the library. How can I help you?"
+  },
+  {
+    "file": "27/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Bienvenido a la biblioteca. ¿Cómo puedo ayudarle?"
+  },
+  {
+    "file": "27/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I am looking for a book about computers."
+  },
+  {
+    "file": "27/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Busco un libro sobre informática."
+  },
+  {
+    "file": "27/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you know how to use the computer to search for books?"
+  },
+  {
+    "file": "27/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Sabe cómo usar la computadora para buscar libros?"
+  },
+  {
+    "file": "27/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "No, I do not know how to use the computer to search for books."
+  },
+  {
+    "file": "27/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No, no sé cómo usar la computadora para buscar libros."
+  },
+  {
+    "file": "27/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Let me show you, come into the next room. All the books are in the system."
+  },
+  {
+    "file": "27/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Déjeme mostrarle, pase a la sala de al lado. Todos los libros están en el sistema."
+  },
+  {
+    "file": "27/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Wow, that is great! Do I have to know the title of the book I want?"
+  },
+  {
+    "file": "27/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Genial! ¿Tengo que saber el título del libro que quiero?"
+  },
+  {
+    "file": "27/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "No, you can search by language, subject, fiction, non-fiction."
+  },
+  {
+    "file": "27/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "No, puede buscar por idioma, tema, ficción, no ficción."
+  },
+  {
+    "file": "27/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Can I search from my computer at home?"
+  },
+  {
+    "file": "27/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Puedo buscar desde mi computadora en casa?"
+  },
+  {
+    "file": "27/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, just go to the library website and click on \"Search the online catalog.\" You can search in English or Spanish."
+  },
+  {
+    "file": "27/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, solo tiene que ir al sitio web de la biblioteca y hacer clic en \"Buscar en el catálogo en línea\". Puede buscar en inglés o español."
+  },
+  {
+    "file": "27/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you! I will try it when I get home."
+  },
+  {
+    "file": "27/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Gracias! Lo intentaré cuando llegue a casa."
+  },
+  {
+    "file": "27/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Can I help you with anything else?"
+  },
+  {
+    "file": "27/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Puedo ayudarle con algo más?"
+  },
+  {
+    "file": "27/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, what do I need to do to check out books?"
+  },
+  {
+    "file": "27/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, ¿qué necesito hacer para sacar libros prestados?"
+  },
+  {
+    "file": "27/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "You need to become a member. Come to the library when it is open and the staff will give you an application."
+  },
+  {
+    "file": "27/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Necesita hacerse miembro. Venga a la biblioteca cuando esté abierta y el personal le entregará una solicitud."
+  },
+  {
+    "file": "27/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Do I need to bring anything with me?"
+  },
+  {
+    "file": "27/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Necesito traer algo?"
+  },
+  {
+    "file": "27/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, bring your ID and proof of your address."
+  },
+  {
+    "file": "27/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, traiga su identificación y un comprobante de domicilio."
+  },
+  {
+    "file": "27/audio/en/15-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you, I will be back soon."
+  },
+  {
+    "file": "27/audio/es/15-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Gracias, vuelvo pronto."
+  }
+]
