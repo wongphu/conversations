@@ -1,0 +1,194 @@
+[
+  {
+    "file": "28/audio/en/00-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Hello, my name is ____."
+  },
+  {
+    "file": "28/audio/es/00-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Hola, mi nombre es ____."
+  },
+  {
+    "file": "28/audio/en/01-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It is nice to meet you. My name is ____."
+  },
+  {
+    "file": "28/audio/es/01-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Mucho gusto. Mi nombre es ____."
+  },
+  {
+    "file": "28/audio/en/02-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Who is that woman wearing glasses?"
+  },
+  {
+    "file": "28/audio/es/02-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Quién es esa mujer que usa lentes?"
+  },
+  {
+    "file": "28/audio/en/03-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is my friend Carla. She is very friendly."
+  },
+  {
+    "file": "28/audio/es/03-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Esa es mi amiga Carla. Es muy amable."
+  },
+  {
+    "file": "28/audio/en/04-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I like her long hair. It is very curly."
+  },
+  {
+    "file": "28/audio/es/04-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me gusta su cabello largo. Es bien rizado."
+  },
+  {
+    "file": "28/audio/en/05-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, she always wears her hair long."
+  },
+  {
+    "file": "28/audio/es/05-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, ella siempre lleva el cabello largo."
+  },
+  {
+    "file": "28/audio/en/06-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "What is that building behind her?"
+  },
+  {
+    "file": "28/audio/es/06-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Qué es ese edificio que está detrás de ella?"
+  },
+  {
+    "file": "28/audio/en/07-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is the museum."
+  },
+  {
+    "file": "28/audio/es/07-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Ese es el museo."
+  },
+  {
+    "file": "28/audio/en/08-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "What kind of museum?"
+  },
+  {
+    "file": "28/audio/es/08-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Qué tipo de museo es?"
+  },
+  {
+    "file": "28/audio/en/09-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It is an art museum. They have artwork by famous Panamanian painters."
+  },
+  {
+    "file": "28/audio/es/09-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Es un museo de arte. Tienen obras de pintores panameños famosos."
+  },
+  {
+    "file": "28/audio/en/10-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Do you know when it is open?"
+  },
+  {
+    "file": "28/audio/es/10-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Sabes cuándo está abierto?"
+  },
+  {
+    "file": "28/audio/en/11-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Every day except Sunday from nine to five."
+  },
+  {
+    "file": "28/audio/es/11-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Todos los días menos el domingo, de nueve a cinco."
+  },
+  {
+    "file": "28/audio/en/12-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Nice! I will visit next week."
+  },
+  {
+    "file": "28/audio/es/12-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Qué bien! Voy a visitarlo la próxima semana."
+  },
+  {
+    "file": "28/audio/en/13-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I love the museum. I will come with you if I have time."
+  },
+  {
+    "file": "28/audio/es/13-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "A mí me encanta el museo. Iré contigo si tengo tiempo."
+  },
+  {
+    "file": "28/audio/en/14-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "We can eat lunch afterwards."
+  },
+  {
+    "file": "28/audio/es/14-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Podemos almorzar después."
+  },
+  {
+    "file": "28/audio/en/15-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I would like that."
+  },
+  {
+    "file": "28/audio/es/15-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me gustaría eso."
+  }
+]
