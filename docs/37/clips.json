@@ -1,0 +1,194 @@
+[
+  {
+    "file": "37/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hi, would you like to get dinner together some time?"
+  },
+  {
+    "file": "37/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, ¿te gustaría salir a comer juntos algún día?"
+  },
+  {
+    "file": "37/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Yes, I’d love that. What day would be good?"
+  },
+  {
+    "file": "37/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Sí, me encantaría. ¿Qué día te quedaría bien?"
+  },
+  {
+    "file": "37/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I am free any day except Wednesday and Thursday."
+  },
+  {
+    "file": "37/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Estoy libre cualquier día menos el miércoles y el jueves."
+  },
+  {
+    "file": "37/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "How about Monday next week?"
+  },
+  {
+    "file": "37/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Qué tal el lunes de la próxima semana?"
+  },
+  {
+    "file": "37/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That sounds good. Oh wait, I have to go to David."
+  },
+  {
+    "file": "37/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me parece bien. Ay, espera, tengo que ir a David."
+  },
+  {
+    "file": "37/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Are you free Tuesday?"
+  },
+  {
+    "file": "37/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Estás libre el martes?"
+  },
+  {
+    "file": "37/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, Tuesday after Spanglish would be good."
+  },
+  {
+    "file": "37/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, el martes después del Spanglish me vendría bien."
+  },
+  {
+    "file": "37/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "What kind of food do you like?"
+  },
+  {
+    "file": "37/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Qué tipo de comida te gusta?"
+  },
+  {
+    "file": "37/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I really like the food you get in fondas."
+  },
+  {
+    "file": "37/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me encanta la comida que hacen en las fondas."
+  },
+  {
+    "file": "37/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Me too. Have you tried the new one on the edge of Volcan?"
+  },
+  {
+    "file": "37/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "A mí también. ¿Has probado la nueva que está en las afueras de Volcán?"
+  },
+  {
+    "file": "37/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "No, I have not, but I have heard it is good."
+  },
+  {
+    "file": "37/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "No, todavía no, pero he escuchado que está buenísima."
+  },
+  {
+    "file": "37/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Shall we meet there?"
+  },
+  {
+    "file": "37/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Quedamos allá?"
+  },
+  {
+    "file": "37/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, let’s meet at five thirty."
+  },
+  {
+    "file": "37/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, quedemos a las cinco y media."
+  },
+  {
+    "file": "37/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "OK, I am looking forward to it."
+  },
+  {
+    "file": "37/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Bueno, con ganas estoy de ir."
+  },
+  {
+    "file": "37/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Me too, see you next Monday."
+  },
+  {
+    "file": "37/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Yo también, nos vemos el lunes que viene."
+  },
+  {
+    "file": "37/audio/en/15-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Have a good week."
+  },
+  {
+    "file": "37/audio/es/15-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Que tengas buena semana."
+  }
+]
