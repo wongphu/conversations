@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>34. Making Sancocho — Cómo hacer sancocho</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fbf8f2;
+      --fg: #1d1b18;
+      --muted: #857e72;
+      --es: #9b4d24;
+      --rule: #e6dfd2;
+      --hl: #f3ead8;
+      --accent: #7a3e1d;
+      --error: #b00020;
+      --level-a: #3d6b45;
+      --level-a-bg: #e2ede0;
+      --level-b: #85561a;
+      --level-b-bg: #f3e4c6;
+      --level-c: #9b3324;
+      --level-c-bg: #f5dcd5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171513;
+        --fg: #ece6dc;
+        --muted: #8f877b;
+        --es: #e0a47e;
+        --rule: #2e2a25;
+        --hl: #2a241d;
+        --accent: #e0a47e;
+        --error: #ff6b6b;
+        --level-a: #a6cfa9;
+        --level-a-bg: #1f2b21;
+        --level-b: #e3bd78;
+        --level-b-bg: #30271a;
+        --level-c: #eda193;
+        --level-c-bg: #3a201c;
+      }
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 19px/1.5 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    main {
+      box-sizing: border-box;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.4rem 1.5rem 4rem;
+    }
+
+    .back {
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .back:hover { color: var(--fg); text-decoration: underline; }
+
+    header {
+      text-align: center;
+      margin: 0.8rem 0 0.6rem;
+    }
+
+    .num {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
+
+    .level {
+      display: inline-block;
+      margin-left: 0.5rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      vertical-align: 0.1em;
+      font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+    }
+
+    .level-a { color: var(--level-a); background: var(--level-a-bg); }
+    .level-b { color: var(--level-b); background: var(--level-b-bg); }
+    .level-c { color: var(--level-c); background: var(--level-c-bg); }
+
+    h1 {
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0.3rem 0 0;
+    }
+
+    .subtitle {
+      margin: 0.2rem 0 0;
+      color: var(--es);
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    .toolbar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 0.3rem 0;
+      background: var(--bg);
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+    }
+
+    .toolbar > * { margin: 0.3rem 0.7rem; }
+
+    .seg {
+      display: inline-flex;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .seg button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .seg button[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .play-all {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      padding: 0.3rem 0.9rem 0.3rem 0.6rem;
+      cursor: pointer;
+    }
+
+    .play-all svg {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.35rem;
+    }
+
+    .play-all .stop-icon,
+    .play-all[aria-pressed="true"] .play-icon { display: none; }
+
+    .play-all[aria-pressed="true"] .stop-icon { display: block; }
+
+    .play-all[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .play-all:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+    }
+
+    .speed-control input[type="range"] {
+      width: 130px;
+      margin: 0 0.6rem;
+      accent-color: var(--accent);
+    }
+
+    .speed-control .speed-value {
+      min-width: 3.2em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hint {
+      min-height: 1.4em;
+      margin: 0 0 0.6rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .turn {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1fr;
+      grid-column-gap: 1.5rem;
+    }
+
+    .turn > * {
+      min-width: 0;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .turn.head > * {
+      padding: 0 0 0.4rem;
+      border-bottom-color: var(--fg);
+      font: 600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .who {
+      padding-top: 1.05rem;
+      font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .turn.b .who { color: var(--accent); }
+
+    .line p {
+      display: flex;
+      align-items: flex-start;
+      margin: 0;
+    }
+
+    .line p .words {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .line.es { color: var(--es); }
+
+    .line.playing .words { background: var(--hl); }
+
+    em { font-style: italic; }
+
+    .speak {
+      flex: 0 0 auto;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0.15rem 0.5rem 0 0;
+      padding: 0.25rem;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 0;
+    }
+
+    .speak svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .speak:hover { color: var(--fg); }
+
+    .speak:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .speak.playing {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .speak.error {
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    body.hide-en .line.en:not(.shown) .words,
+    body.hide-es .line.es:not(.shown) .words {
+      -webkit-filter: blur(6px);
+      filter: blur(6px);
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    @media (max-width: 640px) {
+      body { font-size: 17px; }
+      main { padding: 0.9rem 1rem 3rem; }
+      h1 { font-size: 1.6rem; }
+      .turn { display: block; }
+      .turn.head { display: none; }
+      .turn > * { padding: 0.2rem 0; border: 0; }
+      .who { margin-top: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--rule); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; All conversations / Todas las conversaciones</a>
+    <header>
+      <div class="num">CONVERSATION 34<span class="level level-b" title="CEFR B1: intermediate">B1</span></div>
+      <h1>Making Sancocho</h1>
+      <p class="subtitle" lang="es">Cómo hacer sancocho</p>
+    </header>
+    <div class="toolbar">
+      <button type="button" class="play-all" id="playAll" aria-pressed="false">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12.5-7.5z"></path></svg>
+        <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 6h12v12H6z"></path></svg>
+        <span id="playAllLabel">Play all</span>
+      </button>
+      <div class="seg" role="group" aria-label="Show">
+        <button type="button" data-mode="" aria-pressed="true">Both</button>
+        <button type="button" data-mode="hide-es" aria-pressed="false">Hide Spanish</button>
+        <button type="button" data-mode="hide-en" aria-pressed="false">Hide English</button>
+      </div>
+      <div class="speed-control">
+        <label for="speed">Speed / Velocidad</label>
+        <input type="range" id="speed" min="50" max="150" value="100" step="5">
+        <span class="speed-value" id="speedValue">100%</span>
+      </div>
+    </div>
+    <p class="hint" id="hint"></p>
+    <div class="turns">
+      <div class="turn head" aria-hidden="true"><div></div><div>ENGLISH</div><div>ESPAÑOL</div></div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/00-a.mp3" data-voice="English A">Valentina! Are you going to teach me how to make your grandma's sancocho? That smell coming from your kitchen every time I arrive drives me crazy.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/00-a.mp3" data-voice="Spanish A">¡Valentina! ¿Me vas a enseñar a hacer el sancocho de tu abuela? Me tiene loca ese olor que sale de tu cocina siempre que llego.</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/01-d.mp3" data-voice="English D">Of course! But pay attention because we have to start early. Sancocho can't be rushed.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/01-d.mp3" data-voice="Spanish D">¡Claro que sí! Pero ponete las pilas porque hay que empezar desde tempranito. El sancocho no se apura.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/02-a.mp3" data-voice="English A">Yes, yes. And what do we buy? I went to the Calidonia market but I didn't know what to buy.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/02-a.mp3" data-voice="Spanish A">Sí, sí. ¿Y qué compramos? Yo fui al mercado de Calidonia pero no supe qué comprar.</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/03-d.mp3" data-voice="English D">The most important thing is fresh chicken. And you need yam, taro root, cassava, and a little bunch of culantro. That's the secret.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/03-d.mp3" data-voice="Spanish D">Lo más importante es el pollo fresco. Y necesitas ñame, malanga, yuca y un poco de culantro. Ese es el secreto.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/04-a.mp3" data-voice="English A">Culantro? Isn't that the same as cilantro?</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/04-a.mp3" data-voice="Spanish A">¿Culantro? ¿Eso no es lo mismo que cilantro?</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/05-d.mp3" data-voice="English D">Oh no! Culantro has long leaves and a much stronger flavor. If you use cilantro, your sancocho won't taste the same. My grandma would have a heart attack.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/05-d.mp3" data-voice="Spanish D">¡Ay, no! El culantro es de hoja larga y tiene un sabor mucho más fuerte. Si le ponés cilantro, tu sancocho no va a saber igual. Mi abuela se moriría del susto.</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/06-d.mp3" data-voice="English D">Okay, first we wash the hen well and cut it into pieces. Then we put it in the big pot with plenty of water — enough to cover it well. We turn the heat up high until it boils.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/06-d.mp3" data-voice="Spanish D">Bueno, primero lavamos bien la gallina y la picamos en presas. Luego la ponemos en la olla grande con bastante agua — que la cubra bien. Prendemos el fuego alto hasta que hierva.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/07-a.mp3" data-voice="English A">And the garlic and onion? My mom always sautés everything first.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/07-a.mp3" data-voice="Spanish A">¿Y el ajo y la cebolla? Mi mamá siempre sofríe todo primero.</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/08-d.mp3" data-voice="English D">Not here, sweetie. Panamanian sancocho goes all in raw with the water. The hen, garlic, onion, culantro — all together from the start. That way it releases its flavor little by little.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/08-d.mp3" data-voice="Spanish D">Acá no, chula. El sancocho panameño va todo crudo adentro del agua. La gallina, el ajo, la cebolla, el culantro — todo junto desde el principio. Así suelta su sabor poquito a poco.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/09-a.mp3" data-voice="English A">How different! And how long do we cook it?</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/09-a.mp3" data-voice="Spanish A">¡Qué diferente! ¿Y cuánto tiempo le damos?</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/10-d.mp3" data-voice="English D">About an hour on medium heat until the hen is nice and tender. Then we add the yam and taro root cut into big chunks. Those take a while longer to soften.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/10-d.mp3" data-voice="Spanish D">Como una hora a fuego medio hasta que la gallina esté suavecita. Ahí le metemos el ñame y el otoe picados en trozos grandes. Esos se demoran otro rato en ablandarse.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/11-a.mp3" data-voice="English A">It already smells incredible. When do we add the salt?</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/11-a.mp3" data-voice="Spanish A">Huele increíble ya. ¿Cuándo le ponemos la sal?</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/12-d.mp3" data-voice="English D">At the end, Marisol. At the end. My grandma used to say salt goes in last so it doesn't toughen the meat. You taste, you adjust, and that's it. Oh, and if you want it to thicken, mash a little of the yam against the side of the pot.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/12-d.mp3" data-voice="Spanish D">Al final, Marisol. Al final. Mi abuela decía que la sal va de último para no endurecer la carne. Probás, ajustás, y listo. Ah, y si querés que espese, aplastás un poco del ñame contra la olla.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/13-a.mp3" data-voice="English A">That I didn't know! And what do you serve it with?</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/13-a.mp3" data-voice="Spanish A">¡Eso sí no sabía! ¿Y con qué se sirve?</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/14-d.mp3" data-voice="English D">White rice on the side — always on the side — and fried plantains if you feel like it. At my house we also put ají chombo on the table for anyone who wants spice. But sancocho alone is already happiness in a bowl.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/14-d.mp3" data-voice="Spanish D">Arroz blanco aparte — siempre aparte — y patacones si tenés ganas. En mi casa también ponemos ají chombo en la mesa para el que quiera picante. Pero el sancocho solo ya es felicidad en un plato.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/15-a.mp3" data-voice="English A">Valentina… this is finger-licking good. I can't believe I've lived thirty years without knowing how to make this!</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/15-a.mp3" data-voice="Spanish A">Valentina… esto está para chuparse los dedos. ¡No puede ser que yo haya vivido treinta años sin saber hacer esto!</p></div>
+      </div>
+      <div class="turn d">
+        <div class="who">D</div>
+        <div class="line en" lang="en"><p data-audio="34/audio/en/16-d.mp3" data-voice="English D">Hahaha, but now you know! And remember — when you're sick, when it's cold, when you miss home… a sancocho fixes everything. That's what my grandma always said.</p></div>
+        <div class="line es" lang="es"><p data-audio="34/audio/es/16-d.mp3" data-voice="Spanish D">Jajaja, ¡pero ahora ya sabés! Y acuérdate — cuando estás enferma, cuando hace frío, cuando extrañas tu tierra… un sancocho lo arregla todo. Así decía mi abuela.</p></div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="player.js?v=35d97a009e"></script>
+</body>
+</html>
