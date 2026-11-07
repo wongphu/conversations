@@ -1,0 +1,170 @@
+[
+  {
+    "file": "38/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I would like to invite you over to have dinner at my house on Thursday at 6."
+  },
+  {
+    "file": "38/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me gustaría invitarte a cenar a mi casa el jueves a las 6."
+  },
+  {
+    "file": "38/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Thank you, I would love to come. Where do you live?"
+  },
+  {
+    "file": "38/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Gracias, me encantaría ir. ¿Dónde vives?"
+  },
+  {
+    "file": "38/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I live in Nueva California just behind Berards, in the yellow house."
+  },
+  {
+    "file": "38/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Vivo en Nueva California, justo detrás de Berards, en la casa amarilla."
+  },
+  {
+    "file": "38/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Can I bring anything?"
+  },
+  {
+    "file": "38/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿Puedo llevar algo?"
+  },
+  {
+    "file": "38/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, if you’d like to bring dessert that would be very nice."
+  },
+  {
+    "file": "38/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, si te quieres traer un postre, sería muy amable."
+  },
+  {
+    "file": "38/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I do not cook, but I can bring ice cream."
+  },
+  {
+    "file": "38/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No cocino, pero puedo llevar helado."
+  },
+  {
+    "file": "38/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I love ice cream. That will be good. Is there anything you do not eat?"
+  },
+  {
+    "file": "38/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me encanta el helado. ¡Qué bien! ¿Hay algo que no comas?"
+  },
+  {
+    "file": "38/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I do not eat meat, but I do eat fish. I love all kinds of vegetables. I am allergic to peanuts."
+  },
+  {
+    "file": "38/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "No como carne, pero sí como pescado. Me encantan todas las verduras. Soy alérgico al maní."
+  },
+  {
+    "file": "38/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Oh, thank you for letting me know. I will be sure not to cook with peanut oil."
+  },
+  {
+    "file": "38/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Oh, gracias por avisarme. Me aseguraré de no cocinar con aceite de maní."
+  },
+  {
+    "file": "38/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I appreciate you asking. I have gotten very sick after eating things that had peanuts in them."
+  },
+  {
+    "file": "38/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Agradezco que me lo preguntes. Me he enfermado mucho después de comer cosas que contenían maní."
+  },
+  {
+    "file": "38/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I will make a salad, rice, broccoli and fish."
+  },
+  {
+    "file": "38/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Prepararé una ensalada, arroz, brócoli y pescado."
+  },
+  {
+    "file": "38/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Sounds good! I am looking forward to dinner and to meeting your family."
+  },
+  {
+    "file": "38/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¡Suena bien! Tengo muchas ganas de cenar y de conocer a tu familia."
+  },
+  {
+    "file": "38/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "They are anxious to meet you too."
+  },
+  {
+    "file": "38/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Ellos también tienen muchas ganas de conocerte."
+  },
+  {
+    "file": "38/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "See you Thursday. Thanks again for the invitation."
+  },
+  {
+    "file": "38/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Nos vemos el jueves. Gracias de nuevo por la invitación."
+  }
+]

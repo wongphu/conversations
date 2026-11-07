@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>38. Dinner Invitation — Invitación a cenar</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fbf8f2;
+      --fg: #1d1b18;
+      --muted: #857e72;
+      --es: #9b4d24;
+      --rule: #e6dfd2;
+      --hl: #f3ead8;
+      --accent: #7a3e1d;
+      --error: #b00020;
+      --level-a: #3d6b45;
+      --level-a-bg: #e2ede0;
+      --level-b: #85561a;
+      --level-b-bg: #f3e4c6;
+      --level-c: #9b3324;
+      --level-c-bg: #f5dcd5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171513;
+        --fg: #ece6dc;
+        --muted: #8f877b;
+        --es: #e0a47e;
+        --rule: #2e2a25;
+        --hl: #2a241d;
+        --accent: #e0a47e;
+        --error: #ff6b6b;
+        --level-a: #a6cfa9;
+        --level-a-bg: #1f2b21;
+        --level-b: #e3bd78;
+        --level-b-bg: #30271a;
+        --level-c: #eda193;
+        --level-c-bg: #3a201c;
+      }
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 19px/1.5 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    main {
+      box-sizing: border-box;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.4rem 1.5rem 4rem;
+    }
+
+    .back {
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .back:hover { color: var(--fg); text-decoration: underline; }
+
+    header {
+      text-align: center;
+      margin: 0.8rem 0 0.6rem;
+    }
+
+    .num {
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+    }
+
+    .level {
+      display: inline-block;
+      margin-left: 0.5rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      vertical-align: 0.1em;
+      font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+    }
+
+    .level-a { color: var(--level-a); background: var(--level-a-bg); }
+    .level-b { color: var(--level-b); background: var(--level-b-bg); }
+    .level-c { color: var(--level-c); background: var(--level-c-bg); }
+
+    h1 {
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0.3rem 0 0;
+    }
+
+    .subtitle {
+      margin: 0.2rem 0 0;
+      color: var(--es);
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+
+    .toolbar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 0.3rem 0;
+      background: var(--bg);
+      font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--muted);
+    }
+
+    .toolbar > * { margin: 0.3rem 0.7rem; }
+
+    .seg {
+      display: inline-flex;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 2px;
+    }
+
+    .seg button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .seg button[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .play-all {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      padding: 0.3rem 0.9rem 0.3rem 0.6rem;
+      cursor: pointer;
+    }
+
+    .play-all svg {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.35rem;
+    }
+
+    .play-all .stop-icon,
+    .play-all[aria-pressed="true"] .play-icon { display: none; }
+
+    .play-all[aria-pressed="true"] .stop-icon { display: block; }
+
+    .play-all[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .play-all:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .speed-control {
+      display: flex;
+      align-items: center;
+    }
+
+    .speed-control input[type="range"] {
+      width: 130px;
+      margin: 0 0.6rem;
+      accent-color: var(--accent);
+    }
+
+    .speed-control .speed-value {
+      min-width: 3.2em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hint {
+      min-height: 1.4em;
+      margin: 0 0 0.6rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .turn {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr 1fr;
+      grid-column-gap: 1.5rem;
+    }
+
+    .turn > * {
+      min-width: 0;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .turn.head > * {
+      padding: 0 0 0.4rem;
+      border-bottom-color: var(--fg);
+      font: 600 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .who {
+      padding-top: 1.05rem;
+      font: 600 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .turn.b .who { color: var(--accent); }
+
+    .line p {
+      display: flex;
+      align-items: flex-start;
+      margin: 0;
+    }
+
+    .line p .words {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .line.es { color: var(--es); }
+
+    .line.playing .words { background: var(--hl); }
+
+    em { font-style: italic; }
+
+    .speak {
+      flex: 0 0 auto;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0.15rem 0.5rem 0 0;
+      padding: 0.25rem;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 0;
+    }
+
+    .speak svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .speak:hover { color: var(--fg); }
+
+    .speak:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .speak.playing {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .speak.error {
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    body.hide-en .line.en:not(.shown) .words,
+    body.hide-es .line.es:not(.shown) .words {
+      -webkit-filter: blur(6px);
+      filter: blur(6px);
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    @media (max-width: 640px) {
+      body { font-size: 17px; }
+      main { padding: 0.9rem 1rem 3rem; }
+      h1 { font-size: 1.6rem; }
+      .turn { display: block; }
+      .turn.head { display: none; }
+      .turn > * { padding: 0.2rem 0; border: 0; }
+      .who { margin-top: 0.4rem; padding-top: 0.9rem; border-top: 1px solid var(--rule); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="index.html">&larr; All conversations / Todas las conversaciones</a>
+    <header>
+      <div class="num">CONVERSATION 38<span class="level level-a" title="CEFR A2: elementary">A2</span></div>
+      <h1>Dinner Invitation</h1>
+      <p class="subtitle" lang="es">Invitación a cenar</p>
+    </header>
+    <div class="toolbar">
+      <button type="button" class="play-all" id="playAll" aria-pressed="false">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12.5-7.5z"></path></svg>
+        <svg class="stop-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 6h12v12H6z"></path></svg>
+        <span id="playAllLabel">Play all</span>
+      </button>
+      <div class="seg" role="group" aria-label="Show">
+        <button type="button" data-mode="" aria-pressed="true">Both</button>
+        <button type="button" data-mode="hide-es" aria-pressed="false">Hide Spanish</button>
+        <button type="button" data-mode="hide-en" aria-pressed="false">Hide English</button>
+      </div>
+      <div class="speed-control">
+        <label for="speed">Speed / Velocidad</label>
+        <input type="range" id="speed" min="50" max="150" value="100" step="5">
+        <span class="speed-value" id="speedValue">100%</span>
+      </div>
+    </div>
+    <p class="hint" id="hint"></p>
+    <div class="turns">
+      <div class="turn head" aria-hidden="true"><div></div><div>ENGLISH</div><div>ESPAÑOL</div></div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/00-a.mp3" data-voice="English A">I would like to invite you over to have dinner at my house on Thursday at 6.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/00-a.mp3" data-voice="Spanish A">Me gustaría invitarte a cenar a mi casa el jueves a las 6.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/01-b.mp3" data-voice="English B">Thank you, I would love to come. Where do you live?</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/01-b.mp3" data-voice="Spanish B">Gracias, me encantaría ir. ¿Dónde vives?</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/02-a.mp3" data-voice="English A">I live in Nueva California just behind Berards, in the yellow house.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/02-a.mp3" data-voice="Spanish A">Vivo en Nueva California, justo detrás de Berards, en la casa amarilla.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/03-b.mp3" data-voice="English B">Can I bring anything?</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/03-b.mp3" data-voice="Spanish B">¿Puedo llevar algo?</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/04-a.mp3" data-voice="English A">Yes, if you’d like to bring dessert that would be very nice.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/04-a.mp3" data-voice="Spanish A">Sí, si te quieres traer un postre, sería muy amable.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/05-b.mp3" data-voice="English B">I do not cook, but I can bring ice cream.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/05-b.mp3" data-voice="Spanish B">No cocino, pero puedo llevar helado.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/06-a.mp3" data-voice="English A">I love ice cream. That will be good. Is there anything you do not eat?</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/06-a.mp3" data-voice="Spanish A">Me encanta el helado. ¡Qué bien! ¿Hay algo que no comas?</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/07-b.mp3" data-voice="English B">I do not eat meat, but I do eat fish. I love all kinds of vegetables. I am allergic to peanuts.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/07-b.mp3" data-voice="Spanish B">No como carne, pero sí como pescado. Me encantan todas las verduras. Soy alérgico al maní.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/08-a.mp3" data-voice="English A">Oh, thank you for letting me know. I will be sure not to cook with peanut oil.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/08-a.mp3" data-voice="Spanish A">Oh, gracias por avisarme. Me aseguraré de no cocinar con aceite de maní.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/09-b.mp3" data-voice="English B">I appreciate you asking. I have gotten very sick after eating things that had peanuts in them.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/09-b.mp3" data-voice="Spanish B">Agradezco que me lo preguntes. Me he enfermado mucho después de comer cosas que contenían maní.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/10-a.mp3" data-voice="English A">I will make a salad, rice, broccoli and fish.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/10-a.mp3" data-voice="Spanish A">Prepararé una ensalada, arroz, brócoli y pescado.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/11-b.mp3" data-voice="English B">Sounds good! I am looking forward to dinner and to meeting your family.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/11-b.mp3" data-voice="Spanish B">¡Suena bien! Tengo muchas ganas de cenar y de conocer a tu familia.</p></div>
+      </div>
+      <div class="turn a">
+        <div class="who">A</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/12-a.mp3" data-voice="English A">They are anxious to meet you too.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/12-a.mp3" data-voice="Spanish A">Ellos también tienen muchas ganas de conocerte.</p></div>
+      </div>
+      <div class="turn b">
+        <div class="who">B</div>
+        <div class="line en" lang="en"><p data-audio="38/audio/en/13-b.mp3" data-voice="English B">See you Thursday. Thanks again for the invitation.</p></div>
+        <div class="line es" lang="es"><p data-audio="38/audio/es/13-b.mp3" data-voice="Spanish B">Nos vemos el jueves. Gracias de nuevo por la invitación.</p></div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="player.js?v=35d97a009e"></script>
+</body>
+</html>
