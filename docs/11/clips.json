@@ -1,0 +1,170 @@
+[
+  {
+    "file": "11/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What time do you wake up?"
+  },
+  {
+    "file": "11/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿A qué hora te despiertas?"
+  },
+  {
+    "file": "11/audio/en/01-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I wake up at six o’clock every morning."
+  },
+  {
+    "file": "11/audio/es/01-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Me despierto a las seis en punto todas las mañanas."
+  },
+  {
+    "file": "11/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you eat breakfast right away?"
+  },
+  {
+    "file": "11/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Desayunas enseguida?"
+  },
+  {
+    "file": "11/audio/en/03-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "No, first I take a shower and get dressed."
+  },
+  {
+    "file": "11/audio/es/03-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "No, primero me ducho y me visto."
+  },
+  {
+    "file": "11/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What do you usually eat for breakfast?"
+  },
+  {
+    "file": "11/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Qué sueles comer en el desayuno?"
+  },
+  {
+    "file": "11/audio/en/05-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I eat fruit, toast, and coffee."
+  },
+  {
+    "file": "11/audio/es/05-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Como fruta, pan tostado y café."
+  },
+  {
+    "file": "11/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "And what time do you go to work?"
+  },
+  {
+    "file": "11/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Y a qué hora vas al trabajo?"
+  },
+  {
+    "file": "11/audio/en/07-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I leave home at seven thirty."
+  },
+  {
+    "file": "11/audio/es/07-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Salgo de casa a las siete y media."
+  },
+  {
+    "file": "11/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Do you work all day?"
+  },
+  {
+    "file": "11/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Trabajas todo el día?"
+  },
+  {
+    "file": "11/audio/en/09-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "Yes, until five in the afternoon."
+  },
+  {
+    "file": "11/audio/es/09-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Sí, hasta las cinco de la tarde."
+  },
+  {
+    "file": "11/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "What do you do after work?"
+  },
+  {
+    "file": "11/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "¿Qué haces después del trabajo?"
+  },
+  {
+    "file": "11/audio/en/11-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "I make dinner, read a book, and go to bed at ten."
+  },
+  {
+    "file": "11/audio/es/11-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Hago la cena, leo un libro y me acuesto a las diez."
+  },
+  {
+    "file": "11/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "That is a nice routine."
+  },
+  {
+    "file": "11/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Esa es una buena rutina."
+  },
+  {
+    "file": "11/audio/en/13-d.mp3",
+    "speaker": "en_d",
+    "lang": "en",
+    "text": "Yes, it helps me feel good every day."
+  },
+  {
+    "file": "11/audio/es/13-d.mp3",
+    "speaker": "es_d",
+    "lang": "es",
+    "text": "Sí, me ayuda a sentirme bien cada día."
+  }
+]
