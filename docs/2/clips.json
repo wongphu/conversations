@@ -1,0 +1,218 @@
+[
+  {
+    "file": "2/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hello, my name is Linda. It is nice to meet you."
+  },
+  {
+    "file": "2/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, mi nombre es Linda. ¡Mucho gusto!"
+  },
+  {
+    "file": "2/audio/en/01-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I am from Canada. I have lived in Volcan for five years."
+  },
+  {
+    "file": "2/audio/es/01-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Soy de Canadá. Tengo cinco años de vivir en Volcán."
+  },
+  {
+    "file": "2/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I moved here in March."
+  },
+  {
+    "file": "2/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Me mudé aquí en marzo."
+  },
+  {
+    "file": "2/audio/en/03-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "January, February, March, April, May, June."
+  },
+  {
+    "file": "2/audio/es/03-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Enero, febrero, marzo, abril, mayo, junio."
+  },
+  {
+    "file": "2/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "July, August, September, October, November, December."
+  },
+  {
+    "file": "2/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Julio, agosto, septiembre, octubre, noviembre, diciembre."
+  },
+  {
+    "file": "2/audio/en/05-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I have a few friends, and we like to play cards."
+  },
+  {
+    "file": "2/audio/es/05-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Tengo unos amigos y nos gusta jugar cartas."
+  },
+  {
+    "file": "2/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I have a few friends, and we like to do yoga."
+  },
+  {
+    "file": "2/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Tengo unos amigos y nos gusta hacer yoga."
+  },
+  {
+    "file": "2/audio/en/07-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "My normal day starts at 7:00 a.m."
+  },
+  {
+    "file": "2/audio/es/07-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Mi día normal comienza a las 7:00 a.m."
+  },
+  {
+    "file": "2/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I normally eat breakfast at home."
+  },
+  {
+    "file": "2/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Normalmente desayuno en casa."
+  },
+  {
+    "file": "2/audio/en/09-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I normally eat breakfast at a restaurant."
+  },
+  {
+    "file": "2/audio/es/09-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Normalmente desayuno en un restaurante."
+  },
+  {
+    "file": "2/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "On Monday I went to the supermarket."
+  },
+  {
+    "file": "2/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "El lunes yo fui al supermercado."
+  },
+  {
+    "file": "2/audio/en/11-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "On Monday I went to David."
+  },
+  {
+    "file": "2/audio/es/11-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "El lunes yo fui a David."
+  },
+  {
+    "file": "2/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "On Monday I went to the river."
+  },
+  {
+    "file": "2/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "El lunes yo fui al río."
+  },
+  {
+    "file": "2/audio/en/13-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "It was a nice day. In the morning it was dry but in the afternoon it rained."
+  },
+  {
+    "file": "2/audio/es/13-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Fue un día bonito. Por la mañana estuvo seco, pero por la tarde llovió."
+  },
+  {
+    "file": "2/audio/en/14-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Today, Tuesday, I will go for a haircut at 1:00 p.m."
+  },
+  {
+    "file": "2/audio/es/14-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hoy martes voy a cortarme el pelo a la 1 de la tarde."
+  },
+  {
+    "file": "2/audio/en/15-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Tomorrow, Wednesday, I need to go to the dentist at 3:00 p.m. I don't like to go to the dentist, do you?"
+  },
+  {
+    "file": "2/audio/es/15-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Mañana miércoles necesito ir al dentista a las 3:00 p.m. No me gusta ir al dentista, ¿y a ti?"
+  },
+  {
+    "file": "2/audio/en/16-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Friday is the day I bring my things to recycling. They are open from 9:00 to noon."
+  },
+  {
+    "file": "2/audio/es/16-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "El viernes es el día que llevo mis cosas al reciclaje. Abren de 9 a 12."
+  },
+  {
+    "file": "2/audio/en/17-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "I bought fruit yesterday. The apples were $1.25 per pound. The watermelon was $3. The oranges were $2. The mangoes were 2 for $5."
+  },
+  {
+    "file": "2/audio/es/17-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Ayer compré fruta. Las manzanas costaban 1.25 dólares por libra. La sandía costaba tres dólares. Las naranjas dos dólares. Los mangos estaban a 2 por 5 dólares."
+  }
+]
