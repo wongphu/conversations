@@ -1,0 +1,170 @@
+[
+  {
+    "file": "14/audio/en/00-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Hi, my name is ____. What is your name?"
+  },
+  {
+    "file": "14/audio/es/00-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hola, mi nombre es ____, ¿cómo te llamas?"
+  },
+  {
+    "file": "14/audio/en/01-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I am ____. Pleased to meet you."
+  },
+  {
+    "file": "14/audio/es/01-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me llamo ____. Con mucho gusto."
+  },
+  {
+    "file": "14/audio/en/02-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Excuse me, can you help me carry this box?"
+  },
+  {
+    "file": "14/audio/es/02-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Disculpe, ¿puede ayudarme a cargar esta caja?"
+  },
+  {
+    "file": "14/audio/en/03-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Of course. Where do you need it to go?"
+  },
+  {
+    "file": "14/audio/es/03-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Claro. ¿A dónde necesita llevarla?"
+  },
+  {
+    "file": "14/audio/en/04-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Just to that table over there."
+  },
+  {
+    "file": "14/audio/es/04-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Solo a esa mesa de allí."
+  },
+  {
+    "file": "14/audio/en/05-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "It looks heavy. What is inside?"
+  },
+  {
+    "file": "14/audio/es/05-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Parece pesada. ¿Qué hay adentro?"
+  },
+  {
+    "file": "14/audio/en/06-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Books for the library."
+  },
+  {
+    "file": "14/audio/es/06-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Libros para la biblioteca."
+  },
+  {
+    "file": "14/audio/en/07-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I am happy to help. Are you a volunteer?"
+  },
+  {
+    "file": "14/audio/es/07-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Me alegra ayudar. ¿Eres voluntaria?"
+  },
+  {
+    "file": "14/audio/en/08-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, I come every Thursday."
+  },
+  {
+    "file": "14/audio/es/08-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, vengo todos los jueves."
+  },
+  {
+    "file": "14/audio/en/09-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "Does the library have a refrigerator (fridge)?"
+  },
+  {
+    "file": "14/audio/es/09-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "¿La biblioteca tiene refrigeradora (nevera)?"
+  },
+  {
+    "file": "14/audio/en/10-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Yes, we have a fridge. We also have reusable bags."
+  },
+  {
+    "file": "14/audio/es/10-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Sí, tenemos nevera. También tenemos bolsas reutilizables."
+  },
+  {
+    "file": "14/audio/en/11-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "That is great. I would like to volunteer too."
+  },
+  {
+    "file": "14/audio/es/11-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Qué bien. Me gustaría ser voluntario también."
+  },
+  {
+    "file": "14/audio/en/12-a.mp3",
+    "speaker": "en_a",
+    "lang": "en",
+    "text": "Talk to the coordinator. We always need help."
+  },
+  {
+    "file": "14/audio/es/12-a.mp3",
+    "speaker": "es_a",
+    "lang": "es",
+    "text": "Hable con el coordinador. Siempre necesitamos ayuda."
+  },
+  {
+    "file": "14/audio/en/13-b.mp3",
+    "speaker": "en_b",
+    "lang": "en",
+    "text": "I will do that. Thank you!"
+  },
+  {
+    "file": "14/audio/es/13-b.mp3",
+    "speaker": "es_b",
+    "lang": "es",
+    "text": "Lo haré. ¡Gracias!"
+  }
+]
